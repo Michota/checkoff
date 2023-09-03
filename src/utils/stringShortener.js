@@ -1,9 +1,9 @@
 export default function stringShortener(
   string,
   NUMBER_OF_WORDS = 5,
-  ELIPSIS = true
+  ELIPSIS = "..."
 ) {
-  const elipsis = ELIPSIS ? "..." : "";
+  const elipsis = ELIPSIS || "";
 
   const words =
     string
