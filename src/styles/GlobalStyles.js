@@ -4,20 +4,25 @@ const GlobalStyles = createGlobalStyle`
 :root {
   --theme-primary: #ffbd2d;
   --theme-secondary: #ffd270;
-  --theme-white: #ececec;
 
-  --theme-black-000: #000000;
-  --theme-black-100: #111111;
-  --theme-black-200: #222222;
-  --theme-black-300: #333333;
-
-  --theme-gray-100: #4a4a4a;
-
+  --theme-white-100: #ececec;
+  --theme-white-200: #E0E0E0;
+  --theme-white-300: #CCCCCC;
+  --theme-white-400: #B8B8B8;
   
+  --theme-black-000: #1F1F1F;
+  --theme-black-100: #141414;
+  --theme-black-200: #222222;
+  --theme-black-250: #303030;
+  --theme-black-300: #3D3D3D;
+  --theme-black-400: #666666;
+
+
   --theme-red: #ff7d7d;
   --theme-green: #8aff95;
 
   --deafult-radius: 2px;
+  --drop-shadow: 0px 2px 10px 0px rgba(0,0,0, 0.3);
 }
 
 *, *::after, *::before{

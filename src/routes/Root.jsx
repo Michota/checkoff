@@ -8,7 +8,7 @@ const StyledRoot = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: var(--theme-black-200);
-  color: var(--theme-white);
+  color: var(--theme-white-100);
 `;
 
 const Main = styled.main`

@@ -6,22 +6,28 @@ const StyledTask = styled.div`
   cursor: pointer;
   padding: 1rem;
   font-size: 1.6rem;
-  background-color: var(--theme-black-300);
   width: 28rem;
   max-height: 12rem;
-  display: grid;
-  grid-template-columns: min-content 1fr;
   overflow: hidden;
+  display: flex;
+  align-items: center;
   border-radius: var(--deafult-radius);
-
+  box-shadow: var(--drop-shadow);
   ${(props) =>
-    props.$isDone === "true" &&
-    css`
-      color: var(--theme-gray-100);
-    `}
+    props.$isDone === true
+      ? css`
+          color: var(--theme-white-300);
+          background-color: var(--theme-black-200);
+        `
+      : css`
+          color: var(--theme-white-100);
+          background-color: var(--theme-black-250);
+        `}
 `;
 
-const Description = styled.p``;
+const Description = styled.p`
+  font-size: 1.2rem;
+`;
 
 const Details = styled.span`
   display: flex;
@@ -37,9 +43,9 @@ const Title = styled.p`
 const Checkbox = styled.button`
   width: 2rem;
   height: 2rem;
-  border: 2px solid var(--theme-white);
+  border: 1px solid var(--theme-white-100);
   cursor: pointer;
-  background-color: ${(props) => (props.$isDone ? "green" : "red")};
+  background-color: ${(props) => (props.$isDone ? "" : "transparent")};
 `;
 
 function Task({ children, id, title, description }) {
@@ -48,7 +54,6 @@ function Task({ children, id, title, description }) {
 
   function handleCheckout() {
     setIsDone((isDone) => !isDone);
-    console.log(isDone);
   }
 
   const shortDescription = stringShortener(description);
