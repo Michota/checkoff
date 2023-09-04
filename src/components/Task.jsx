@@ -13,8 +13,9 @@ const StyledTask = styled.div`
   align-items: center;
   border-radius: var(--deafult-radius);
   box-shadow: var(--drop-shadow);
+
   ${(props) =>
-    props.$isDone === true
+    props.$isCompleted === true
       ? css`
           color: var(--theme-white-300);
           background-color: var(--theme-black-200);
@@ -22,7 +23,7 @@ const StyledTask = styled.div`
       : css`
           color: var(--theme-white-100);
           background-color: var(--theme-black-250);
-        `}
+        `};
 `;
 
 const Description = styled.p`
@@ -43,27 +44,45 @@ const Title = styled.p`
 const Checkbox = styled.button`
   width: 2rem;
   height: 2rem;
-  border: 1px solid var(--theme-white-100);
   cursor: pointer;
-  background-color: ${(props) => (props.$isDone ? "" : "transparent")};
+  background-color: ${(props) => (props.$isCompleted ? "" : "transparent")};
+
+  ${(props) => {
+    const priority = props.$priority;
+    return `
+      border: 1px solid var(--priority-${priority});
+    `;
+  }}
 `;
 
-function Task({ children, id, title, description }) {
+function Task({ task: taskData }) {
+  const {
+    isCompleted,
+    title,
+    description,
+    id,
+    priority,
+    startDate,
+    endDate,
+    status,
+  } = taskData;
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isDone, setIsDone] = useState(false);
 
-  function handleCheckout() {
-    setIsDone((isDone) => !isDone);
-  }
-
-  const shortDescription = stringShortener(description);
+  function handleCheckout() {}
 
   return (
-    <StyledTask $isDone={isDone}>
-      <Checkbox $isDone={isDone} onClick={handleCheckout}></Checkbox>
+    <StyledTask $isCompleted={isCompleted}>
+      <DateStart>{}</DateStart>
+      <Checkbox
+        $priority={priority}
+        $isCompleted={isCompleted}
+        onClick={handleCheckout}
+      ></Checkbox>
       <Details>
         <Title>{title}</Title>
-        <Description>{isExpanded ? description : shortDescription}</Description>
+        <Description>
+          {isExpanded ? description : stringShortener(description ?? "")}
+        </Description>
       </Details>
     </StyledTask>
   );
