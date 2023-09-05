@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import Task from "../components/Task";
 import { useQuery } from "@tanstack/react-query";
 import { getTasksData } from "../services/tasksAPI";
+import useTaskData from "../components/useTaskData";
 
 const StyledChecklist = styled.div`
   display: flex;
@@ -10,14 +11,7 @@ const StyledChecklist = styled.div`
 `;
 
 function Checklist() {
-  const {
-    isLoading,
-    data: tasks,
-    error,
-  } = useQuery({
-    queryKey: ["tasks"],
-    queryFn: getTasksData,
-  });
+  const { isLoading, id, tasks } = useTaskData();
 
   return (
     <StyledChecklist>
@@ -28,6 +22,11 @@ function Checklist() {
             if (!task.isCompleted) return <Task task={task} key={task.id} />;
           })}
       <h2>Done</h2>
+      {isLoading
+        ? "loading..."
+        : tasks.map((task) => {
+            if (task.isCompleted) return <Task task={task} key={task.id} />;
+          })}
     </StyledChecklist>
   );
 }
