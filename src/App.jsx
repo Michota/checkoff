@@ -5,7 +5,7 @@ import GlobalStyles from "./styles/GlobalStyles";
 
 import Root from "./routes/Root";
 import ErrorPage from "./pages/ErrorPage";
-import Checklist from "./pages/Checklist";
+import Tasks from "./pages/Tasks";
 import { getTasksData } from "./services/tasksAPI";
 import {
   QueryCache,
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
-    children: [{ path: "checklist", element: <Checklist /> }],
+    children: [{ path: "tasks", element: <Tasks /> }],
   },
 ]);
 
