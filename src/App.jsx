@@ -7,8 +7,13 @@ import Root from "./routes/Root";
 import ErrorPage from "./pages/ErrorPage";
 import Checklist from "./pages/Checklist";
 import { getTasksData } from "./services/tasksAPI";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster, toast } from "react-hot-toast";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,6 +21,11 @@ const queryClient = new QueryClient({
       staleTime: 0,
     },
   },
+  queryCache: new QueryCache({
+    onError: (error) => {
+      toast(`Something went wrong: ${error.message}`);
+    },
+  }),
 });
 
 const router = createBrowserRouter([
@@ -31,6 +41,7 @@ function App() {
   return (
     <>
       <GlobalStyles />
+      <Toaster position="bottom-left" />
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <RouterProvider router={router} />
