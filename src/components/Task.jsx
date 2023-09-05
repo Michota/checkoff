@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { styled, css } from "styled-components";
 import stringShortener from "../utils/stringShortener";
+import { useUpdateTaskComplete } from "./useTaskUpdate";
 
 const StyledTask = styled.div`
   cursor: pointer;
@@ -49,15 +50,25 @@ const Checkbox = styled.button`
   width: 2rem;
   height: 2rem;
   cursor: pointer;
-  background-color: ${(props) => (props.$isCompleted ? "" : "transparent")};
+  background-color: ${(props) =>
+    props.$isCompleted ? `var(--theme-white-100)` : "transparent"};
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
 
   ${(props) => {
-    const priority = props.$priority;
+    const priority = props.$priority ?? 0;
     return `
-      border: 1px solid var(--priority-${priority});
+    border: 0.1rem solid var(--priority-${priority});
     `;
   }}
 `;
+
+/*
+TODO: npm date-picker, zmień wyświetlany tekst daty na Tommorow, Yesterday, in Monday etc.
+!
+*/
 
 function Task({ task: taskData }) {
   const {
@@ -71,22 +82,21 @@ function Task({ task: taskData }) {
     status,
   } = taskData;
   const [isExpanded, setIsExpanded] = useState(false);
-
-  function handleCheckout() {}
+  const { updateTask, isUpdating } = useUpdateTaskComplete();
 
   return (
     <StyledTask $isCompleted={isCompleted}>
-      <DateStart>{}</DateStart>
       <Checkbox
         $priority={priority}
         $isCompleted={isCompleted}
-        onClick={handleCheckout}
+        onClick={() => updateTask({ id, isCompleted })}
       ></Checkbox>
       <Details>
         <Title>{title}</Title>
-        <Description>
-          {isExpanded ? description : stringShortener(description ?? "")}
-        </Description>
+        {description && (
+          <Description>
+            {isExpanded ? description : stringShortener(description ?? "")}
+          </Description>
         )}
         {startDate && (
           <DateStart>📅 {new Date(startDate).toLocaleDateString()}</DateStart>
