@@ -41,6 +41,10 @@ const Title = styled.p`
   font-size: 2rem;
 `;
 
+const DateStart = styled.p`
+  font-size: 1.4rem;
+`;
+
 const Checkbox = styled.button`
   width: 2rem;
   height: 2rem;
@@ -83,6 +87,10 @@ function Task({ task: taskData }) {
         <Description>
           {isExpanded ? description : stringShortener(description ?? "")}
         </Description>
+        )}
+        {startDate && (
+          <DateStart>📅 {new Date(startDate).toLocaleDateString()}</DateStart>
+        )}
       </Details>
     </StyledTask>
   );
