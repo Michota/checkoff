@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Sidebar from "../ui/Sidebar";
+import Sidebar from "../components/Sidebar";
 import { styled } from "styled-components";
 
 const StyledRoot = styled.div`
@@ -18,7 +18,7 @@ const Main = styled.main`
 function Root() {
   return (
     <StyledRoot>
-      {/* <Sidebar /> */}
+      <Sidebar />
       <Main>
         <Outlet />
       </Main>
