@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 import Box from "../ui/Box";
-import Checkbox from "./Checkbox";
 import Task from "./Task";
 
 const StyledTaskDetails = styled(Box)`
