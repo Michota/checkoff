@@ -1,7 +1,6 @@
 import { styled } from "styled-components";
 import Task from "../components/Task";
 import useTaskData from "../components/useTaskData";
-import Box from "../ui/Box";
 import TaskDetails from "../components/TaskDetails";
 import { useState } from "react";
 
