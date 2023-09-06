@@ -6,8 +6,7 @@ function useUpdateTaskComplete() {
 
   const { isLoading: isUpdating, mutate: updateTask } = useMutation({
     mutationKey: ["tasks"],
-    mutationFn: ({ id, isCompleted }) =>
-      updateTaskComplete({ id, isCompleted }),
+    mutationFn: (task) => updateTaskComplete(task),
     onSuccess: () => {
       // toast.success('')
       queryClient.invalidateQueries({ queryKey: ["tasks"] });

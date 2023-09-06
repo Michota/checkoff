@@ -8,9 +8,8 @@ async function getTasksData() {
   return tasks;
 }
 
-async function updateTaskComplete({ id, isCompleted }) {
-  console.log(id, isCompleted);
-
+async function updateTaskComplete(task) {
+  const { id, isCompleted } = task;
   const { data, error } = await supabase
     .from("tasks")
     .update({ isCompleted: !isCompleted })
@@ -25,3 +24,11 @@ async function updateTaskComplete({ id, isCompleted }) {
 }
 
 export { getTasksData, updateTaskComplete };
+
+async function deleteTask(id) {
+  const { error } = await supabase.from("tasks").delete().eq("id", id);
+
+  if (error) throw new Error();
+
+  return error;
+}

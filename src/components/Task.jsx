@@ -121,11 +121,11 @@ function Task({ children, task, onClick, type }) {
 }
 
 function Checkbox() {
-  const { isUpdating, updateTask, id, isCompleted, priority } =
+  const { isUpdating, updateTask, id, isCompleted, priority, task } =
     useContext(TaskContext);
   return (
     <StyledCheckbox
-      onClick={() => updateTask({ id, isCompleted })}
+      onClick={() => updateTask(task)}
       $priority={priority}
       $isCompleted={isCompleted}
     ></StyledCheckbox>
