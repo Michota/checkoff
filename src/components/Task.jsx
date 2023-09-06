@@ -51,11 +51,11 @@ const StyledDateStart = styled.p`
   font-size: 1.4rem;
 `;
 
-const StyledCheckbox = styled.button`
+const StyledCheckbox = styled.input`
   width: 2rem;
   height: 2rem;
   cursor: pointer;
-  background-color: ${(props) =>
+  accent-color: ${(props) =>
     props.$isCompleted ? `var(--theme-white-100)` : "transparent"};
 
   &:hover {
@@ -69,6 +69,10 @@ const StyledCheckbox = styled.button`
     `;
   }}
 `;
+
+StyledCheckbox.defaultProps = {
+  type: "checkbox",
+};
 
 /*
 TODO: npm date-picker, zmień wyświetlany tekst daty na Tommorow, Yesterday, in Monday etc.
