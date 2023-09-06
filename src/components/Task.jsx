@@ -34,16 +34,17 @@ const StyledDetails = styled.span`
   margin-left: 1rem;
 `;
 
-const StyledTitle = styled.p`
-  font-size: 2rem;
-  opacity: ${(props) =>
+const StyledTitle = styled.input`
+  width: 100%;
+  font-size: 1.8rem;
+  /* opacity: ${(props) =>
     props.$isEmpty === true
       ? css`
           30%;
         `
       : css`
           initial;
-        `};
+        `}; */
 `;
 
 const StyledDateStart = styled.p`
@@ -132,17 +133,19 @@ function Checkbox() {
   );
 }
 
-function Title() {
+function Title({ className }) {
   const { task, title } = useContext(TaskContext);
 
   const isEmpty = title === "" || !title;
 
   return (
-    <StyledTitle $isEmpty={isEmpty}>
-      {!isEmpty ? title : "Task without name..."}
-    </StyledTitle>
+    <StyledTitle
+      className={className}
+      $isEmpty={isEmpty}
+      defaultValue={title}
+      placeholder="This task has no name..."
+    />
   );
-  // TODO: create Task without name component
 }
 
 function Description() {
@@ -162,45 +165,5 @@ function Description() {
 Task.Checkbox = Checkbox;
 Task.Title = Title;
 Task.Description = Description;
-
-// function Task({ task: taskData, handleClick }) {
-//   const {
-//     isCompleted,
-//     title,
-//     description,
-//     id,
-//     priority,
-//     startDate,
-//     endDate,
-//     status,
-//   } = taskData;
-// const [isExpanded, setIsExpanded] = useState(false);
-// const { updateTask, isUpdating } = useUpdateTask();
-
-//   return (
-//     <StyledTask
-//       $isCompleted={isCompleted}
-//       onClick={() => handleClick(taskData)}
-//     >
-//       <Checkbox
-//         priority={priority}
-//         isCompleted={isCompleted}
-//         onClick={() => updateTask({ id, isCompleted })}
-//       ></Checkbox>
-//       <Details>
-//         <Title>{title}</Title>
-//         {description && (
-//           <Description>
-//             {isExpanded ? description : stringShortener(description ?? "")}
-//           </Description>
-//         )}
-//         {startDate && (
-//           <DateStart>📅 {new Date(startDate).toLocaleDateString()}</DateStart>
-//         )}
-//       </Details>
-//     </StyledTask>
-//   );
-
-// }
 
 export default Task;

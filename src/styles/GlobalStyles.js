@@ -38,6 +38,16 @@ const GlobalStyles = createGlobalStyle`
   font-family: 'Lato', sans-serif;
 }
 
+input{
+  background-color: inherit;
+  color: inherit;
+  border: inherit;
+}
+
+*:focus {
+  outline: none;
+}
+
 html {
   font-size: 62.5%;
 }

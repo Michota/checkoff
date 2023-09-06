@@ -12,11 +12,12 @@ const Header = styled.header`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  gap: 1rem;
 `;
 
-const Title = styled.p`
+const Title = styled(Task.Title)`
   text-align: center;
-  font-size: 2.8rem;
+  font-size: 2.4rem;
 `;
 const StyledDescription = styled.p``;
 
@@ -34,8 +35,8 @@ function TaskDetails({ task }) {
       <Task task={task} type="compound">
         <Header>
           <Task.Checkbox></Task.Checkbox>
-          <Task.Title></Task.Title>
-          <span>X</span>
+          <Title />
+          <button>X</button>
         </Header>
         <StyledDescription>{description}</StyledDescription>
         <Date defaultValue={startDate} type="date" />
