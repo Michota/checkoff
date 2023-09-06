@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { styled, css } from "styled-components";
 import stringShortener from "../utils/stringShortener";
-import { useUpdateTaskComplete } from "./useTaskUpdate";
+import useUpdateTask from "./useTaskUpdate";
 import Box from "../ui/Box";
 // import Checkbox from "./Checkbox";
 
@@ -88,7 +88,7 @@ function Task({ children, task, onClick, type }) {
     status,
   } = task;
 
-  const { updateTask, isUpdating } = useUpdateTaskComplete();
+  const { updateTask, isUpdating } = useUpdateTask();
 
   if (!type || type === "tab") {
     return (
@@ -175,7 +175,7 @@ Task.Description = Description;
 //     status,
 //   } = taskData;
 // const [isExpanded, setIsExpanded] = useState(false);
-// const { updateTask, isUpdating } = useUpdateTaskComplete();
+// const { updateTask, isUpdating } = useUpdateTask();
 
 //   return (
 //     <StyledTask

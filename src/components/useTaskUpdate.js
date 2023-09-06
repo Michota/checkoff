@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateTaskComplete } from "../services/tasksAPI";
+import { updateTask } from "../services/tasksAPI";
 
-function useUpdateTaskComplete() {
+function useUpdateTask() {
   const queryClient = useQueryClient();
 
   const { isLoading: isUpdating, mutate: updateTask } = useMutation({
     mutationKey: ["tasks"],
-    mutationFn: (task) => updateTaskComplete(task),
+    mutationFn: (task) => updateTask(task),
     onSuccess: () => {
       // toast.success('')
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
@@ -16,4 +16,4 @@ function useUpdateTaskComplete() {
   return { isUpdating, updateTask };
 }
 
-export { useUpdateTaskComplete };
+export default useUpdateTask;
