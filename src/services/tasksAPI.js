@@ -8,7 +8,7 @@ async function getTasksData() {
   return tasks;
 }
 
-async function updateTaskComplete(task) {
+async function updateTask(task) {
   const { id, isCompleted } = task;
   const { data, error } = await supabase
     .from("tasks")
@@ -23,7 +23,7 @@ async function updateTaskComplete(task) {
   return data;
 }
 
-export { getTasksData, updateTaskComplete };
+export { getTasksData, updateTask };
 
 async function deleteTask(id) {
   const { error } = await supabase.from("tasks").delete().eq("id", id);
