@@ -34,7 +34,7 @@ function Sidebar() {
       <Logo />
       <StyledUl>
         <li>
-          <StyledNavLink to="checklist">Tasks</StyledNavLink>
+          <StyledNavLink to="tasks">Tasks</StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="calendar">Calendar</StyledNavLink>
