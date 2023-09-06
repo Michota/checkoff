@@ -21,6 +21,10 @@ function Tasks() {
   const { isLoading, id, tasks } = useTaskData();
   const [selectedTask, setSelectedTask] = useState(null);
 
+  function handleSetSelectedTask(taskData) {
+    setSelectedTask(taskData);
+  }
+
   return (
     <StyledTasksPanel>
       <StyledChecklist>
@@ -28,23 +32,17 @@ function Tasks() {
         {isLoading
           ? "loading..."
           : tasks.map((task) => {
-              if (!task.isCompleted)
-                return (
-                  <Task
-                    task={task}
-                    key={task.id}
-                    handleClick={setSelectedTask}
-                  />
-                );
-            })}
-        <h2>Done</h2>
-        {isLoading
-          ? "loading..."
-          : tasks.map((task) => {
-              if (task.isCompleted) return <Task task={task} key={task.id} />;
+              // if (task.isCompleted)
+              return (
+                <Task
+                  task={task}
+                  key={task.id}
+                  onClick={() => handleSetSelectedTask(task)}
+                />
+              );
             })}
       </StyledChecklist>
-      {selectedTask && <TaskDetails task={selectedTask}>adsada</TaskDetails>}
+      {selectedTask && <TaskDetails task={selectedTask} />}
     </StyledTasksPanel>
   );
 }
