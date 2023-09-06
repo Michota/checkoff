@@ -36,7 +36,7 @@ const StyledDetails = styled.span`
 
 const StyledTitle = styled.input`
   width: 100%;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   /* opacity: ${(props) =>
     props.$isEmpty === true
       ? css`
