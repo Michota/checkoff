@@ -8,22 +8,25 @@ async function getTasksData() {
   return tasks;
 }
 
-async function updateTask(task) {
+async function updateTaskData({ task, toUpdate }) {
+  const {
+    columnName, // * name of column inside supabase database
+    newValue,
+  } = toUpdate;
+
   const { id, isCompleted } = task;
   const { data, error } = await supabase
     .from("tasks")
-    .update({ isCompleted: !isCompleted })
+    .update({ [columnName]: newValue })
     .eq("id", id)
     .select();
 
-  console.log(data);
-
-  if (error) throw new Error(error);
+  if (error) throw new Error(error.message);
 
   return data;
 }
 
-export { getTasksData, updateTask };
+export { getTasksData, updateTaskData };
 
 async function deleteTask(id) {
   const { error } = await supabase.from("tasks").delete().eq("id", id);

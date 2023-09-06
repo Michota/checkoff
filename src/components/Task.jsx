@@ -95,9 +95,18 @@ function Task({ children, task, onClick, type }) {
 
   const { updateTask, isUpdating } = useUpdateTask();
 
+  function handleUpdate(columnName, newValue, oldValue) {
+    // updateTask({ task, toUpdate: { columnName: "title", newValue: newTitle } });
+    if (`${newValue}` === `${task[columnName]}`) return; // ? return if value didnt change
+    updateTask({
+      task,
+      toUpdate: { columnName, newValue },
+    });
+  }
+
   if (!type || type === "tab") {
     return (
-      <TaskContext.Provider value={{ task, ...task, updateTask, isUpdating }}>
+      <TaskContext.Provider value={{ task, ...task, handleUpdate, isUpdating }}>
         <StyledTask onClick={onClick}>
           <Checkbox />
           <StyledDetails>
@@ -117,7 +126,7 @@ function Task({ children, task, onClick, type }) {
   if (type === "compound") {
     return (
       <>
-        <TaskContext.Provider value={{ ...task, updateTask, isUpdating }}>
+        <TaskContext.Provider value={{ ...task, handleUpdate, isUpdating }}>
           {children}
         </TaskContext.Provider>
       </>
@@ -126,27 +135,36 @@ function Task({ children, task, onClick, type }) {
 }
 
 function Checkbox() {
-  const { isUpdating, updateTask, id, isCompleted, priority, task } =
+  const { isUpdating, handleUpdate, id, isCompleted, priority, task } =
     useContext(TaskContext);
   return (
     <StyledCheckbox
-      onClick={() => updateTask(task)}
+      // TODO: checkboxes need to be inputs (?)
+      onClick={(e) => handleUpdate("isCompleted", !isCompleted)}
       $priority={priority}
       $isCompleted={isCompleted}
+      defaultChecked={isCompleted}
     ></StyledCheckbox>
   );
 }
 
 function Title({ className }) {
-  const { task, title } = useContext(TaskContext);
+  const { task, title, handleUpdate } = useContext(TaskContext);
 
   const isEmpty = title === "" || !title;
 
+  // function handleUpdateTitle(e) {
+  //   const newTitle = e.target.value;
+  //   // updateTask({ task, toUpdate: { columnName: "title", newValue: newTitle } });
+  //   updateTask({ task, toUpdate: { columnName: "title", newValue: newTitle } });
+  // }
+
   return (
     <StyledTitle
+      onBlur={(e) => handleUpdate("title", e.target.value)}
+      defaultValue={title}
       className={className}
       $isEmpty={isEmpty}
-      defaultValue={title}
       placeholder="This task has no name..."
     />
   );
