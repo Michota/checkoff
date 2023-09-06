@@ -1,19 +1,15 @@
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { styled, css } from "styled-components";
 import stringShortener from "../utils/stringShortener";
 import { useUpdateTaskComplete } from "./useTaskUpdate";
+import Box from "../ui/Box";
+// import Checkbox from "./Checkbox";
 
-const StyledTask = styled.div`
+const StyledTask = styled(Box)`
   cursor: pointer;
-  padding: 1rem;
-  font-size: 1.6rem;
   width: 28rem;
-  max-height: 12rem;
-  overflow: hidden;
-  display: flex;
+  gap: 1rem;
   align-items: center;
-  border-radius: var(--deafult-radius);
-  box-shadow: var(--drop-shadow);
 
   ${(props) =>
     props.$isCompleted === true
@@ -27,26 +23,34 @@ const StyledTask = styled.div`
         `};
 `;
 
-const Description = styled.p`
+const StyledDescription = styled.p`
   font-size: 1.2rem;
 `;
 
-const Details = styled.span`
+const StyledDetails = styled.span`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   margin-left: 1rem;
 `;
 
-const Title = styled.p`
+const StyledTitle = styled.p`
   font-size: 2rem;
+  opacity: ${(props) =>
+    props.$isEmpty === true
+      ? css`
+          30%;
+        `
+      : css`
+          initial;
+        `};
 `;
 
-const DateStart = styled.p`
+const StyledDateStart = styled.p`
   font-size: 1.4rem;
 `;
 
-const Checkbox = styled.button`
+const StyledCheckbox = styled.button`
   width: 2rem;
   height: 2rem;
   cursor: pointer;
@@ -70,40 +74,133 @@ TODO: npm date-picker, zmień wyświetlany tekst daty na Tommorow, Yesterday, in
 !
 */
 
-function Task({ task: taskData }) {
+const TaskContext = createContext();
+
+function Task({ children, task, onClick, type }) {
   const {
+    id,
     isCompleted,
     title,
-    description,
-    id,
     priority,
+    description,
     startDate,
     endDate,
     status,
-  } = taskData;
-  const [isExpanded, setIsExpanded] = useState(false);
+  } = task;
+
   const { updateTask, isUpdating } = useUpdateTaskComplete();
 
+  if (!type || type === "tab") {
+    return (
+      <TaskContext.Provider value={{ task, ...task, updateTask, isUpdating }}>
+        <StyledTask onClick={onClick}>
+          <Checkbox />
+          <StyledDetails>
+            <Title />
+            <Description />
+            {startDate && (
+              <StyledDateStart>
+                📅 {new Date(startDate).toLocaleDateString()}
+              </StyledDateStart>
+            )}
+          </StyledDetails>
+        </StyledTask>
+      </TaskContext.Provider>
+    );
+  }
+
+  if (type === "compound") {
+    return (
+      <>
+        <TaskContext.Provider value={{ ...task, updateTask, isUpdating }}>
+          {children}
+        </TaskContext.Provider>
+      </>
+    );
+  }
+}
+
+function Checkbox() {
+  const { isUpdating, updateTask, id, isCompleted, priority } =
+    useContext(TaskContext);
   return (
-    <StyledTask $isCompleted={isCompleted}>
-      <Checkbox
-        $priority={priority}
-        $isCompleted={isCompleted}
-        onClick={() => updateTask({ id, isCompleted })}
-      ></Checkbox>
-      <Details>
-        <Title>{title}</Title>
-        {description && (
-          <Description>
-            {isExpanded ? description : stringShortener(description ?? "")}
-          </Description>
-        )}
-        {startDate && (
-          <DateStart>📅 {new Date(startDate).toLocaleDateString()}</DateStart>
-        )}
-      </Details>
-    </StyledTask>
+    <StyledCheckbox
+      onClick={() => updateTask({ id, isCompleted })}
+      $priority={priority}
+      $isCompleted={isCompleted}
+    ></StyledCheckbox>
   );
 }
+
+function Title() {
+  const { task, title } = useContext(TaskContext);
+
+  const isEmpty = title === "" || !title;
+
+  return (
+    <StyledTitle $isEmpty={isEmpty}>
+      {!isEmpty ? title : "Task without name..."}
+    </StyledTitle>
+  );
+  // TODO: create Task without name component
+}
+
+function Description() {
+  const { description } = useContext(TaskContext);
+
+  return (
+    <>
+      {description && (
+        <StyledDescription>
+          {description.length > 32 ? stringShortener(description) : description}
+        </StyledDescription>
+      )}
+    </>
+  );
+}
+
+Task.Checkbox = Checkbox;
+Task.Title = Title;
+Task.Description = Description;
+
+// function Task({ task: taskData, handleClick }) {
+//   const {
+//     isCompleted,
+//     title,
+//     description,
+//     id,
+//     priority,
+//     startDate,
+//     endDate,
+//     status,
+//   } = taskData;
+// const [isExpanded, setIsExpanded] = useState(false);
+// const { updateTask, isUpdating } = useUpdateTaskComplete();
+
+//   return (
+//     <StyledTask
+//       $isCompleted={isCompleted}
+//       onClick={() => handleClick(taskData)}
+//     >
+//       <Checkbox
+//         priority={priority}
+//         isCompleted={isCompleted}
+//         onClick={() => updateTask({ id, isCompleted })}
+//       ></Checkbox>
+//       <Details>
+//         <Title>{title}</Title>
+//         {description && (
+//           <Description>
+//             {isExpanded ? description : stringShortener(description ?? "")}
+//           </Description>
+//         )}
+//         {startDate && (
+//           <DateStart>📅 {new Date(startDate).toLocaleDateString()}</DateStart>
+//         )}
+//       </Details>
+//     </StyledTask>
+//   );
+
+// }
 
 export default Task;
