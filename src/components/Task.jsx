@@ -51,11 +51,11 @@ const StyledDateStart = styled.p`
   font-size: 1.4rem;
 `;
 
-const StyledCheckbox = styled.input`
+const StyledCheckbox = styled.label`
   width: 2rem;
   height: 2rem;
   cursor: pointer;
-  accent-color: ${(props) =>
+  background-color: ${(props) =>
     props.$isCompleted ? `var(--theme-white-100)` : "transparent"};
 
   &:hover {
@@ -70,9 +70,22 @@ const StyledCheckbox = styled.input`
   }}
 `;
 
-StyledCheckbox.defaultProps = {
-  type: "checkbox",
-};
+const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
+  border: 0;
+  clip: rect(0 0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+`;
+
+// StyledCheckbox.defaultProps = {
+//   type: "checkbox",
+// };
 
 /*
 TODO: npm date-picker, zmień wyświetlany tekst daty na Tommorow, Yesterday, in Monday etc.
@@ -134,9 +147,12 @@ function Task({ children, task, onClick, type }) {
   }
 }
 
+// const HiddenCheckbox = (props) => <input type="checkbox" {...props} />;
+
 function Checkbox() {
   const { isUpdating, handleUpdate, id, isCompleted, priority, task } =
     useContext(TaskContext);
+
   return (
     <StyledCheckbox
       // TODO: checkboxes need to be inputs (?)
@@ -144,7 +160,9 @@ function Checkbox() {
       $priority={priority}
       $isCompleted={isCompleted}
       defaultChecked={isCompleted}
-    ></StyledCheckbox>
+    >
+      <HiddenCheckbox />
+    </StyledCheckbox>
   );
 }
 
