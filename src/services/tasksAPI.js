@@ -1,7 +1,12 @@
 import supabase from "./supabase";
 
 async function getTasksData() {
-  let { data: tasks, error } = await supabase.from("tasks").select("*");
+  let { data: tasks, error } = await supabase
+    .from("tasks")
+    .select("*")
+    .order("createdAt", { ascending: false });
+
+  console.log(tasks);
 
   if (error) throw new Error(error);
 
