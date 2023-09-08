@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 import { styled, css } from "styled-components";
 import stringShortener from "../utils/stringShortener";
 import useUpdateTask from "./useTaskUpdate";
@@ -94,10 +94,20 @@ TODO: npm date-picker, zmień wyświetlany tekst daty na Tommorow, Yesterday, in
 
 const TaskContext = createContext();
 
-function Task({ children, onClick, type }) {
-  const { updateTask, isUpdating } = useUpdateTask();
+function reducer(state, action) {
+  console.log(state, action);
+  switch (action.type) {
+    case "updateTitle":
+      return { ...state, title: action.payload };
+  }
+  console.log(state);
+}
 
-  const valueProvider = {};
+function Task({ children, onClick, type, data }) {
+  const { updateTask, isUpdating } = useUpdateTask();
+  const [taskData, dispatch] = useReducer(reducer, data);
+
+  const valueProvider = { ...taskData, dispatch };
 
   if (!type || type === "tab") {
     return (
@@ -125,12 +135,14 @@ function Task({ children, onClick, type }) {
 }
 
 function Checkbox() {
+  const { priority, isCompleted } = useContext(TaskContext);
+
   return (
     <StyledCheckbox
-    // TODO: checkboxes need to be inputs (?)
-    // $priority={priority}
-    // $isCompleted={isCompleted}
-    // defaultChecked={isCompleted}
+      // TODO: checkboxes need to be inputs (?)
+      $priority={priority}
+      $isCompleted={isCompleted}
+      defaultChecked={isCompleted}
     >
       <HiddenCheckbox />
     </StyledCheckbox>
@@ -138,12 +150,16 @@ function Checkbox() {
 }
 
 function Title({ className }) {
-  const { title } = useContext(TaskContext);
+  const { title, dispatch } = useContext(TaskContext);
 
   const isEmpty = title === "" || !title;
 
   return (
     <StyledTitle
+      // ! change to value!!!
+      onChange={(e) =>
+        dispatch({ type: "updateTitle", payload: e.target.value })
+      }
       value={title}
       className={className}
       $isEmpty={isEmpty}
