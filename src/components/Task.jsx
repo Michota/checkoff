@@ -94,42 +94,19 @@ TODO: npm date-picker, zmień wyświetlany tekst daty na Tommorow, Yesterday, in
 
 const TaskContext = createContext();
 
-function Task({ children, task, onClick, type }) {
-  const {
-    id,
-    isCompleted,
-    title,
-    priority,
-    description,
-    startDate,
-    endDate,
-    status,
-  } = task;
-
+function Task({ children, onClick, type }) {
   const { updateTask, isUpdating } = useUpdateTask();
 
-  function handleUpdate(columnName, newValue, oldValue) {
-    // updateTask({ task, toUpdate: { columnName: "title", newValue: newTitle } });
-    if (`${newValue}` === `${task[columnName]}`) return; // ? return if value didnt change
-    updateTask({
-      task,
-      toUpdate: { columnName, newValue },
-    });
-  }
+  const valueProvider = {};
 
   if (!type || type === "tab") {
     return (
-      <TaskContext.Provider value={{ task, ...task, handleUpdate, isUpdating }}>
+      <TaskContext.Provider value={valueProvider}>
         <StyledTask onClick={onClick}>
           <Checkbox />
           <StyledDetails>
             <Title />
             <Description />
-            {startDate && (
-              <StyledDateStart>
-                📅 {new Date(startDate).toLocaleDateString()}
-              </StyledDateStart>
-            )}
           </StyledDetails>
         </StyledTask>
       </TaskContext.Provider>
@@ -139,7 +116,7 @@ function Task({ children, task, onClick, type }) {
   if (type === "compound") {
     return (
       <>
-        <TaskContext.Provider value={{ ...task, handleUpdate, isUpdating }}>
+        <TaskContext.Provider value={valueProvider}>
           {children}
         </TaskContext.Provider>
       </>
@@ -147,19 +124,13 @@ function Task({ children, task, onClick, type }) {
   }
 }
 
-// const HiddenCheckbox = (props) => <input type="checkbox" {...props} />;
-
 function Checkbox() {
-  const { isUpdating, handleUpdate, id, isCompleted, priority, task } =
-    useContext(TaskContext);
-
   return (
     <StyledCheckbox
-      // TODO: checkboxes need to be inputs (?)
-      onClick={(e) => handleUpdate("isCompleted", !isCompleted)}
-      $priority={priority}
-      $isCompleted={isCompleted}
-      defaultChecked={isCompleted}
+    // TODO: checkboxes need to be inputs (?)
+    // $priority={priority}
+    // $isCompleted={isCompleted}
+    // defaultChecked={isCompleted}
     >
       <HiddenCheckbox />
     </StyledCheckbox>
@@ -167,20 +138,13 @@ function Checkbox() {
 }
 
 function Title({ className }) {
-  const { task, title, handleUpdate } = useContext(TaskContext);
+  const { title } = useContext(TaskContext);
 
   const isEmpty = title === "" || !title;
 
-  // function handleUpdateTitle(e) {
-  //   const newTitle = e.target.value;
-  //   // updateTask({ task, toUpdate: { columnName: "title", newValue: newTitle } });
-  //   updateTask({ task, toUpdate: { columnName: "title", newValue: newTitle } });
-  // }
-
   return (
     <StyledTitle
-      onBlur={(e) => handleUpdate("title", e.target.value)}
-      defaultValue={title}
+      value={title}
       className={className}
       $isEmpty={isEmpty}
       placeholder="This task has no name..."
