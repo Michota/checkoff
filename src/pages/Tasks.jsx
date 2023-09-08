@@ -18,11 +18,18 @@ const StyledChecklist = styled.div`
 
 function Tasks() {
   const { isLoading, tasksState, setTasksState } = useTaskData();
-  const [selectedTaskId, setSelectedTaskId] = useState();
+  const [selectedTaskId, setSelectedTaskId] = useState(null);
 
   function handleSetTasksState(updatedTask) {
     const otherTasks = tasksState.filter((task) => task.id !== updatedTask.id);
-    setTasksState((tasksState) => [...otherTasks, updatedTask]);
+    const index = tasksState.findIndex((task) => task.id === updatedTask.id);
+    // * newly updated task is at the bottom...
+    // setTasksState((tasksState) => [...otherTasks, updatedTask]);
+    setTasksState((tasksState) => {
+      return tasksState.map((task) =>
+        task.id !== updatedTask.id ? task : updatedTask
+      );
+    });
   }
 
   return (
@@ -43,6 +50,12 @@ function Tasks() {
               );
             })}
       </StyledChecklist>
+      {selectedTaskId !== null && (
+        <TaskDetails
+          setState={handleSetTasksState}
+          data={tasksState.find((task) => task.id === selectedTaskId)}
+        />
+      )}
     </StyledTasksPanel>
   );
 }
