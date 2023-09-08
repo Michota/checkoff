@@ -17,31 +17,13 @@ const StyledChecklist = styled.div`
 `;
 
 function Tasks() {
-  const { isLoading, id, tasks } = useTaskData();
-  const [selectedTask, setSelectedTask] = useState(null);
-
-  function handleSetSelectedTask(taskData) {
-    setSelectedTask(taskData);
-  }
+  const { isLoading, tasks } = useTaskData();
 
   return (
     <StyledTasksPanel>
       <StyledChecklist>
         <h1>Checklist</h1>
-        {isLoading
-          ? "loading..."
-          : tasks.map((task) => {
-              // if (task.isCompleted)
-              return (
-                <Task
-                  task={task}
-                  key={task.id}
-                  onClick={() => handleSetSelectedTask(task)}
-                />
-              );
-            })}
       </StyledChecklist>
-      {selectedTask && <TaskDetails task={selectedTask} />}
     </StyledTasksPanel>
   );
 }
