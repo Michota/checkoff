@@ -6,6 +6,7 @@ const StyledTaskDetails = styled(Box)`
   flex-direction: column;
   gap: 2rem;
   padding: 2rem;
+  height: 100%;
 `;
 
 const Header = styled.header`
@@ -17,9 +18,25 @@ const Header = styled.header`
 
 const Title = styled(Task.Title)`
   text-align: center;
-  font-size: 2.4rem;
+  font-size: 2.8rem;
 `;
-const StyledDescription = styled.p``;
+const Description = styled(Task.Description)`
+  background-color: transparent;
+  color: var(--theme-white-100);
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  font-size: 2rem;
+  border: 0;
+  resize: none;
+`;
+
+const DescriptionContainer = styled.div`
+  width: 100%;
+  height: auto;
+  overflow-y: hidden;
+  flex: 1;
+`;
 
 const Date = styled.input`
   margin-top: auto;
@@ -31,11 +48,13 @@ function TaskDetails({ data, setState, setSelectedTaskId }) {
     <StyledTaskDetails>
       <Task data={data} key={data.id} setState={setState} renderType="compound">
         <Header>
-          <Task.Checkbox></Task.Checkbox>
+          <Task.Checkbox />
           <Title />
           <button onClick={() => setSelectedTaskId(null)}>X</button>
         </Header>
-        <StyledDescription />
+        <DescriptionContainer>
+          <Description />
+        </DescriptionContainer>
       </Task>
     </StyledTaskDetails>
   );

@@ -61,17 +61,30 @@ const StyledCheckbox = styled.label`
   width: 2rem;
   height: 2rem;
   cursor: pointer;
-  background-color: ${(props) =>
-    props.$isCompleted ? `var(--theme-white-100)` : "transparent"};
+
+  &:after {
+    ${(props) => {
+      const isCompleted = props.$isCompleted;
+      if (isCompleted)
+        return css`
+          content: "✓";
+        `;
+    }}
+  }
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);
   }
 
+  border-radius: 0.4rem;
+
   ${(props) => {
     const priority = props.$priority ?? 0;
-    return `
-    border: 0.1rem solid var(--priority-${priority});
+    return css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 0.1rem solid var(--priority-${priority});
     `;
   }}
 `;
@@ -128,7 +141,10 @@ function Task({
   return (
     <TaskContext.Provider value={valueProvider}>
       {renderType === "tab" && (
-        <StyledTask onClick={() => setSelectedTaskId(data.id)}>
+        <StyledTask
+          $isCompleted={data.isCompleted}
+          onClick={() => setSelectedTaskId(data.id)}
+        >
           <Checkbox />
           <StyledDetails>
             <Title />
@@ -141,11 +157,15 @@ function Task({
   );
 }
 
-function Checkbox() {
+function Checkbox({ className }) {
   const { priority, isCompleted, updateState } = useContext(TaskContext);
 
   return (
-    <StyledCheckbox $priority={priority} $isCompleted={isCompleted}>
+    <StyledCheckbox
+      className={className}
+      $priority={priority}
+      $isCompleted={isCompleted}
+    >
       <HiddenCheckbox
         aria-checked={isCompleted}
         onClick={(e) => updateState("isCompleted", !isCompleted)}
@@ -170,7 +190,7 @@ function Title({ className }) {
   );
 }
 
-function Description() {
+function Description({ className }) {
   const { description, updateState, renderType } = useContext(TaskContext);
 
   return (
@@ -181,9 +201,12 @@ function Description() {
         </StyledDescription>
       )}
       {description && renderType === "compound" && (
-        <input
+        <textarea
+          className={className}
           value={description}
-          onChange={(e) => updateState("title", e.target.value)}
+          onChange={(e) =>
+            updateState("description", e.target.value ? e.target.value : " ")
+          }
         />
       )}
     </>
