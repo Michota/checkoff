@@ -1,4 +1,10 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { styled, css } from "styled-components";
 import stringShortener from "../utils/stringShortener";
 import useUpdateTask from "./useTaskUpdate";
@@ -95,17 +101,26 @@ TODO: npm date-picker, zmień wyświetlany tekst daty na Tommorow, Yesterday, in
 const TaskContext = createContext();
 
 function reducer(state, action) {
-  console.log(state, action);
+  console.log(action);
   switch (action.type) {
     case "updateTitle":
       return { ...state, title: action.payload };
+    case "updateCheckbox":
+      return { ...state, isCompleted: action.payload };
   }
-  console.log(state);
 }
 
-function Task({ children, onClick, type, data }) {
+function Task({ children, onClick, type, data, handleDataSharing }) {
   const { updateTask, isUpdating } = useUpdateTask();
   const [taskData, dispatch] = useReducer(reducer, data);
+
+  // TODO: make it NOT launch on first render.
+  useEffect(
+    function () {
+      handleDataSharing(taskData);
+    },
+    [taskData, handleDataSharing]
+  );
 
   const valueProvider = { ...taskData, dispatch };
 
@@ -135,16 +150,20 @@ function Task({ children, onClick, type, data }) {
 }
 
 function Checkbox() {
-  const { priority, isCompleted } = useContext(TaskContext);
+  const { priority, isCompleted, dispatch } = useContext(TaskContext);
 
   return (
     <StyledCheckbox
       // TODO: checkboxes need to be inputs (?)
       $priority={priority}
       $isCompleted={isCompleted}
-      defaultChecked={isCompleted}
     >
-      <HiddenCheckbox />
+      <HiddenCheckbox
+        aria-checked={isCompleted}
+        onClick={() =>
+          dispatch({ type: "updateCheckbox", payload: !isCompleted })
+        }
+      />
     </StyledCheckbox>
   );
 }
