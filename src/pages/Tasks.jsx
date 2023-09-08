@@ -54,6 +54,7 @@ function Tasks() {
         <TaskDetails
           setState={handleSetTasksState}
           data={tasksState.find((task) => task.id === selectedTaskId)}
+          setSelectedTaskId={setSelectedTaskId}
         />
       )}
     </StyledTasksPanel>

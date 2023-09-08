@@ -26,24 +26,17 @@ const Date = styled.input`
   align-self: self-start;
 `;
 
-function setSelectedTaskId() {}
-
-function TaskDetails({ data, setState }) {
+function TaskDetails({ data, setState, setSelectedTaskId }) {
   return (
     <StyledTaskDetails>
-      <Task
-        data={data}
-        key={data.id}
-        setState={setState}
-        setSelectedTaskId={setSelectedTaskId}
-      />
-      {/* <Header>
+      <Task data={data} key={data.id} setState={setState} renderType="compound">
+        <Header>
           <Task.Checkbox></Task.Checkbox>
           <Title />
-          <button>X</button>
+          <button onClick={() => setSelectedTaskId(null)}>X</button>
         </Header>
         <StyledDescription />
-      </Task> */}
+      </Task>
     </StyledTaskDetails>
   );
 }
