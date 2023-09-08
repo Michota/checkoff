@@ -99,77 +99,75 @@ TODO: npm date-picker, zmień wyświetlany tekst daty na Tommorow, Yesterday, in
 */
 
 const TaskContext = createContext();
+// // * reducer
+// function reducer(state, action) {
+//   console.log(action);
+//   switch (action.type) {
+//     case "updateTitle":
+//       return { ...state, title: action.payload };
+//     case "updateCheckbox":
+//       return { ...state, isCompleted: action.payload };
+//   }
+// }
 
-function reducer(state, action) {
-  console.log(action);
-  switch (action.type) {
-    case "updateTitle":
-      return { ...state, title: action.payload };
-    case "updateCheckbox":
-      return { ...state, isCompleted: action.payload };
+function Task({ children, data, setSelectedTaskId, setState }) {
+  // const [taskData, dispatch] = useReducer(reducer, data);
+
+  // const valueProvider = { ...taskData, dispatch };
+
+  function updateState(columnName, newData) {
+    setState({ ...data, [columnName]: newData });
   }
-}
-
-function Task({ children, onClick, type, data, handleDataSharing }) {
-  const { updateTask, isUpdating } = useUpdateTask();
-  const [taskData, dispatch] = useReducer(reducer, data);
-
-  // TODO: make it NOT launch on first render.
-  useEffect(
-    function () {
-      handleDataSharing(taskData);
-    },
-    [taskData, handleDataSharing]
-  );
-
-  const valueProvider = { ...taskData, dispatch };
-
-  if (!type || type === "tab") {
-    return (
-      <TaskContext.Provider value={valueProvider}>
-        <StyledTask onClick={onClick}>
-          <Checkbox />
-          <StyledDetails>
-            <Title />
-            <Description />
-          </StyledDetails>
-        </StyledTask>
-      </TaskContext.Provider>
-    );
-  }
-
-  if (type === "compound") {
-    return (
-      <>
-        <TaskContext.Provider value={valueProvider}>
-          {children}
-        </TaskContext.Provider>
-      </>
-    );
-  }
-}
-
-function Checkbox() {
-  const { priority, isCompleted, dispatch } = useContext(TaskContext);
 
   return (
-    <StyledCheckbox
-      // TODO: checkboxes need to be inputs (?)
-      $priority={priority}
-      $isCompleted={isCompleted}
-    >
-      <HiddenCheckbox
-        aria-checked={isCompleted}
-        onClick={() =>
-          dispatch({ type: "updateCheckbox", payload: !isCompleted })
-        }
-      />
-    </StyledCheckbox>
+    <StyledTask onClick={() => setSelectedTaskId(data.id)}>
+      {/* // <StyledTask> */}
+      {/* <Checkbox /> */}
+      <StyledDetails>
+        <Title title={data.title} updateState={updateState} />
+        {/* <Description /> */}
+      </StyledDetails>
+    </StyledTask>
   );
 }
 
-function Title({ className }) {
-  const { title, dispatch } = useContext(TaskContext);
+// return (
+//   <TaskContext.Provider value={valueProvider}>
+//     {/* {!selectedTaskId && ( */}
+//     <StyledTask onClick={() => updateState(data)}>
+//       {/* <Checkbox /> */}
+//       <StyledDetails>
+//         <Title />
+//         {/* <Description /> */}
+//       </StyledDetails>
+//     </StyledTask>
+//     {/* )} */}
+//     {/* {selectedTaskId && children} */}
+//   </TaskContext.Provider>
+// );
+// }
+
+// function Checkbox() {
+//   const { priority, isCompleted, dispatch } = useContext(TaskContext);
+
+//   return (
+//     <StyledCheckbox
+//       // TODO: checkboxes need to be inputs (?)
+//       $priority={priority}
+//       $isCompleted={isCompleted}
+//     >
+//       <HiddenCheckbox
+//         aria-checked={isCompleted}
+//         onClick={() =>
+//           dispatch({ type: "updateCheckbox", payload: !isCompleted })
+//         }
+//       />
+//     </StyledCheckbox>
+//   );
+// }
+
+function Title({ className, title, updateState }) {
+  // const { title, dispatch } = useContext(TaskContext);
 
   const isEmpty = title === "" || !title;
 
@@ -177,7 +175,8 @@ function Title({ className }) {
     <StyledTitle
       // ! change to value!!!
       onChange={(e) =>
-        dispatch({ type: "updateTitle", payload: e.target.value })
+        // dispatch({ type: "updateTitle", payload: e.target.value })
+        updateState("title", e.target.value)
       }
       value={title}
       className={className}
@@ -187,22 +186,22 @@ function Title({ className }) {
   );
 }
 
-function Description() {
-  const { description } = useContext(TaskContext);
+// function Description() {
+//   const { description } = useContext(TaskContext);
 
-  return (
-    <>
-      {description && (
-        <StyledDescription>
-          {description.length > 32 ? stringShortener(description) : description}
-        </StyledDescription>
-      )}
-    </>
-  );
-}
+//   return (
+//     <>
+//       {description && (
+//         <StyledDescription>
+//           {description.length > 32 ? stringShortener(description) : description}
+//         </StyledDescription>
+//       )}
+//     </>
+//   );
+// }
 
-Task.Checkbox = Checkbox;
+// Task.Checkbox = Checkbox;
 Task.Title = Title;
-Task.Description = Description;
+// Task.Description = Description;
 
 export default Task;

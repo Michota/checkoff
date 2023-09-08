@@ -26,20 +26,16 @@ const Date = styled.input`
   align-self: self-start;
 `;
 
-function TaskDetails({ task }) {
-  const { id, title, description, startDate, endDate, isCompleted, priority } =
-    task;
-
+function TaskDetails({ data }) {
   return (
     <StyledTaskDetails>
-      <Task task={task} type="compound">
+      <Task data={data} isSelected={true}>
         <Header>
           <Task.Checkbox></Task.Checkbox>
           <Title />
           <button>X</button>
         </Header>
-        <StyledDescription>{description}</StyledDescription>
-        <Date defaultValue={startDate} type="date" />
+        <StyledDescription />
       </Task>
     </StyledTaskDetails>
   );
