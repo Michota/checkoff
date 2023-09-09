@@ -7,7 +7,10 @@ function useUpdateTask() {
 
   const { isLoading: isUpdating, mutate: updateTask } = useMutation({
     mutationKey: ["tasks"],
-    mutationFn: (task) => updateTaskData(task),
+    mutationFn: (task) => {
+      console.log(task);
+      return updateTaskData(task);
+    },
     onSuccess: () => {
       // toast.success("");
       queryClient.invalidateQueries({ queryKey: ["tasks"] });

@@ -22,20 +22,17 @@ function Tasks() {
   const { isLoading, tasksState, setTasksState } = useTaskData();
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const { updateTask, isUpdating } = useUpdateTask();
-  const debounce = useDebounce(tasksState, 5000);
+  const [updatedTask, setUpdatedTask] = useState(null);
+  const debounce = useDebounce(updatedTask, 2000);
 
   useEffect(
     function () {
-      if (!selectedTaskId) return;
-      if (debounce)
-        updateTask(
-          debounce?.find((task) => task.id === selectedTaskId ?? undefined)
-        );
+      if (debounce !== null) updateTask(debounce);
     },
-    [debounce, selectedTaskId, updateTask]
+    [debounce, updatedTask, updateTask]
   );
 
-  async function handleSetTasksState(updatedTask) {
+  function handleSetTasksState(updatedTask) {
     const otherTasks = tasksState.filter((task) => task.id !== updatedTask.id);
     const index = tasksState.findIndex((task) => task.id === updatedTask.id);
     // * newly updated task is at the bottom...
@@ -45,6 +42,7 @@ function Tasks() {
         task.id !== updatedTask.id ? task : updatedTask
       );
     });
+    setUpdatedTask(updatedTask);
   }
 
   return (
