@@ -13,9 +13,14 @@ import Box from "../ui/Box";
 
 const StyledTask = styled(Box)`
   cursor: pointer;
-  width: 28rem;
+  width: 100%;
   gap: 1rem;
   align-items: center;
+  transition: transform 100ms;
+
+  &:active {
+    transform: scale(98%);
+  }
 
   ${(props) =>
     props.$isCompleted === true
@@ -102,25 +107,6 @@ const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
   width: 1px;
 `;
 
-// StyledCheckbox.defaultProps = {
-//   type: "checkbox",
-// };
-
-/*
-TODO: npm date-picker, zmień wyświetlany tekst daty na Tommorow, Yesterday, in Monday etc.
-!
-*/
-
-// // * reducer
-// function reducer(state, action) {
-//   console.log(action);
-//   switch (action.type) {
-//     case "updateTitle":
-//       return { ...state, title: action.payload };
-//     case "updateCheckbox":
-//       return { ...state, isCompleted: action.payload };
-//   }
-// }
 const TaskContext = createContext();
 
 function Task({
@@ -130,8 +116,6 @@ function Task({
   setState,
   renderType = "tab",
 }) {
-  // const [taskData, dispatch] = useReducer(reducer, data);
-
   const valueProvider = { ...data, updateState, renderType };
 
   function updateState(columnName, newData) {
