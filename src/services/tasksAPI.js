@@ -23,12 +23,21 @@ async function updateTaskData(task) {
   return data;
 }
 
-export { getTasksData, updateTaskData };
-
 async function deleteTask(id) {
   const { error } = await supabase.from("tasks").delete().eq("id", id);
 
   if (error) throw new Error();
-
-  return error;
 }
+
+async function createNewTask() {
+  const { data, error } = await supabase
+    .from("tasks")
+    .insert([{ isCompleted: false }])
+    .select();
+
+  if (error) throw new Error();
+
+  return data;
+}
+
+export { getTasksData, updateTaskData, createNewTask };
