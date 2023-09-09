@@ -8,7 +8,6 @@ function useUpdateTask() {
   const { isLoading: isUpdating, mutate: updateTask } = useMutation({
     mutationKey: ["tasks"],
     mutationFn: (task) => {
-      console.log(task);
       return updateTaskData(task);
     },
     onSuccess: () => {
