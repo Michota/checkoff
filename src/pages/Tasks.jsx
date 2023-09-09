@@ -2,9 +2,9 @@ import { styled } from "styled-components";
 import Task from "../components/Task";
 import useTaskData from "../components/useTaskData";
 import TaskDetails from "../components/TaskDetails";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useUpdateTask from "../components/useTaskUpdate";
-import { useDebounce } from "../hooks/useDebounce";
+import { useUpdateWithDebounce } from "../hooks/useUpdateWithDebounce";
 
 const StyledTasksPanel = styled.div`
   display: grid;
@@ -22,15 +22,7 @@ function Tasks() {
   const { isLoading, tasksState, setTasksState } = useTaskData();
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const { updateTask, isUpdating } = useUpdateTask();
-  const [updatedTask, setUpdatedTask] = useState(null);
-  const debounce = useDebounce(updatedTask, 2000);
-
-  useEffect(
-    function () {
-      if (debounce !== null) updateTask(debounce);
-    },
-    [debounce, updatedTask, updateTask]
-  );
+  const setUpdatedValue = useUpdateWithDebounce(updateTask, 1500);
 
   function handleSetTasksState(updatedTask) {
     const otherTasks = tasksState.filter((task) => task.id !== updatedTask.id);
@@ -42,7 +34,7 @@ function Tasks() {
         task.id !== updatedTask.id ? task : updatedTask
       );
     });
-    setUpdatedTask(updatedTask);
+    setUpdatedValue(updatedTask);
   }
 
   return (
