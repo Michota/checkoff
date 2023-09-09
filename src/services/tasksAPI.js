@@ -13,18 +13,18 @@ async function getTasksData() {
   return tasks;
 }
 
-async function updateTaskData({ task, toUpdate }) {
-  const {
-    columnName, // * name of column inside supabase database
-    newValue,
-  } = toUpdate;
+async function updateTaskData(task) {
+  // const {
+  //   columnName, // * name of column inside supabase database
+  //   newValue,
+  // } = toUpdate;
 
-  const { id, isCompleted } = task;
+  const { id } = task;
   const { data, error } = await supabase
     .from("tasks")
-    .update({ [columnName]: newValue })
-    .eq("id", id)
-    .select();
+    .update({ ...task })
+    .eq("id", id);
+  // .select();
 
   if (error) throw new Error(error.message);
 
