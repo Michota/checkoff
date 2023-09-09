@@ -6,25 +6,17 @@ async function getTasksData() {
     .select("*")
     .order("createdAt", { ascending: false });
 
-  console.log(tasks);
-
   if (error) throw new Error(error);
 
   return tasks;
 }
 
 async function updateTaskData(task) {
-  // const {
-  //   columnName, // * name of column inside supabase database
-  //   newValue,
-  // } = toUpdate;
-
   const { id } = task;
   const { data, error } = await supabase
     .from("tasks")
     .update({ ...task })
     .eq("id", id);
-  // .select();
 
   if (error) throw new Error(error.message);
 

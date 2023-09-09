@@ -27,15 +27,12 @@ function Tasks() {
   const setUpdatedValue = useUpdateWithDebounce(updateTask, 1500);
 
   function handleSetTasksState(updatedTask) {
-    const otherTasks = tasksState.filter((task) => task.id !== updatedTask.id);
-    const index = tasksState.findIndex((task) => task.id === updatedTask.id);
-    // * newly updated task is at the bottom...
-    // setTasksState((tasksState) => [...otherTasks, updatedTask]);
     setTasksState((tasksState) => {
       return tasksState.map((task) =>
         task.id !== updatedTask.id ? task : updatedTask
       );
     });
+
     setUpdatedValue(updatedTask);
   }
 
