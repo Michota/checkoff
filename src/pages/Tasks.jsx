@@ -9,12 +9,14 @@ import { useUpdateWithDebounce } from "../hooks/useUpdateWithDebounce";
 const StyledTasksPanel = styled.div`
   display: grid;
   column-gap: 2rem;
-  grid-template-columns: min-content 1fr;
+  grid-template-columns: 1fr 4fr;
 `;
 
 const StyledChecklist = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 2rem;
 `;
 

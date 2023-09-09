@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import Box from "../ui/Box";
 import Task from "./Task";
+import Button from "../ui/Button";
 
 const StyledTaskDetails = styled(Box)`
   flex-direction: column;
@@ -50,7 +51,9 @@ function TaskDetails({ data, setState, setSelectedTaskId }) {
         <Header>
           <Task.Checkbox />
           <Title />
-          <button onClick={() => setSelectedTaskId(null)}>X</button>
+          <Button type="close" onClick={() => setSelectedTaskId(null)}>
+            X
+          </Button>
         </Header>
         <DescriptionContainer>
           <Description />
