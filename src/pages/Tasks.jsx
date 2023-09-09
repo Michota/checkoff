@@ -5,11 +5,14 @@ import TaskDetails from "../components/TaskDetails";
 import { useState } from "react";
 import useUpdateTask from "../components/useTaskUpdate";
 import { useUpdateWithDebounce } from "../hooks/useUpdateWithDebounce";
+import Button from "../ui/Button";
+import useCreateNewTask from "../components/useCreateNewTask";
 
 const StyledTasksPanel = styled.div`
   display: grid;
   column-gap: 2rem;
   grid-template-columns: 1fr 4fr;
+  height: 100%;
 `;
 
 const StyledChecklist = styled.div`
@@ -18,6 +21,7 @@ const StyledChecklist = styled.div`
   justify-content: center;
   align-items: center;
   gap: 2rem;
+  position: relative;
 `;
 
 function Tasks() {
@@ -25,6 +29,7 @@ function Tasks() {
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const { updateTask, isUpdating } = useUpdateTask();
   const setUpdatedValue = useUpdateWithDebounce(updateTask, 1500);
+  const { createTask } = useCreateNewTask();
 
   function handleSetTasksState(updatedTask) {
     setTasksState((tasksState) => {
