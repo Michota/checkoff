@@ -18,7 +18,6 @@ const StyledTasksPanel = styled.div`
 const StyledChecklist = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 2rem;
   position: relative;
@@ -45,19 +44,22 @@ function Tasks() {
     <StyledTasksPanel>
       <StyledChecklist>
         <h1>Checklist</h1>
-        {isLoading
-          ? "loading..."
-          : tasksState?.map((task) => {
-              // if (task.isCompleted)
-              return (
-                <Task
-                  data={task}
-                  key={task.id}
-                  setState={handleSetTasksState}
-                  setSelectedTaskId={setSelectedTaskId}
-                />
-              );
-            })}
+        {!isLoading &&
+          tasksState?.map((task) => {
+            // if (task.isCompleted)
+            return (
+              <Task
+                data={task}
+                key={task.id}
+                setState={handleSetTasksState}
+                setSelectedTaskId={setSelectedTaskId}
+              />
+            );
+          })}
+
+        <Button onClick={() => createTask()} $floating={true} type="add">
+          +
+        </Button>
       </StyledChecklist>
       {selectedTaskId !== null && (
         <TaskDetails
