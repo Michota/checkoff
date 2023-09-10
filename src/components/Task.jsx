@@ -176,7 +176,6 @@ function Title({ className }) {
 
 function Description({ className }) {
   const { description, updateState, renderType } = useContext(TaskContext);
-
   return (
     <>
       {description && renderType === "tab" && (
@@ -184,13 +183,11 @@ function Description({ className }) {
           {description.length > 32 ? stringShortener(description) : description}
         </StyledDescription>
       )}
-      {description && renderType === "compound" && (
+      {renderType === "compound" && (
         <textarea
           className={className}
           value={description}
-          onChange={(e) =>
-            updateState("description", e.target.value ? e.target.value : " ")
-          }
+          onChange={(e) => updateState("description", e.target.value)}
         />
       )}
     </>

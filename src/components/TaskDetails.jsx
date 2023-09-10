@@ -32,7 +32,7 @@ const Description = styled(Task.Description)`
   resize: none;
 `;
 
-const DescriptionContainer = styled.div`
+const DescriptionContainer = styled.label`
   width: 100%;
   height: auto;
   overflow-y: hidden;
@@ -43,6 +43,8 @@ const Date = styled.input`
   margin-top: auto;
   align-self: self-start;
 `;
+
+// TODO: TextArea nie wyświetla się!!!
 
 function TaskDetails({ data, setState, setSelectedTaskId }) {
   return (
