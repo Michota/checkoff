@@ -1,17 +1,20 @@
 import { styled } from "styled-components";
-import Task from "../components/Task";
+import { useState } from "react";
+
 import useTaskData from "../components/useTaskData";
-import TaskDetails from "../components/TaskDetails";
-import { useEffect, useState } from "react";
 import useUpdateTask from "../components/useTaskUpdate";
-import { useUpdateWithDebounce } from "../hooks/useUpdateWithDebounce";
-import Button from "../ui/Button";
 import useCreateNewTask from "../components/useCreateNewTask";
+
+import TaskDetails from "../components/TaskDetails";
+import Task from "../components/Task";
+import Button from "../ui/Button";
+import { MdAdd } from "react-icons/md";
 
 const StyledTasksPanel = styled.div`
   display: grid;
-  column-gap: 2rem;
   grid-template-columns: 1fr 4fr;
+  column-gap: 2rem;
+
   height: 100%;
 `;
 
@@ -79,7 +82,7 @@ function Tasks() {
           })}
 
         <Button onClick={() => createTask()} $floating={true} type="add">
-          +
+          <MdAdd />
         </Button>
       </StyledChecklist>
       {selectedTaskId !== null && (

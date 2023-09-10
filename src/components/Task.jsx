@@ -1,15 +1,9 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import { createContext, useContext } from "react";
 import { styled, css } from "styled-components";
 import stringShortener from "../utils/stringShortener";
-import useUpdateTask from "./useTaskUpdate";
+import { MdDone } from "react-icons/md";
+
 import Box from "../ui/Box";
-// import Checkbox from "./Checkbox";
 
 const StyledTask = styled(Box)`
   cursor: pointer;
@@ -48,6 +42,7 @@ const StyledDetails = styled.span`
 const StyledTitle = styled.input`
   width: 100%;
   font-size: 1.6rem;
+  // ? Remove in future if react-icons will work properly
   /* opacity: ${(props) =>
     props.$isEmpty === true
       ? css`
@@ -62,21 +57,23 @@ const StyledDateStart = styled.p`
   font-size: 1.4rem;
 `;
 
-const StyledCheckbox = styled.label`
-  width: 2rem;
-  height: 2rem;
+const StyledCheckboxHitbox = styled.label`
+  aspect-ratio: 1/1;
+  width: 2.4rem;
+  height: 2.4rem;
   cursor: pointer;
   line-height: 0;
+  font-size: 1.6rem;
 
-  &:after {
+  /* &::after {
     ${(props) => {
-      const isCompleted = props.$isCompleted;
-      if (isCompleted)
-        return css`
-          content: "✓";
-        `;
-    }}
-  }
+    const isCompleted = props.$isCompleted;
+    if (isCompleted)
+      return css`
+        content: "✓";
+      `;
+  }}
+  } */
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);
@@ -90,7 +87,7 @@ const StyledCheckbox = styled.label`
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 0.1rem solid var(--priority-${priority});
+      border: 0.2rem solid var(--priority-${priority});
     `;
   }}
 `;
@@ -146,16 +143,17 @@ function Checkbox({ className }) {
   const { priority, isCompleted, updateState } = useContext(TaskContext);
 
   return (
-    <StyledCheckbox
+    <StyledCheckboxHitbox
       className={className}
       $priority={priority}
       $isCompleted={isCompleted}
     >
+      {isCompleted && <MdDone />}
       <HiddenCheckbox
         aria-checked={isCompleted}
         onClick={(e) => updateState("isCompleted", !isCompleted)}
       />
-    </StyledCheckbox>
+    </StyledCheckboxHitbox>
   );
 }
 

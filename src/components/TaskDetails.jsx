@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import Box from "../ui/Box";
 import Task from "./Task";
 import Button from "../ui/Button";
+import { MdClose } from "react-icons/md";
 
 const StyledTaskDetails = styled(Box)`
   flex-direction: column;
@@ -44,8 +45,6 @@ const Date = styled.input`
   align-self: self-start;
 `;
 
-// TODO: TextArea nie wyświetla się!!!
-
 function TaskDetails({ data, setState, setSelectedTaskId }) {
   return (
     <StyledTaskDetails>
@@ -54,7 +53,7 @@ function TaskDetails({ data, setState, setSelectedTaskId }) {
           <Task.Checkbox />
           <Title />
           <Button type="close" onClick={() => setSelectedTaskId(null)}>
-            X
+            <MdClose />
           </Button>
         </Header>
         <DescriptionContainer>
