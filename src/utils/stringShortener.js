@@ -1,12 +1,17 @@
 export default function stringShortener(
   string,
+  maxInputLength = 16,
   OPTIONS = { method: "words", maxLength: 5, elipsis: "..." }
 ) {
   if (typeof string !== "string") throw new Error("This is not a string!");
 
-  const elipsis = OPTIONS.elipsis || "";
+  if (string.length <= maxInputLength) return string;
+
+  const elipsis = OPTIONS.elipsis || "...";
+
+  // Words
   if (OPTIONS.method === "words") {
-    const MAX_WORD_LENGTH = 16;
+    const maxWordLength = 16;
 
     const words =
       string
@@ -15,14 +20,17 @@ export default function stringShortener(
         .join(" ")
         .trim() + elipsis;
 
-    return words.length > MAX_WORD_LENGTH
-      ? words.slice(0, MAX_WORD_LENGTH) + elipsis
+    return words.length > maxWordLength
+      ? words.slice(0, maxWordLength) + elipsis
       : words;
+
+    // Letters
   } else {
+    const maxLength = OPTIONS.maxLength || maxInputLength;
     const letters =
       string
         .split("")
-        .map((letter, index) => (index < OPTIONS.maxLength ? letter : ""))
+        .map((letter, index) => (index > maxLength ? letter : ""))
         .join("")
         .trim() + elipsis;
 
