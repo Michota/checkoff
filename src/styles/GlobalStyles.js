@@ -10,8 +10,8 @@ const GlobalStyles = createGlobalStyle`
   --theme-white-300: #CCCCCC;
   --theme-white-400: #B8B8B8;
   
-  --theme-black-000: #1F1F1F;
-  --theme-black-100: #141414;
+  --theme-black-000: #141414;
+  --theme-black-100: #1F1F1F;
   --theme-black-200: #222222;
   --theme-black-250: #303030;
   --theme-black-300: #3D3D3D;
