@@ -23,10 +23,10 @@ async function updateTaskData(task) {
   return data;
 }
 
-async function deleteTask(id) {
+async function deleteTaskData(id) {
   const { error } = await supabase.from("tasks").delete().eq("id", id);
 
-  if (error) throw new Error();
+  if (error) throw new Error(error.message);
 }
 
 async function createNewTask() {
@@ -40,4 +40,4 @@ async function createNewTask() {
   return data;
 }
 
-export { getTasksData, updateTaskData, createNewTask };
+export { getTasksData, updateTaskData, createNewTask, deleteTaskData };

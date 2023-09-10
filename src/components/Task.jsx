@@ -5,6 +5,7 @@ import { MdDeleteForever, MdDone } from "react-icons/md";
 
 import Box from "../ui/Box";
 import Button from "../ui/Button";
+import useTaskDelete from "./useTaskDelete";
 
 const StyledTask = styled(Box)`
   cursor: pointer;
@@ -96,7 +97,9 @@ function Task({
   setState,
   renderType = "tab",
 }) {
-  const valueProvider = { ...data, updateState, renderType };
+  const { deleteTask } = useTaskDelete();
+
+  const valueProvider = { ...data, updateState, renderType, deleteTask };
 
   function updateState(columnName, newData) {
     setState({ ...data, [columnName]: newData });
@@ -182,8 +185,10 @@ function Description({ className }) {
 
 function DeleteButton() {
   // ? No useContext was added...
+  const { deleteTask, id } = useContext(TaskContext);
+
   return (
-    <Button type="delete">
+    <Button type="delete" onClick={() => deleteTask(id)}>
       <MdDeleteForever />
     </Button>
   );
