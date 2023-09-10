@@ -107,7 +107,10 @@ function Task({
       {renderType === "tab" && (
         <StyledTask
           $isCompleted={data.isCompleted}
-          onClick={() => setSelectedTaskId(data.id)}
+          onClick={(e) => {
+            if (e.currentTarget !== e.target) return;
+            setSelectedTaskId(data.id);
+          }}
         >
           <span style={{ display: "flex" }}>
             <Checkbox />
@@ -178,6 +181,7 @@ function Description({ className }) {
 }
 
 function DeleteButton() {
+  // ? No useContext was added...
   return (
     <Button type="delete">
       <MdDeleteForever />
@@ -188,5 +192,6 @@ function DeleteButton() {
 Task.Checkbox = Checkbox;
 Task.Title = Title;
 Task.Description = Description;
+Task.DeleteButton = DeleteButton;
 
 export default Task;
