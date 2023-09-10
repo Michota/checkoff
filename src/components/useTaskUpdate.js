@@ -8,14 +8,18 @@ function useUpdateTask() {
   const { isLoading: isUpdating, mutate: updateTask } = useMutation({
     mutationKey: ["tasks"],
     mutationFn: (task) => {
-      return updateTaskData(task);
+      return toast.promise(updateTaskData(task), {
+        loading: "Updating task...",
+        success: "Task was sucesfully updated!",
+        error: "There was an error! Task was not updated.",
+      });
     },
     onSuccess: () => {
-      toast.success("Tasks were synchronized successfully");
+      // toast.success("Tasks were synchronized successfully");
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },
     onError: (error) => {
-      toast.error(`Something went wrong: ${error.message}`);
+      return toast.error(`Something went wrong: ${error.message}`);
     },
   });
 
