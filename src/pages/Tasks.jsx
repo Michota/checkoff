@@ -36,16 +36,15 @@ const debounce = (callback, instantClearTimeout) => {
 
   myTimeout = setTimeout(() => {
     callback();
-  }, 3000);
+  }, 1500);
 };
 
-let currentlyUpdated;
+let currentlyUpdatedTask;
 
 function Tasks() {
   const { isLoading, tasksState, setTasksState } = useTaskData();
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const { updateTask, isUpdating } = useUpdateTask();
-  const setUpdatedValue = useUpdateWithDebounce(updateTask, 1500);
   const { createTask } = useCreateNewTask();
 
   function handleSetTasksState(updatedTask) {
@@ -55,12 +54,11 @@ function Tasks() {
       );
     });
 
+    const isCurrentlyUpdating = currentlyUpdatedTask?.id !== updatedTask?.id;
     debounce(() => {
-      if (currentlyUpdated?.id) updateTask(currentlyUpdated);
-      // console.log(currentlyUpdated);
-    }, currentlyUpdated?.id !== updatedTask?.id);
-    currentlyUpdated = updatedTask;
-    // setUpdatedValue(updatedTask);
+      if (currentlyUpdatedTask?.id) updateTask(currentlyUpdatedTask);
+    }, isCurrentlyUpdating);
+    currentlyUpdatedTask = updatedTask;
   }
 
   return (
