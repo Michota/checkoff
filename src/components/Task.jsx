@@ -1,16 +1,16 @@
 import { createContext, useContext } from "react";
 import { styled, css } from "styled-components";
 import stringShortener from "../utils/stringShortener";
-import { MdDone } from "react-icons/md";
+import { MdDeleteForever, MdDone } from "react-icons/md";
 
 import Box from "../ui/Box";
+import Button from "../ui/Button";
 
 const StyledTask = styled(Box)`
   cursor: pointer;
   width: 100%;
-  gap: 1rem;
-  align-items: center;
   transition: transform 100ms;
+  justify-content: space-between;
 
   &:active {
     transform: scale(98%);
@@ -40,17 +40,9 @@ const StyledDetails = styled.span`
 `;
 
 const StyledTitle = styled.input`
+  margin-left: auto;
   width: 100%;
   font-size: 1.6rem;
-  // ? Remove in future if react-icons will work properly
-  /* opacity: ${(props) =>
-    props.$isEmpty === true
-      ? css`
-          30%;
-        `
-      : css`
-          initial;
-        `}; */
 `;
 
 const StyledDateStart = styled.p`
@@ -64,16 +56,6 @@ const StyledCheckboxHitbox = styled.label`
   cursor: pointer;
   line-height: 0;
   font-size: 1.6rem;
-
-  /* &::after {
-    ${(props) => {
-    const isCompleted = props.$isCompleted;
-    if (isCompleted)
-      return css`
-        content: "✓";
-      `;
-  }}
-  } */
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);
@@ -127,11 +109,14 @@ function Task({
           $isCompleted={data.isCompleted}
           onClick={() => setSelectedTaskId(data.id)}
         >
-          <Checkbox />
-          <StyledDetails>
-            <Title />
-            <Description />
-          </StyledDetails>
+          <span style={{ display: "flex" }}>
+            <Checkbox />
+            <StyledDetails>
+              <Title />
+              <Description />
+            </StyledDetails>
+          </span>
+          <DeleteButton />
         </StyledTask>
       )}
       {renderType === "compound" && <>{children}</>}
@@ -178,9 +163,7 @@ function Description({ className }) {
   return (
     <>
       {description && renderType === "tab" && (
-        <StyledDescription>
-          {description.length > 32 ? stringShortener(description) : description}
-        </StyledDescription>
+        <StyledDescription>{stringShortener(description)}</StyledDescription>
       )}
       {renderType === "compound" && (
         <textarea
@@ -191,6 +174,14 @@ function Description({ className }) {
         />
       )}
     </>
+  );
+}
+
+function DeleteButton() {
+  return (
+    <Button type="delete">
+      <MdDeleteForever />
+    </Button>
   );
 }
 

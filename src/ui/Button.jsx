@@ -41,6 +41,14 @@ const ButtonAdd = styled(StyledButton)`
   height: 4rem;
 `;
 
+const ButtonDelete = styled(StyledButton)`
+  background-color: transparent;
+  transition: color 200ms;
+  &:hover {
+    color: var(--theme-red);
+  }
+`;
+
 function Button({ children, onClick, type = "default", $floating = false }) {
   switch (type) {
     case "default":
@@ -60,6 +68,12 @@ function Button({ children, onClick, type = "default", $floating = false }) {
         <ButtonAdd $floating={$floating} onClick={onClick}>
           {children}
         </ButtonAdd>
+      );
+    case "delete":
+      return (
+        <ButtonDelete $floating={$floating} onClick={onClick}>
+          {children}
+        </ButtonDelete>
       );
   }
 }
