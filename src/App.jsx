@@ -14,6 +14,7 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster, toast } from "react-hot-toast";
+import { IconContext } from "react-icons";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -41,11 +42,27 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <Toaster position="bottom-left" />
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <IconContext.Provider value={{ size: "1.3em" }}>
+        <Toaster
+          toastOptions={{
+            style: {
+              backgroundColor: "var(--theme-black-200)",
+              color: "var(--theme-white-100)",
+            },
+            error: {
+              style: {
+                backgroundColor: "var(--theme-red)",
+                color: "var(--theme-black-100)",
+              },
+            },
+          }}
+          position="bottom-left"
+        />
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </IconContext.Provider>
     </>
   );
 }
