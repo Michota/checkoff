@@ -11,7 +11,7 @@ function useUpdateTask() {
       return updateTaskData(task);
     },
     onSuccess: () => {
-      // toast.success("");
+      toast.success("Tasks were synchronized successfully");
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },
     onError: (error) => {
