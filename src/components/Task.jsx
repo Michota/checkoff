@@ -66,6 +66,7 @@ const StyledCheckbox = styled.label`
   width: 2rem;
   height: 2rem;
   cursor: pointer;
+  line-height: 0;
 
   &:after {
     ${(props) => {
