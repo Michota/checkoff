@@ -185,6 +185,7 @@ function Description({ className }) {
       )}
       {renderType === "compound" && (
         <textarea
+          placeholder="Enter description here..."
           className={className}
           value={description}
           onChange={(e) => updateState("description", e.target.value)}
