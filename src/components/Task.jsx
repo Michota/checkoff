@@ -1,11 +1,12 @@
 import { createContext, useContext } from "react";
 import { styled, css } from "styled-components";
-import { MdDeleteForever, MdDone } from "react-icons/md";
-import useTaskDelete from "./useTaskDelete";
+import { MdCalendarToday, MdDeleteForever, MdDone } from "react-icons/md";
+import useTaskDelete from "../services/useTaskDelete";
 import stringShortener from "../utils/stringShortener";
 
 import Box from "../ui/Box";
 import Button from "../ui/Button";
+import DateTimeRangePicker from "@wojtekmaj/react-datetimerange-picker";
 
 // Styling components with StyledComponents
 
@@ -31,11 +32,19 @@ const StyledTask = styled(Box)`
         `};
 `;
 
-const StyledDescription = styled.p`
+const TaskFlexContainer = styled.div`
+  align-items: center;
+  display: flex;
+  padding: 0.2rem;
+`;
+
+const StyledDescription = styled.span`
+  width: max-content;
   font-size: 1.2rem;
 `;
 
 const StyledDetails = styled.span`
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -90,7 +99,17 @@ const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
   width: 1px;
 `;
 
-// End of Styled Components Defining
+const StyledDateTimeRangePicker = styled(DateTimeRangePicker)``;
+
+const StyledDate = styled.span`
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+// End of Styling with StyledComponents
 
 const TaskContext = createContext();
 
@@ -120,14 +139,23 @@ function Task({
             setSelectedTaskId(data.id);
           }}
         >
-          {/* span-element created for styling reasons only */}
-          <span style={{ display: "flex", alignItems: "center" }}>
+          <TaskFlexContainer>
             <Checkbox />
             <StyledDetails>
               <Title />
-              <Description />
+              {/* span-element created for styling reasons only */}
+              <span
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: "2rem",
+                }}
+              >
+                <Description />
+                <Date />
+              </span>
             </StyledDetails>
-          </span>
+          </TaskFlexContainer>
           <DeleteButton />
         </StyledTask>
       )}
@@ -197,6 +225,25 @@ function DeleteButton() {
     <Button type="delete" onClick={() => deleteTask(id)}>
       <MdDeleteForever />
     </Button>
+  );
+}
+
+function Date() {
+  const { startDate, endDate, updateState, renderType } =
+    useContext(TaskContext);
+  if (!startDate) return null;
+  if (renderType === "tab")
+    return (
+      <StyledDate>
+        {<MdCalendarToday size={"1em"} />}
+        {startDate}
+      </StyledDate>
+    );
+  return (
+    <StyledDateTimeRangePicker
+      value={startDate}
+      onChange={(e) => updateState("startDate", e.target.value)}
+    />
   );
 }
 
