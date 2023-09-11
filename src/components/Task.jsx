@@ -57,10 +57,6 @@ const StyledTitle = styled.input`
   font-size: 1.6rem;
 `;
 
-const StyledDateStart = styled.p`
-  font-size: 1.4rem;
-`;
-
 const StyledCheckboxHitbox = styled.label`
   aspect-ratio: 1/1;
   width: 2rem;
@@ -173,11 +169,15 @@ function Checkbox({ className }) {
       className={className}
       $priority={priority}
       $isCompleted={isCompleted}
+      onClick={(e) => e.stopPropagation()}
     >
       {isCompleted && <MdDone />}
       <HiddenCheckbox
         aria-checked={isCompleted}
-        onClick={(e) => updateState("isCompleted", !isCompleted)}
+        onClick={(e) => {
+          e.stopPropagation();
+          updateState("isCompleted", !isCompleted);
+        }}
       />
     </StyledCheckboxHitbox>
   );
@@ -190,7 +190,10 @@ function Title({ className }) {
 
   return (
     <StyledTitle
-      onChange={(e) => updateState("title", e.target.value)}
+      onChange={(e) => {
+        e.stopPropagation();
+        updateState("title", e.target.value);
+      }}
       value={title}
       className={className}
       $isEmpty={isEmpty}
@@ -222,7 +225,13 @@ function DeleteButton() {
   const { deleteTask, id } = useContext(TaskContext);
 
   return (
-    <Button type="delete" onClick={() => deleteTask(id)}>
+    <Button
+      type="delete"
+      onClick={(e) => {
+        e.stopPropagation();
+        deleteTask(id);
+      }}
+    >
       <MdDeleteForever />
     </Button>
   );
