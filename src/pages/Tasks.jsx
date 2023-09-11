@@ -12,9 +12,8 @@ import { MdAdd } from "react-icons/md";
 
 const StyledTasksPanel = styled.div`
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: max-content 1fr;
   column-gap: 2rem;
-
   height: 100%;
 `;
 

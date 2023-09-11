@@ -1,11 +1,13 @@
 import { createContext, useContext } from "react";
 import { styled, css } from "styled-components";
-import stringShortener from "../utils/stringShortener";
 import { MdDeleteForever, MdDone } from "react-icons/md";
+import useTaskDelete from "./useTaskDelete";
+import stringShortener from "../utils/stringShortener";
 
 import Box from "../ui/Box";
 import Button from "../ui/Button";
-import useTaskDelete from "./useTaskDelete";
+
+// Styling components with StyledComponents
 
 const StyledTask = styled(Box)`
   cursor: pointer;
@@ -88,6 +90,8 @@ const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
   width: 1px;
 `;
 
+// End of Styled Components Defining
+
 const TaskContext = createContext();
 
 function Task({
@@ -98,7 +102,6 @@ function Task({
   renderType = "tab",
 }) {
   const { deleteTask } = useTaskDelete();
-
   const valueProvider = { ...data, updateState, renderType, deleteTask };
 
   function updateState(columnName, newData) {
@@ -107,6 +110,7 @@ function Task({
 
   return (
     <TaskContext.Provider value={valueProvider}>
+      {/* Render normal task as tab */}
       {renderType === "tab" && (
         <StyledTask
           $isCompleted={data.isCompleted}
@@ -126,6 +130,7 @@ function Task({
           <DeleteButton />
         </StyledTask>
       )}
+      {/* Render task as compound component */}
       {renderType === "compound" && <>{children}</>}
     </TaskContext.Provider>
   );
@@ -185,7 +190,6 @@ function Description({ className }) {
 }
 
 function DeleteButton() {
-  // ? No useContext was added...
   const { deleteTask, id } = useContext(TaskContext);
 
   return (
@@ -195,6 +199,7 @@ function DeleteButton() {
   );
 }
 
+// Compound Component Children as properties
 Task.Checkbox = Checkbox;
 Task.Title = Title;
 Task.Description = Description;
