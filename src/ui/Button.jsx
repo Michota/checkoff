@@ -5,40 +5,20 @@ const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 2.4rem;
-  height: 2.4rem;
+  width: ${(props) => props.$size || "2.4rem"};
+  height: ${(props) => props.$size || "2.4rem"};
   border: none;
-  background-color: var(--theme-primary);
+  background-color: ${(props) =>
+    props.$backgroundColor || css`var(--theme-primary)`};
   border-radius: var(--deafult-radius);
   font-weight: bold;
-  color: white;
+  color: ${(props) => props.$textColor || "white"};
+  aspect-ratio: 1 / 1;
 
   &:hover {
     transform: scale(105%);
   }
   transition: transform 100ms;
-
-  ${(props) =>
-    props.$floating === true &&
-    css`
-      position: absolute;
-      bottom: 0;
-      right: 0;
-    `};
-`;
-
-const ButtonClose = styled(StyledButton)`
-  border: none;
-  background-color: var(--theme-red);
-`;
-
-const ButtonAdd = styled(StyledButton)`
-  border: none;
-  background-color: var(--theme-green);
-  color: var(--theme-black-200);
-  font-size: 2rem;
-  width: 4rem;
-  height: 4rem;
 `;
 
 const ButtonDelete = styled(StyledButton)`
@@ -49,29 +29,38 @@ const ButtonDelete = styled(StyledButton)`
   }
 `;
 
-function Button({ children, onClick, type = "default", $floating = false }) {
+function Button({
+  children,
+  className,
+  onClick,
+  type = "default",
+  floating = false,
+  color,
+  size,
+  backgroundColor,
+}) {
   switch (type) {
     case "default":
       return (
-        <StyledButton $floating={$floating} onClick={onClick}>
+        <StyledButton
+          className={className}
+          onClick={onClick}
+          $size={size}
+          $textColor={color}
+          $backgroundColor={backgroundColor}
+        >
           {children}
         </StyledButton>
       );
-    case "close":
-      return (
-        <ButtonClose $floating={$floating} onClick={onClick}>
-          {children}
-        </ButtonClose>
-      );
-    case "add":
-      return (
-        <ButtonAdd $floating={$floating} onClick={onClick}>
-          {children}
-        </ButtonAdd>
-      );
     case "delete":
       return (
-        <ButtonDelete $floating={$floating} onClick={onClick}>
+        <ButtonDelete
+          className={className}
+          onClick={onClick}
+          $size={size}
+          $textColor={color}
+          $backgroundColor={backgroundColor}
+        >
           {children}
         </ButtonDelete>
       );

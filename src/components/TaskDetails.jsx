@@ -52,13 +52,17 @@ function TaskDetails({ data, setState, setSelectedTaskId }) {
         <Header>
           <Task.Checkbox />
           <Title />
-          <Button type="close" onClick={() => setSelectedTaskId(null)}>
+          <Button
+            backgroundColor={"var(--theme-red)"}
+            onClick={() => setSelectedTaskId(null)}
+          >
             <MdClose />
           </Button>
         </Header>
         <DescriptionContainer>
           <Description />
         </DescriptionContainer>
+        <Task.DeleteButton />
       </Task>
     </StyledTaskDetails>
   );

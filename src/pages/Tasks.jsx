@@ -26,6 +26,18 @@ const StyledChecklist = styled.div`
   position: relative;
 `;
 
+const ButtonCreateTask = styled(Button)`
+  border: none;
+  background-color: var(--theme-green);
+  color: var(--theme-black-200);
+  font-size: 2rem;
+  width: 4rem;
+  height: 4rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+`;
+
 let myTimeout;
 
 const debounce = (callback, instantClearTimeout) => {
@@ -81,9 +93,9 @@ function Tasks() {
             );
           })}
 
-        <Button onClick={() => createTask()} $floating={true} type="add">
+        <ButtonCreateTask onClick={() => createTask()}>
           <MdAdd />
-        </Button>
+        </ButtonCreateTask>
       </StyledChecklist>
       {selectedTaskId !== null && (
         <TaskDetails
