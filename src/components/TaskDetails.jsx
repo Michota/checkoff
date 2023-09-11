@@ -52,6 +52,7 @@ const TaskFooter = styled.footer`
 `;
 
 function TaskDetails({ data, setState, setSelectedTaskId }) {
+  if (!data.id) return;
   return (
     <StyledTaskDetails>
       <Task data={data} key={data.id} setState={setState} renderType="compound">
@@ -69,7 +70,6 @@ function TaskDetails({ data, setState, setSelectedTaskId }) {
           <Description />
         </DescriptionContainer>
         <TaskFooter>
-          <Date value={"2023-09-04"} type="date" />
           <Task.DeleteButton />
         </TaskFooter>
       </Task>
