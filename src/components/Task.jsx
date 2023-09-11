@@ -52,8 +52,8 @@ const StyledDateStart = styled.p`
 
 const StyledCheckboxHitbox = styled.label`
   aspect-ratio: 1/1;
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 2rem;
+  height: 2rem;
   cursor: pointer;
   line-height: 0;
   font-size: 1.6rem;
@@ -115,7 +115,8 @@ function Task({
             setSelectedTaskId(data.id);
           }}
         >
-          <span style={{ display: "flex" }}>
+          {/* span-element created for styling reasons only */}
+          <span style={{ display: "flex", alignItems: "center" }}>
             <Checkbox />
             <StyledDetails>
               <Title />

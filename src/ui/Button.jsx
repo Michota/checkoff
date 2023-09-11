@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 
 const StyledButton = styled.button`
+  position: relative;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -22,6 +23,7 @@ const StyledButton = styled.button`
 `;
 
 const ButtonDelete = styled(StyledButton)`
+  font-size: 2rem;
   background-color: transparent;
   transition: color 200ms;
   &:hover {
@@ -34,7 +36,6 @@ function Button({
   className,
   onClick,
   type = "default",
-  floating = false,
   color,
   size,
   backgroundColor,

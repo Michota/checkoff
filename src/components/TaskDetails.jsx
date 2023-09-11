@@ -45,6 +45,12 @@ const Date = styled.input`
   align-self: self-start;
 `;
 
+const TaskFooter = styled.footer`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;
+
 function TaskDetails({ data, setState, setSelectedTaskId }) {
   return (
     <StyledTaskDetails>
@@ -62,7 +68,10 @@ function TaskDetails({ data, setState, setSelectedTaskId }) {
         <DescriptionContainer>
           <Description />
         </DescriptionContainer>
-        <Task.DeleteButton />
+        <TaskFooter>
+          <Date value={"2023-09-04"} type="date" />
+          <Task.DeleteButton />
+        </TaskFooter>
       </Task>
     </StyledTaskDetails>
   );
