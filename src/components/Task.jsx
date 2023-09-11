@@ -115,7 +115,8 @@ function Task({
         <StyledTask
           $isCompleted={data.isCompleted}
           onClick={(e) => {
-            if (e.currentTarget !== e.target) return;
+            // ? StopPropagation on all the child components
+            // if (e.currentTarget !== e.target) return;
             setSelectedTaskId(data.id);
           }}
         >
