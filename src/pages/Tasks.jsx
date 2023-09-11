@@ -1,9 +1,9 @@
 import { styled } from "styled-components";
 import { useState } from "react";
 
-import useTaskData from "../components/useTaskData";
-import useUpdateTask from "../components/useTaskUpdate";
-import useCreateNewTask from "../components/useCreateNewTask";
+import useTaskData from "../services/useTaskData";
+import useUpdateTask from "../services/useTaskUpdate";
+import useCreateNewTask from "../services/useCreateNewTask";
 
 import TaskDetails from "../components/TaskDetails";
 import Task from "../components/Task";

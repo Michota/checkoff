@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createNewTask } from "../services/tasksAPI";
+import { createNewTask } from "./tasksAPI";
 import toast from "react-hot-toast";
 
 function useCreateNewTask() {
