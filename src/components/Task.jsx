@@ -7,9 +7,8 @@ import stringShortener from "../utils/stringShortener";
 import Box from "../ui/Box";
 import Button from "../ui/Button";
 import DateTimeRangePicker from "@wojtekmaj/react-datetimerange-picker";
-import "react-datetime-picker/dist/DateTimePicker.css";
-import "react-calendar/dist/Calendar.css";
-import "react-clock/dist/Clock.css";
+import "../styles/DateTimePicker.css";
+import "../styles/Callendar.css";
 import DateTimePicker from "react-datetime-picker";
 
 // Styling components with StyledComponents
@@ -252,16 +251,22 @@ function DateTime() {
     return (
       <StyledDate>
         {<MdCalendarToday size={"1em"} />}
-        {startDate}
+        {new Date(startDate).toLocaleDateString(undefined, {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        })}
       </StyledDate>
     );
   return (
+    // * It returns e
     <DateTimePicker
+      disableClock={true}
       defaultValue={null}
-      value={dateValue}
-      onChange={(e) => {
-        setDateValue(e);
-        // updateState("startDate", e.target.value);
+      value={startDate}
+      onChange={(value) => {
+        console.log(value);
+        updateState("startDate", new Date(value).toDateString());
       }}
     />
   );
