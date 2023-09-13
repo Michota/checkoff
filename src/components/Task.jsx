@@ -7,8 +7,10 @@ import stringShortener from "../utils/stringShortener";
 import Box from "../ui/Box";
 import Button from "../ui/Button";
 import DateTimeRangePicker from "@wojtekmaj/react-datetimerange-picker";
-import "@wojtekmaj/react-datetimerange-picker/dist/DateTimeRangePicker.css";
+import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
+import "react-clock/dist/Clock.css";
+import DateTimePicker from "react-datetime-picker";
 
 // Styling components with StyledComponents
 
@@ -245,11 +247,6 @@ function DateTime() {
   const { startDate, endDate, updateState, renderType } =
     useContext(TaskContext);
 
-  const [dateValue, setDateValue] = useState([
-    new Date(startDate),
-    new Date(endDate),
-  ]);
-
   if (!startDate) return null;
   if (renderType === "tab")
     return (
@@ -259,7 +256,7 @@ function DateTime() {
       </StyledDate>
     );
   return (
-    <DateTimeRangePicker
+    <DateTimePicker
       defaultValue={null}
       value={dateValue}
       onChange={(e) => {
