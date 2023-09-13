@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { styled, css } from "styled-components";
 import { MdCalendarToday, MdDeleteForever, MdDone } from "react-icons/md";
 import useTaskDelete from "../services/useTaskDelete";
@@ -7,6 +7,8 @@ import stringShortener from "../utils/stringShortener";
 import Box from "../ui/Box";
 import Button from "../ui/Button";
 import DateTimeRangePicker from "@wojtekmaj/react-datetimerange-picker";
+import "@wojtekmaj/react-datetimerange-picker/dist/DateTimeRangePicker.css";
+import "react-calendar/dist/Calendar.css";
 
 // Styling components with StyledComponents
 
@@ -103,12 +105,14 @@ const StyledDate = styled.span`
   justify-content: end;
   align-items: center;
   gap: 0.5rem;
+  width: max-content;
 `;
 
 // End of Styling with StyledComponents
 
 const TaskContext = createContext();
 
+// * Main Component
 function Task({
   children,
   data,
@@ -148,7 +152,7 @@ function Task({
                 }}
               >
                 <Description />
-                <Date />
+                <DateTime />
               </span>
             </StyledDetails>
           </TaskFlexContainer>
@@ -237,9 +241,15 @@ function DeleteButton() {
   );
 }
 
-function Date() {
+function DateTime() {
   const { startDate, endDate, updateState, renderType } =
     useContext(TaskContext);
+
+  const [dateValue, setDateValue] = useState([
+    new Date(startDate),
+    new Date(endDate),
+  ]);
+
   if (!startDate) return null;
   if (renderType === "tab")
     return (
@@ -249,9 +259,13 @@ function Date() {
       </StyledDate>
     );
   return (
-    <StyledDateTimeRangePicker
-      value={startDate}
-      onChange={(e) => updateState("startDate", e.target.value)}
+    <DateTimeRangePicker
+      defaultValue={null}
+      value={dateValue}
+      onChange={(e) => {
+        setDateValue(e);
+        // updateState("startDate", e.target.value);
+      }}
     />
   );
 }
@@ -261,5 +275,6 @@ Task.Checkbox = Checkbox;
 Task.Title = Title;
 Task.Description = Description;
 Task.DeleteButton = DeleteButton;
+Task.DateTime = DateTime;
 
 export default Task;

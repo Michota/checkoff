@@ -71,6 +71,7 @@ function TaskDetails({ data, setState, setSelectedTaskId }) {
         </DescriptionContainer>
         <TaskFooter>
           <Task.DeleteButton />
+          <Task.DateTime />
         </TaskFooter>
       </Task>
     </StyledTaskDetails>
