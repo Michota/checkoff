@@ -1,6 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { styled, css } from "styled-components";
-import { MdCalendarToday, MdDeleteForever, MdDone } from "react-icons/md";
+import {
+  MdCalendarToday,
+  MdDateRange,
+  MdDeleteForever,
+  MdDone,
+} from "react-icons/md";
 import useTaskDelete from "../services/useTaskDelete";
 import stringShortener from "../utils/stringShortener";
 
@@ -15,6 +20,7 @@ import DateTimePicker from "react-datetime-picker";
 
 const StyledTask = styled(Box)`
   cursor: pointer;
+  min-width: 30rem;
   width: 100%;
   transition: transform 100ms;
   justify-content: space-between;
@@ -245,9 +251,16 @@ function DeleteButton() {
 function DateTime() {
   const { startDate, endDate, updateState, renderType } =
     useContext(TaskContext);
+  // console.log(new Date(startDate).toTimeString(), new Date(null));
+  // console.log(
+  //   new Date(startDate).toTimeString() === new Date(null).toTimeString()
+  // );
 
-  if (!startDate) return null;
-  if (renderType === "tab")
+  const dateDisabled =
+    new Date(startDate).toTimeString() === new Date(null).toTimeString();
+
+  if (renderType === "tab" && dateDisabled) return null;
+  if (renderType === "tab") {
     return (
       <StyledDate>
         {<MdCalendarToday size={"1em"} />}
@@ -258,15 +271,32 @@ function DateTime() {
         })}
       </StyledDate>
     );
+  }
+  // * If there is no date (timestamp 0)
+  if (renderType !== "tab" && dateDisabled)
+    return (
+      <>
+        <Button
+          backgroundColor="transparent"
+          onClick={(e) => {
+            const dateValue = new Date();
+            updateState("startDate", new Date().toISOString());
+          }}
+        >
+          <MdDateRange />
+        </Button>
+      </>
+    );
+
+  // * If there is date and its not tab-task (its tasks details)
   return (
-    // * It returns e
     <DateTimePicker
-      disableClock={true}
+      calendarIcon={<MdDateRange color="var(--theme-white-100)" />}
       defaultValue={null}
       value={startDate}
       onChange={(value) => {
-        console.log(value);
-        updateState("startDate", new Date(value).toDateString());
+        const dateValue = new Date(value);
+        updateState("startDate", new Date(value).toISOString());
       }}
     />
   );
