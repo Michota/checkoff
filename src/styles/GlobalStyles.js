@@ -38,6 +38,11 @@ const GlobalStyles = createGlobalStyle`
   font-family: 'Lato', sans-serif;
 }
 
+*::selection{
+  background-color: var(--theme-primary);
+  color: var(--theme-black-000);
+}
+
 input{
   background-color: inherit;
   color: inherit;
