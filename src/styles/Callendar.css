@@ -116,8 +116,9 @@
 }
 
 .react-calendar__tile--now {
-  color: var(--theme-black-100) !important;
-  background: var(--theme-green);
+  /* color: var(--theme-black-100) !important; */
+  /* background: var(--theme-green); */
+  outline: 0.1rem solid var(--theme-primary) !important;
 }
 
 .react-calendar__tile--now:enabled:hover,
