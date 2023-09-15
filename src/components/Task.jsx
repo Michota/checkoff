@@ -137,13 +137,6 @@ function Task({
     setState({ ...data, [columnName]: newData });
   }
 
-  useEffect(
-    function () {
-      console.log(data.startDate);
-    },
-    [data.startDate]
-  );
-
   return (
     <TaskContext.Provider value={valueProvider}>
       {/* Render normal task as tab */}
@@ -261,10 +254,6 @@ function DeleteButton() {
 function DateTime() {
   const { startDate, endDate, updateState, renderType } =
     useContext(TaskContext);
-  // console.log(new Date(startDate).toTimeString(), new Date(null));
-  // console.log(
-  //   new Date(startDate).toTimeString() === new Date(null).toTimeString()
-  // );
 
   const dateDisabled =
     new Date(startDate).toISOString() === new Date(null).toISOString();
@@ -289,7 +278,6 @@ function DateTime() {
         <Button
           backgroundColor="transparent"
           onClick={(e) => {
-            console.log(e);
             const dateValue = new Date().toISOString();
             updateState("startDate", dateValue);
           }}
