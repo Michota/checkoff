@@ -137,6 +137,13 @@ function Task({
     setState({ ...data, [columnName]: newData });
   }
 
+  useEffect(
+    function () {
+      console.log(data.startDate);
+    },
+    [data.startDate]
+  );
+
   return (
     <TaskContext.Provider value={valueProvider}>
       {/* Render normal task as tab */}
@@ -260,7 +267,7 @@ function DateTime() {
   // );
 
   const dateDisabled =
-    new Date(startDate).toTimeString() === new Date(null).toTimeString();
+    new Date(startDate).toISOString() === new Date(null).toISOString();
 
   if (renderType === "tab" && dateDisabled) return null;
   if (renderType === "tab") {
@@ -282,11 +289,12 @@ function DateTime() {
         <Button
           backgroundColor="transparent"
           onClick={(e) => {
-            const dateValue = new Date();
-            updateState("startDate", new Date().toISOString());
+            console.log(e);
+            const dateValue = new Date().toISOString();
+            updateState("startDate", dateValue);
           }}
         >
-          <MdDateRange />
+          <MdDateRange size={"2em"} />
         </Button>
       </>
     );
@@ -298,8 +306,8 @@ function DateTime() {
       defaultValue={null}
       value={startDate}
       onChange={(value) => {
-        const dateValue = new Date(value);
-        updateState("startDate", new Date(value).toISOString());
+        const dateValue = value ? new Date(value).toISOString() : null;
+        updateState("startDate", dateValue);
       }}
     />
   );
