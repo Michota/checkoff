@@ -6,7 +6,6 @@ import GlobalStyles from "./styles/GlobalStyles";
 import Root from "./routes/Root";
 import ErrorPage from "./pages/ErrorPage";
 import Tasks from "./pages/Tasks";
-import { getTasksData } from "./services/tasksAPI";
 import {
   QueryCache,
   QueryClient,
@@ -15,6 +14,7 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster, toast } from "react-hot-toast";
 import { IconContext } from "react-icons";
+import Calendar from "./pages/Calendar";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,7 +34,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
-    children: [{ path: "tasks", element: <Tasks /> }],
+    children: [
+      { path: "tasks", element: <Tasks /> },
+      { path: "calendar", element: <Calendar /> },
+    ],
   },
 ]);
 
