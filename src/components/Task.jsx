@@ -19,9 +19,12 @@ import DateTimePicker from "react-datetime-picker";
 // Styling components with StyledComponents
 
 const StyledTask = styled(Box)`
+  overflow-y: hidden;
   cursor: pointer;
   min-width: 30rem;
-  width: 100%;
+  width: max-content;
+  min-height: 7rem;
+  height: fit-content;
   transition: transform 100ms;
   justify-content: space-between;
 

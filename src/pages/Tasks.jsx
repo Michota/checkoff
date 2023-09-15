@@ -15,6 +15,7 @@ const StyledTasksPanel = styled.div`
   grid-template-columns: max-content 1fr;
   column-gap: 2rem;
   height: 100%;
+  overflow-y: auto;
 `;
 
 const StyledChecklist = styled.div`
@@ -23,6 +24,10 @@ const StyledChecklist = styled.div`
   align-items: center;
   gap: 2rem;
   position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: max-content;
+  padding: 0 1rem 0 2rem;
 `;
 
 const ButtonCreateTask = styled(Button)`
@@ -33,8 +38,17 @@ const ButtonCreateTask = styled(Button)`
   width: 4rem;
   height: 4rem;
   position: absolute;
-  bottom: 0;
+  bottom: 2rem;
   right: 0;
+  opacity: 50%;
+  transition: all 200ms;
+  &:hover {
+    opacity: 100;
+  }
+`;
+
+const TaskDetailsContainer = styled.div`
+  padding: 1rem;
 `;
 
 let myTimeout;
@@ -96,13 +110,15 @@ function Tasks() {
           <MdAdd />
         </ButtonCreateTask>
       </StyledChecklist>
-      {selectedTaskId !== null && (
-        <TaskDetails
-          setState={handleSetTasksState}
-          data={tasksState.find((task) => task.id === selectedTaskId)}
-          setSelectedTaskId={setSelectedTaskId}
-        />
-      )}
+      <TaskDetailsContainer>
+        {selectedTaskId !== null && (
+          <TaskDetails
+            setState={handleSetTasksState}
+            data={tasksState.find((task) => task.id === selectedTaskId)}
+            setSelectedTaskId={setSelectedTaskId}
+          />
+        )}
+      </TaskDetailsContainer>
     </StyledTasksPanel>
   );
 }
