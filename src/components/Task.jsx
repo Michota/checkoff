@@ -15,6 +15,7 @@ import DateTimeRangePicker from "@wojtekmaj/react-datetimerange-picker";
 import "../styles/DateTimePicker.css";
 import "../styles/Callendar.css";
 import DateTimePicker from "react-datetime-picker";
+import DeleteButton from "./TaskChilds/DeleteButton";
 
 // Styling components with StyledComponents
 
@@ -121,6 +122,17 @@ const StyledDate = styled.span`
 // End of Styling with StyledComponents
 
 const TaskContext = createContext();
+
+function useTaskContext() {
+  const value = useContext(TaskContext);
+  if (value === undefined)
+    throw new Error("Value in task context was undefined.");
+  return value;
+}
+
+// function TaskProvider({ children }) {
+//   return <TaskContext.Provider value={}>{children}</TaskContext.Provider>;
+// }
 
 // * Main Component
 function Task({
@@ -235,22 +247,6 @@ function Description({ className }) {
   );
 }
 
-function DeleteButton() {
-  const { deleteTask, id } = useContext(TaskContext);
-
-  return (
-    <Button
-      type="delete"
-      onClick={(e) => {
-        e.stopPropagation();
-        deleteTask(id);
-      }}
-    >
-      <MdDeleteForever />
-    </Button>
-  );
-}
-
 function DateTime() {
   const { startDate, endDate, updateState, renderType } =
     useContext(TaskContext);
@@ -309,3 +305,4 @@ Task.DeleteButton = DeleteButton;
 Task.DateTime = DateTime;
 
 export default Task;
+export { useTaskContext };
