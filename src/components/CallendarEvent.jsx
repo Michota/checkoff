@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import Box from "../ui/Box";
 import Task from "./Task";
 import useTaskData from "../services/useTaskData";
+import { useManageTaskData } from "../services/useManageTaskData";
 
 const StyledEvent = styled(Box)`
   background-color: var(--theme-black-250);
@@ -9,6 +10,10 @@ const StyledEvent = styled(Box)`
   height: min-content;
   font-size: 1.2rem;
   padding: 0.4em;
+  /* // ? Temporary fix for calendar nested event */
+  z-index: 5;
+  display: flex;
+  gap: 2rem;
 
   ${(props) =>
     props.$isCompleted === true
@@ -36,17 +41,24 @@ const StyledEvent = styled(Box)`
 //   );
 // }
 
-function CallendarEvent({ children, data }) {
-  const { tasksState, setTasksState } = useTaskData();
-  const { timeText, event } = data;
-  const { id, title, extendedProps } = event;
-  const { isCompleted } = extendedProps;
+function CallendarEvent({ children, renderObject, data }) {
+  const { timeText, event } = renderObject;
+  const { id: stringId, title, extendedProps } = event;
+  const { isCompleted, setState } = extendedProps;
+  const { startDate } = data;
+  const hoursAndMinutes = new Date(startDate).toLocaleTimeString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   return (
-    <Task
-      renderType="compound"
-      data={tasksState.find((task) => task.id === Number(id))}
-    ></Task>
+    <StyledEvent>
+      <Task setState={setState} renderType="compound" data={data}>
+        <Task.Checkbox></Task.Checkbox>
+        <span>{hoursAndMinutes}</span>
+        <Task.Title></Task.Title>
+      </Task>
+    </StyledEvent>
   );
 }
 

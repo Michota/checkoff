@@ -1,11 +1,9 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import styled from "styled-components";
-import useTaskData from "../services/useTaskData";
-import useUpdateTask from "../services/useTaskUpdate";
 import useCreateNewTask from "../services/useCreateNewTask";
-import Dialog from "../components/Dialog";
 import CallendarEvent from "../components/CallendarEvent";
+import { useManageTaskData } from "../services/useManageTaskData";
 
 const CalendarContainer = styled.div`
   height: 100%;
@@ -20,7 +18,7 @@ const events = [
   },
 ];
 
-function parseTaskToEvents(tasks) {
+function parseTaskToEvents([tasks, setState]) {
   if (!tasks) return;
   const events = tasks.map((task) => {
     return {
@@ -30,24 +28,25 @@ function parseTaskToEvents(tasks) {
       end: task.endDate,
       extendedProps: {
         isCompleted: task.isCompleted,
+        setState: setState,
       },
     };
   });
   return events;
 }
 
-function eventContent(renderObject) {
-  console.log(renderObject);
-  return <CallendarEvent data={renderObject}>s</CallendarEvent>;
+function eventContent(renderObject, data) {
+  return <CallendarEvent renderObject={renderObject} data={data} />;
 }
 
 function Calendar() {
-  const { isLoading, tasksState, setTasksState } = useTaskData();
-  const { updateTask, isUpdating } = useUpdateTask();
   const { createTask } = useCreateNewTask();
+  // const { isLoading, tasksState, setTasksState } = useTaskData();
+  // const { updateTask, isUpdating } = useUpdateTask();
+  const { tasks, saveAndUpdateTask } = useManageTaskData();
 
   function openEventDialog(eventId) {
-    console.log(tasksState.find((task) => eventId === task.id));
+    // console.log(tasks.find((task) => eventId === task.id));
   }
 
   return (
@@ -56,11 +55,15 @@ function Calendar() {
         buttonIcons={false}
         height={"100%"}
         plugins={[dayGridPlugin]}
-        events={parseTaskToEvents(tasksState ?? null)}
+        events={parseTaskToEvents([tasks, saveAndUpdateTask] ?? null)}
         eventClick={function (info) {
+          info.jsEvent.preventDefault();
           openEventDialog(Number(info.event.id));
         }}
-        eventContent={eventContent}
+        eventContent={(arg) => {
+          const task = tasks.find((t) => Number(arg.event.id) === t.id);
+          return eventContent(arg, task);
+        }}
       />
     </CalendarContainer>
   );

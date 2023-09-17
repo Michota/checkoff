@@ -16,11 +16,18 @@ const StyledDate = styled.span`
   width: max-content;
 `;
 
-export function DateTime() {
-  const { startDate, endDate, updateState, renderType } = useTaskContext();
+export function DateTime({ customRenderType }) {
+  const {
+    startDate,
+    endDate,
+    updateData,
+    renderType: taskRenderType,
+  } = useTaskContext();
 
   const dateDisabled =
     new Date(startDate).toISOString() === new Date(null).toISOString();
+
+  const renderType = customRenderType ? customRenderType : taskRenderType;
 
   if (renderType === "tab" && dateDisabled) return null;
   if (renderType === "tab") {
@@ -43,7 +50,7 @@ export function DateTime() {
           backgroundColor="transparent"
           onClick={(e) => {
             const dateValue = new Date().toISOString();
-            updateState("startDate", dateValue);
+            updateData("startDate", dateValue);
           }}
         >
           <MdDateRange size={"2em"} />
@@ -59,7 +66,7 @@ export function DateTime() {
       value={startDate}
       onChange={(value) => {
         const dateValue = value ? new Date(value).toISOString() : null;
-        updateState("startDate", dateValue);
+        updateData("startDate", dateValue);
       }}
     />
   );
