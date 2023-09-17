@@ -61,6 +61,10 @@ body {
   font-size: 1.6rem;
 }
 
+p {
+  color: var(--theme-white-200);
+}
+
 `;
 
 export default GlobalStyles;
