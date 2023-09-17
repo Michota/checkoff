@@ -20,7 +20,7 @@ export function DateTime({ customRenderType }) {
   const {
     startDate,
     endDate,
-    updateData,
+    updateState,
     renderType: taskRenderType,
   } = useTaskContext();
 
@@ -50,7 +50,7 @@ export function DateTime({ customRenderType }) {
           backgroundColor="transparent"
           onClick={(e) => {
             const dateValue = new Date().toISOString();
-            updateData("startDate", dateValue);
+            updateState("startDate", dateValue);
           }}
         >
           <MdDateRange size={"2em"} />
@@ -66,7 +66,7 @@ export function DateTime({ customRenderType }) {
       value={startDate}
       onChange={(value) => {
         const dateValue = value ? new Date(value).toISOString() : null;
-        updateData("startDate", dateValue);
+        updateState("startDate", dateValue);
       }}
     />
   );
