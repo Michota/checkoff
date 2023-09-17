@@ -4,6 +4,8 @@ import styled from "styled-components";
 import useTaskData from "../services/useTaskData";
 import useUpdateTask from "../services/useTaskUpdate";
 import useCreateNewTask from "../services/useCreateNewTask";
+import Dialog from "../components/Dialog";
+import CallendarEvent from "../components/CallendarEvent";
 
 const CalendarContainer = styled.div`
   height: 100%;
@@ -18,7 +20,7 @@ const events = [
   },
 ];
 
-function taskToEvents(tasks) {
+function parseTaskToEvents(tasks) {
   if (!tasks) return;
   const events = tasks.map((task) => {
     return {
@@ -26,10 +28,17 @@ function taskToEvents(tasks) {
       title: task.title,
       start: task.startDate,
       end: task.endDate,
+      extendedProps: {
+        isCompleted: task.isCompleted,
+      },
     };
   });
-  console.log(events);
   return events;
+}
+
+function eventContent(renderObject) {
+  console.log(renderObject);
+  return <CallendarEvent data={renderObject}>s</CallendarEvent>;
 }
 
 function Calendar() {
@@ -37,7 +46,9 @@ function Calendar() {
   const { updateTask, isUpdating } = useUpdateTask();
   const { createTask } = useCreateNewTask();
 
-  console.log(tasksState);
+  function openEventDialog(eventId) {
+    console.log(tasksState.find((task) => eventId === task.id));
+  }
 
   return (
     <CalendarContainer>
@@ -45,7 +56,11 @@ function Calendar() {
         buttonIcons={false}
         height={"100%"}
         plugins={[dayGridPlugin]}
-        events={taskToEvents(tasksState ?? null)}
+        events={parseTaskToEvents(tasksState ?? null)}
+        eventClick={function (info) {
+          openEventDialog(Number(info.event.id));
+        }}
+        eventContent={eventContent}
       />
     </CalendarContainer>
   );
