@@ -9,6 +9,7 @@ import TaskDetails from "../components/TaskDetails";
 import Task from "../components/Task";
 import Button from "../ui/Button";
 import { MdAdd } from "react-icons/md";
+import { useManageTaskData } from "../services/useManageTaskData";
 
 const StyledTasksPanel = styled.div`
   display: grid;
@@ -53,54 +54,26 @@ const TaskDetailsContainer = styled.div`
 
 let myTimeout;
 
-const debounce = (callback, instantClearTimeout) => {
-  if (myTimeout) {
-    clearTimeout(myTimeout);
-  }
-
-  if (instantClearTimeout) {
-    callback();
-  }
-
-  myTimeout = setTimeout(() => {
-    callback();
-  }, 1500);
-};
-
-let currentlyUpdatedTask;
-
 function Tasks() {
-  const { isLoading, tasksState, setTasksState } = useTaskData();
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const { updateTask, isUpdating } = useUpdateTask();
   const { createTask } = useCreateNewTask();
-
-  function handleSetTasksState(updatedTask) {
-    setTasksState((tasksState) => {
-      return tasksState.map((task) =>
-        task.id !== updatedTask.id ? task : updatedTask
-      );
-    });
-
-    const isCurrentlyUpdating = currentlyUpdatedTask?.id !== updatedTask?.id;
-    debounce(() => {
-      if (currentlyUpdatedTask?.id) updateTask(currentlyUpdatedTask);
-    }, isCurrentlyUpdating);
-    currentlyUpdatedTask = updatedTask;
-  }
+  const { tasks, setTasks, isLoadingTasks, saveUpdatedTask } =
+    useManageTaskData();
 
   return (
     <StyledTasksPanel>
       <StyledChecklist>
         <h1>Checklist</h1>
-        {!isLoading &&
-          tasksState?.map((task) => {
+        {!isLoadingTasks &&
+          tasks?.map((task) => {
             // if (task.isCompleted)
             return (
               <Task
+                // externalData
                 data={task}
                 key={task.id}
-                setState={handleSetTasksState}
+                setState={saveUpdatedTask}
                 setSelectedTaskId={setSelectedTaskId}
               />
             );
@@ -113,8 +86,8 @@ function Tasks() {
       <TaskDetailsContainer>
         {selectedTaskId !== null && (
           <TaskDetails
-            setState={handleSetTasksState}
-            data={tasksState.find((task) => task.id === selectedTaskId)}
+            setState={saveUpdatedTask}
+            data={tasks.find((task) => task.id === selectedTaskId)}
             setSelectedTaskId={setSelectedTaskId}
           />
         )}
