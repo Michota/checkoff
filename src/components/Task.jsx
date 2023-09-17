@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { styled, css } from "styled-components";
-import { MdDeleteForever, MdDone } from "react-icons/md";
 import useTaskDelete from "../services/useTaskDelete";
 
 import Box from "../ui/Box";
@@ -72,13 +71,15 @@ function Task({
   setState,
   renderType = "tab",
 }) {
-  const { deleteTask } = useTaskDelete();
-  const valueProvider = { ...data, updateState, renderType, deleteTask };
   const amICompound = renderType === "compound";
 
+  // * Managing data
+  const { deleteTask } = useTaskDelete();
   function updateState(columnName, newData) {
     setState({ ...data, [columnName]: newData });
   }
+  // * Data (value atr.) for TaskContext.Provider
+  const valueProvider = { ...data, updateState, renderType, deleteTask };
 
   return (
     <TaskContext.Provider value={valueProvider}>

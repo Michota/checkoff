@@ -58,7 +58,7 @@ function Tasks() {
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const { updateTask, isUpdating } = useUpdateTask();
   const { createTask } = useCreateNewTask();
-  const { tasks, setTasks, isLoadingTasks, saveUpdatedTask } =
+  const { tasks, setTasks, isLoadingTasks, saveAndUpdateTask } =
     useManageTaskData();
 
   return (
@@ -70,10 +70,9 @@ function Tasks() {
             // if (task.isCompleted)
             return (
               <Task
-                // externalData
                 data={task}
                 key={task.id}
-                setState={saveUpdatedTask}
+                setState={saveAndUpdateTask}
                 setSelectedTaskId={setSelectedTaskId}
               />
             );
@@ -86,7 +85,7 @@ function Tasks() {
       <TaskDetailsContainer>
         {selectedTaskId !== null && (
           <TaskDetails
-            setState={saveUpdatedTask}
+            setState={saveAndUpdateTask}
             data={tasks.find((task) => task.id === selectedTaskId)}
             setSelectedTaskId={setSelectedTaskId}
           />

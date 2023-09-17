@@ -11,9 +11,9 @@ export function useManageTaskData() {
     setTasksState: setTasks,
     isLoading: isLoadingTasks,
   } = useTaskData();
-  const { updateTask: update, isUpdating } = useUpdateTask();
+  const { updateTask: update, isUpdating: isUpdatingTasks } = useUpdateTask();
 
-  function saveUpdatedTask(updatedTask) {
+  function saveAndUpdateTask(updatedTask) {
     setTasks((tasks) => {
       return tasks.map((task) =>
         task.id !== updatedTask.id ? task : updatedTask
@@ -27,13 +27,11 @@ export function useManageTaskData() {
     currentlyUpdatedTask = updatedTask;
   }
 
-  // function manageTask(id, request) {
-  //   const task = tasks.find((t) => t.id === id);
-  //   if (!task) throw new Error("Task with provided id was not found!");
-  //   switch (request.type) {
-  //     case "update":
-  //   }
-  // }
-
-  return { saveUpdatedTask, tasks, setTasks, isLoadingTasks };
+  return {
+    saveAndUpdateTask,
+    tasks,
+    setTasks,
+    isLoadingTasks,
+    isUpdatingTasks,
+  };
 }
