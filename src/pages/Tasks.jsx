@@ -52,14 +52,10 @@ const TaskDetailsContainer = styled.div`
   padding: 1rem;
 `;
 
-let myTimeout;
-
 function Tasks() {
   const [selectedTaskId, setSelectedTaskId] = useState(null);
-  const { updateTask, isUpdating } = useUpdateTask();
   const { createTask } = useCreateNewTask();
-  const { tasks, setTasks, isLoadingTasks, saveAndUpdateTask } =
-    useManageTaskData();
+  const { tasks, isLoadingTasks, saveAndUpdateTask } = useManageTaskData();
 
   return (
     <StyledTasksPanel>
