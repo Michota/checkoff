@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 import Box from "../ui/Box";
+import Task from "./Task";
+import useTaskData from "../services/useTaskData";
 
 const StyledEvent = styled(Box)`
   background-color: var(--theme-black-250);
@@ -20,17 +22,31 @@ const StyledEvent = styled(Box)`
         `};
 `;
 
+// function CallendarEvent({ children, data }) {
+//   const { timeText, event } = data;
+//   const { id, title, extendedProps } = event;
+//   const { isCompleted } = extendedProps;
+//   return (
+//     <StyledEvent $isCompleted={isCompleted}>
+//       <p>{isCompleted && "i am completed"}</p>
+//       <p>
+//         <span>{timeText} </span>| {title}
+//       </p>
+//     </StyledEvent>
+//   );
+// }
+
 function CallendarEvent({ children, data }) {
+  const { tasksState, setTasksState } = useTaskData();
   const { timeText, event } = data;
   const { id, title, extendedProps } = event;
   const { isCompleted } = extendedProps;
+
   return (
-    <StyledEvent $isCompleted={isCompleted}>
-      <p>{isCompleted && "i am completed"}</p>
-      <p>
-        <span>{timeText} </span>| {title}
-      </p>
-    </StyledEvent>
+    <Task
+      renderType="compound"
+      data={tasksState.find((task) => task.id === Number(id))}
+    ></Task>
   );
 }
 
