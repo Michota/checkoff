@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import DeleteButton from "../components/TaskChilds/DeleteButton";
 
 const StyledButton = styled.button`
   position: relative;
@@ -15,19 +16,35 @@ const StyledButton = styled.button`
   font-weight: bold;
   color: ${(props) => props.$textColor || "white"};
   aspect-ratio: 1 / 1;
+  opacity: 0.6;
 
   &:hover {
     transform: scale(105%);
+    opacity: 1;
   }
-  transition: transform 100ms;
+  transition: opacity transform 100ms;
 `;
 
 const ButtonDelete = styled(StyledButton)`
   font-size: 2rem;
   background-color: transparent;
   transition: color 200ms;
+  opacity: 0.6;
+
   &:hover {
     color: var(--theme-red);
+    opacity: 1;
+  }
+`;
+
+const ButtonRestore = styled(StyledButton)`
+  font-size: 2rem;
+  background-color: transparent;
+  transition: color 200ms;
+  opacity: 0.6;
+  &:hover {
+    color: var(--theme-green);
+    opacity: 1;
   }
 `;
 
@@ -64,6 +81,18 @@ function Button({
         >
           {children}
         </ButtonDelete>
+      );
+    case "restore":
+      return (
+        <ButtonRestore
+          className={className}
+          onClick={onClick}
+          $size={size}
+          $textColor={color}
+          $backgroundColor={backgroundColor}
+        >
+          {children}
+        </ButtonRestore>
       );
   }
 }
