@@ -71,7 +71,15 @@ function TaskDetails({ data, setState, setSelectedTaskId }) {
         </DescriptionContainer>
         <TaskFooter>
           <span onClick={() => setSelectedTaskId(null)}>
-            <Task.DeleteButton />
+            <span
+              style={{
+                display: "flex",
+                gap: "2rem",
+              }}
+            >
+              <Task.DeleteButton />
+              <Task.RestoreButton />
+            </span>
           </span>
           <Task.DateTime />
         </TaskFooter>
