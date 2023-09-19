@@ -17,6 +17,11 @@ const GlobalStyles = createGlobalStyle`
   --theme-black-300: #3D3D3D;
   --theme-black-400: #666666;
 
+
+  --theme-darkred-200: #420000;
+  --theme-darkred-250: #610000;
+
+
   --priority-0: #ececec;
   --priority-1: #FFEA00;
   --priority-2: #FF9D00;
