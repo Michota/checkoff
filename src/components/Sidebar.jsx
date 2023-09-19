@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import Logo from "../ui/Logo";
 
@@ -35,6 +35,9 @@ function Sidebar() {
       <StyledUl>
         <li>
           <StyledNavLink to="tasks">Tasks</StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="tasks/?trash">Trash</StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="calendar">Calendar</StyledNavLink>

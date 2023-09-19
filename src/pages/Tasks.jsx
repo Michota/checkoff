@@ -1,15 +1,11 @@
 import { styled } from "styled-components";
 import { useState } from "react";
 
-import useTaskData from "../services/useTaskData";
-import useUpdateTask from "../services/useTaskUpdate";
-import useCreateNewTask from "../services/useCreateNewTask";
-
 import TaskDetails from "../components/TaskDetails";
-import Task from "../components/Task";
-import Button from "../ui/Button";
-import { MdAdd } from "react-icons/md";
 import { useManageTaskData } from "../services/useManageTaskData";
+import Checklist from "../components/Checklist";
+import { useParams } from "react-router";
+import { useSearchParams } from "react-router-dom";
 
 const StyledTasksPanel = styled.div`
   display: grid;
@@ -19,7 +15,7 @@ const StyledTasksPanel = styled.div`
   overflow-y: auto;
 `;
 
-const StyledChecklist = styled.div`
+const MainSpace = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,54 +27,36 @@ const StyledChecklist = styled.div`
   padding: 0 1rem 0 2rem;
 `;
 
-const ButtonCreateTask = styled(Button)`
-  border: none;
-  background-color: var(--theme-green);
-  color: var(--theme-black-200);
-  font-size: 2rem;
-  width: 4rem;
-  height: 4rem;
-  position: absolute;
-  bottom: 2rem;
-  right: 0;
-  opacity: 50%;
-  transition: all 200ms;
-  &:hover {
-    opacity: 100;
-  }
-`;
-
-const TaskDetailsContainer = styled.div`
+const SecondarySpace = styled.div`
   padding: 1rem;
 `;
 
+// const x = resolvePath("xyz", "tasks");
+// console.log(x);
+
 function Tasks() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { taskIdURL } = useParams();
+  const areWeInTrash = searchParams.has("trash");
   const [selectedTaskId, setSelectedTaskId] = useState(null);
-  const { createTask } = useCreateNewTask();
   const { tasks, isLoadingTasks, saveAndUpdateTask } = useManageTaskData();
 
   return (
     <StyledTasksPanel>
-      <StyledChecklist>
-        <h1>Checklist</h1>
-        {!isLoadingTasks &&
-          tasks?.map((task) => {
-            // if (task.isCompleted)
-            return (
-              <Task
-                data={task}
-                key={task.id}
-                setState={saveAndUpdateTask}
-                setSelectedTaskId={setSelectedTaskId}
-              />
-            );
-          })}
-
-        <ButtonCreateTask onClick={() => createTask()}>
-          <MdAdd />
-        </ButtonCreateTask>
-      </StyledChecklist>
-      <TaskDetailsContainer>
+      <MainSpace>
+        <h2>{areWeInTrash ? "Trash" : "Checklist"}</h2>
+        <Checklist
+          dataManager={{
+            tasks,
+            isLoadingTasks,
+            saveAndUpdateTask,
+            selectedTaskId,
+            setSelectedTaskId,
+          }}
+          amITrash={areWeInTrash}
+        />
+      </MainSpace>
+      <SecondarySpace>
         {selectedTaskId !== null && (
           <TaskDetails
             setState={saveAndUpdateTask}
@@ -86,7 +64,7 @@ function Tasks() {
             setSelectedTaskId={setSelectedTaskId}
           />
         )}
-      </TaskDetailsContainer>
+      </SecondarySpace>
     </StyledTasksPanel>
   );
 }

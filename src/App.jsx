@@ -35,8 +35,15 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
-      { path: "tasks", element: <Tasks /> },
-      { path: "calendar", element: <Calendar /> },
+      {
+        path: "tasks",
+        element: <Tasks />,
+        children: [{ path: ":taskId" }, { path: "trash" }],
+      },
+      {
+        path: "calendar",
+        element: <Calendar />,
+      },
     ],
   },
 ]);
