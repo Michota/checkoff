@@ -1,10 +1,12 @@
-import stringShortener from "../../utils/stringShortener";
 import styled from "styled-components";
 import { useTaskContext } from "../Task";
 
 const StyledDescription = styled.span`
-  width: max-content;
   font-size: 1.2rem;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 export function Description({ className }) {
@@ -12,7 +14,14 @@ export function Description({ className }) {
   return (
     <>
       {description && renderType === "tab" && (
-        <StyledDescription>{stringShortener(description)}</StyledDescription>
+        <StyledDescription>
+          {/* {stringShortener(description, 16, {
+            method: "string",
+            maxLength: 5,
+            elipsis: "...",
+          })} */}
+          {description}
+        </StyledDescription>
       )}
       {renderType === "compound" && (
         <textarea
