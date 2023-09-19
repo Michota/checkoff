@@ -1,19 +1,23 @@
 import Button from "../../ui/Button";
-import { MdDeleteForever } from "react-icons/md";
+import { MdDelete, MdDeleteForever } from "react-icons/md";
 import { useTaskContext } from "../Task";
 
 function DeleteButton() {
-  const { deleteTask, id } = useTaskContext();
-
+  const { inTrash, deleteTask, id, updateState } = useTaskContext();
   return (
     <Button
       type="delete"
       onClick={(e) => {
-        e.stopPropagation();
-        deleteTask(id);
+        if (inTrash) {
+          e.stopPropagation();
+          deleteTask(id);
+        } else {
+          e.stopPropagation();
+          updateState("inTrash", true);
+        }
       }}
     >
-      <MdDeleteForever />
+      {inTrash ? <MdDeleteForever /> : <MdDelete />}
     </Button>
   );
 }
