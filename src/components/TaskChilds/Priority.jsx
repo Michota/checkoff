@@ -79,6 +79,7 @@ function Priority({ sliderOnly }) {
     );
 
   let localPriority = priority;
+  // :)
 
   return (
     <StyledPriorty>
