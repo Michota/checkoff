@@ -10,6 +10,7 @@ import Title from "./TaskChilds/Title";
 import { Description } from "./TaskChilds/Description";
 import { DateTime } from "./TaskChilds/DateTime";
 import RestoreButton from "./TaskChilds/RestoreButton";
+import Priority from "./TaskChilds/Priority";
 
 // Styling components with StyledComponents
 
@@ -134,6 +135,7 @@ Task.Description = Description;
 Task.DeleteButton = DeleteButton;
 Task.DateTime = DateTime;
 Task.RestoreButton = RestoreButton;
+Task.Priority = Priority;
 
 export default Task;
 export { useTaskContext };

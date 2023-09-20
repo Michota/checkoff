@@ -58,6 +58,7 @@ function TaskDetails({ data, setState, setSelectedTaskId }) {
       <Task data={data} key={data.id} setState={setState} renderType="compound">
         <Header>
           <Task.Checkbox />
+
           <Title />
           <Button
             backgroundColor={"var(--theme-red)"}
@@ -70,17 +71,18 @@ function TaskDetails({ data, setState, setSelectedTaskId }) {
           <Description />
         </DescriptionContainer>
         <TaskFooter>
-          <span onClick={() => setSelectedTaskId(null)}>
-            <span
-              style={{
-                display: "flex",
-                gap: "2rem",
-              }}
-            >
+          <span
+            style={{
+              display: "flex",
+              gap: "2rem",
+            }}
+          >
+            <span onClick={() => setSelectedTaskId(null)}>
               <Task.DeleteButton />
-              <Task.RestoreButton />
             </span>
+            <Task.RestoreButton />
           </span>
+          <Task.Priority />
           <Task.DateTime />
         </TaskFooter>
       </Task>
