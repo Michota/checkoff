@@ -31,7 +31,6 @@ const StyledSlider = styled.input.attrs({ type: "range", max: 3 })`
 `;
 
 const StyledPriorty = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,6 +45,8 @@ const StyledPriorty = styled.div`
 
   min-width: 15rem;
   max-width: 50rem;
+  position: absolute;
+  left: 50%;
 `;
 
 function Priority({ sliderOnly }) {
