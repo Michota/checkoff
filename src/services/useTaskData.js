@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getTasksData } from "../services/tasksAPI";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 /**
  * Stare for storing tasks data and updating it locally.
@@ -12,10 +13,28 @@ function useTaskData() {
     isLoading,
     data: tasks,
     error,
+    isPaused,
   } = useQuery({
     queryKey: ["tasks"],
     queryFn: getTasksData,
   });
+
+  useEffect(
+    function () {
+      const timeout = setTimeout(() => {
+        if (isPaused)
+          toast.error("Check your internet connection...", {
+            position: "top-center",
+            icon: "🌐",
+          });
+      }, 3000);
+      if (!isPaused)
+        return () => {
+          clearTimeout(timeout);
+        };
+    },
+    [isPaused]
+  );
 
   // * Placing local taskState here makes it easy to manipulate data locally without changing anything in remote state
 
