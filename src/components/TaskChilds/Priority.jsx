@@ -31,7 +31,6 @@ const StyledSlider = styled.input.attrs({ type: "range", max: 3 })`
 `;
 
 const StyledPriorty = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,6 +45,8 @@ const StyledPriorty = styled.div`
 
   min-width: 15rem;
   max-width: 50rem;
+  position: absolute;
+  left: 50%;
 `;
 
 function Priority({ sliderOnly }) {
@@ -79,11 +80,10 @@ function Priority({ sliderOnly }) {
     );
 
   let localPriority = priority;
-  // :)
 
   return (
     <StyledPriorty>
-      <p style={{ fontSize: "0.9em", position: "absolute", top: -15 }}>
+      <p style={{ fontSize: "0.9em", position: "absolute", bottom: 15 }}>
         {priorityString(localPriority)}
       </p>
       <StyledSlider
