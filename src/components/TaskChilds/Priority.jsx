@@ -42,11 +42,8 @@ const StyledPriorty = styled.div`
     color: inherit;
   }
   width: 100%;
-
-  min-width: 15rem;
-  max-width: 50rem;
-  position: absolute;
-  left: 50%;
+  min-width: 8rem;
+  max-width: 40rem;
 `;
 
 function Priority({ sliderOnly }) {
@@ -83,7 +80,7 @@ function Priority({ sliderOnly }) {
 
   return (
     <StyledPriorty>
-      <p style={{ fontSize: "0.9em", position: "absolute", bottom: 15 }}>
+      <p style={{ fontSize: "0.9em", position: "relative", bottom: 15 }}>
         {priorityString(localPriority)}
       </p>
       <StyledSlider
