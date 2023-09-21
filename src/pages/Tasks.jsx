@@ -6,6 +6,7 @@ import { useManageTaskData } from "../services/useManageTaskData";
 import Checklist from "../components/Checklist";
 import { useParams } from "react-router";
 import { useSearchParams } from "react-router-dom";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 const StyledTasksPanel = styled.div`
   display: grid;
@@ -44,17 +45,23 @@ function Tasks() {
   return (
     <StyledTasksPanel>
       <MainSpace>
-        <h2>{areWeInTrash ? "Trash" : "Checklist"}</h2>
-        <Checklist
-          dataManager={{
-            tasks,
-            isLoadingTasks,
-            saveAndUpdateTask,
-            selectedTaskId,
-            setSelectedTaskId,
-          }}
-          amITrash={areWeInTrash}
-        />
+        {isLoadingTasks ? (
+          <LoadingSpinner type="full" />
+        ) : (
+          <>
+            <h2>{areWeInTrash ? "Trash" : "Checklist"}</h2>
+            <Checklist
+              dataManager={{
+                tasks,
+                isLoadingTasks,
+                saveAndUpdateTask,
+                selectedTaskId,
+                setSelectedTaskId,
+              }}
+              amITrash={areWeInTrash}
+            />
+          </>
+        )}
       </MainSpace>
       <SecondarySpace>
         {selectedTaskId !== null && (
