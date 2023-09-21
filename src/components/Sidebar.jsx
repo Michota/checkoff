@@ -2,13 +2,11 @@ import { NavLink, useLocation, useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import Logo from "../ui/Logo";
 import {
-  MdCalendarMonth,
-  MdDelete,
   MdDeleteOutline,
   MdOutlineCalendarMonth,
-  MdTask,
   MdTaskAlt,
 } from "react-icons/md";
+import { useEffect, useState } from "react";
 
 const StyledSidebar = styled.div`
   box-shadow: 0.5rem 0 2rem 0 var(--shadow-color);
@@ -18,6 +16,8 @@ const StyledSidebar = styled.div`
   padding: 2rem;
   font-size: 2.4rem;
   gap: 2rem;
+  width: ${(props) => (!props.$rolled ? "20rem" : "7rem")};
+  transition: width 300ms;
 `;
 
 const StyledUl = styled.ul`
@@ -53,25 +53,33 @@ const StyledSubNavLink = styled(StyledNavLink)`
 
 function Sidebar() {
   const { pathname } = useLocation();
+  const [isRolled, setIsRolled] = useState(true);
 
-  return (
-    <StyledSidebar>
-      <Logo />
-      <StyledUl>
-        <StyledNavLink to="tasks">
-          <MdTaskAlt size="2.5rem" /> Tasks
-        </StyledNavLink>
-        {pathname.includes("/tasks") && (
-          <StyledSubNavLink to="tasks/?trash">
-            <MdDeleteOutline size="2.5rem" /> Trash
-          </StyledSubNavLink>
-        )}
-        <StyledNavLink to="calendar">
-          <MdOutlineCalendarMonth size="2.5rem" /> Calendar
-        </StyledNavLink>
-      </StyledUl>
-    </StyledSidebar>
-  );
+  if (pathname)
+    return (
+      <StyledSidebar
+        $rolled={isRolled}
+        onMouseLeave={(e) => setIsRolled(true)}
+        onMouseEnter={(e) => setIsRolled(false)}
+      >
+        <Logo size="40rem" />
+        <StyledUl>
+          <StyledNavLink to="tasks">
+            <MdTaskAlt size="2.5rem" />
+            {!isRolled && "Tasks"}
+          </StyledNavLink>
+          {pathname.includes("/tasks") && (
+            <StyledSubNavLink to="tasks/?trash">
+              <MdDeleteOutline size="2.5rem" /> {!isRolled && "Trash"}
+            </StyledSubNavLink>
+          )}
+          <StyledNavLink to="calendar">
+            <MdOutlineCalendarMonth size="2.5rem" />
+            {!isRolled && "Calendar"}
+          </StyledNavLink>
+        </StyledUl>
+      </StyledSidebar>
+    );
 }
 
 export default Sidebar;
