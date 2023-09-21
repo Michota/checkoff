@@ -48,6 +48,8 @@ const Date = styled.input`
 const TaskFooter = styled.footer`
   display: flex;
   width: 100%;
+  height: 3.2rem;
+  align-items: center;
   justify-content: space-between;
 `;
 
@@ -82,6 +84,7 @@ function TaskDetails({ data, setState, setSelectedTaskId }) {
             </span>
             <Task.RestoreButton />
           </span>
+
           <Task.Priority />
           <Task.DateTime />
         </TaskFooter>
