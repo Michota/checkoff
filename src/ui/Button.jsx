@@ -51,12 +51,12 @@ function Button({
   children,
   className,
   onClick,
-  type = "default",
+  btnType = "default",
   color,
   size,
   backgroundColor,
 }) {
-  switch (type) {
+  switch (btnType) {
     case "default":
       return (
         <StyledButton

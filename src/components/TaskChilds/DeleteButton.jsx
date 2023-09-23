@@ -6,7 +6,7 @@ function DeleteButton() {
   const { inTrash, deleteTask, id, updateState } = useTaskContext();
   return (
     <Button
-      type="delete"
+      btnType="delete"
       onClick={(e) => {
         if (inTrash) {
           e.stopPropagation();

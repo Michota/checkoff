@@ -7,7 +7,7 @@ function RestoreButton() {
   if (inTrash)
     return (
       <Button
-        type="restore"
+        btnType="restore"
         color="var(--theme-green)"
         onClick={(e) => {
           e.stopPropagation();
