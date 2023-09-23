@@ -81,7 +81,7 @@ function Sidebar() {
             <MdOutlineCalendarMonth size="2.5rem" />
             {!isRolled && "Calendar"}
           </StyledNavLink>
-          <StyledNavLink>
+          <StyledNavLink onClick={logout}>
             <MdLogout size="2.5rem" /> {!isRolled && "Logout"}
           </StyledNavLink>
         </StyledUl>
