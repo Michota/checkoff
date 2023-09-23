@@ -19,6 +19,7 @@ function useTaskData() {
     queryFn: getTasksData,
   });
 
+  // Display notification if internet connection is lost.
   useEffect(
     function () {
       const timeout = setTimeout(() => {
