@@ -4,6 +4,7 @@ import Logo from "../ui/Logo";
 import { useUser } from "../features/authentication/useUser";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
+import Button from "../ui/Button";
 
 const StyledLogin = styled.div`
   width: 100vw;
@@ -33,6 +34,7 @@ function Login() {
     <StyledLogin>
       <Logo size="40rem" />
       <LoginForm />
+      <Button onClick={() => navigate("/signup")}>Sign up new user!</Button>
     </StyledLogin>
   );
 }

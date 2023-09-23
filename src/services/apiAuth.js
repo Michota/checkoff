@@ -28,3 +28,14 @@ export async function logoutApi() {
 
   if (error) throw new Error(error.message);
 }
+
+export async function signUpApi({ email, password }) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
