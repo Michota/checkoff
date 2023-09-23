@@ -10,11 +10,10 @@ export function useLogin() {
   const { mutate: login, isLoading } = useMutation({
     mutationFn: (credentials) => loginApi(credentials),
     onSuccess: (userData) => {
-      queryClient.setQueryData(["user"], userData);
+      queryClient.setQueryData(["user"], userData.user);
       navigate("/tasks");
     },
     onError: (err) => {
-      console.log(err);
       toast.error(`${err.message}`, {
         position: "top-center",
       });
