@@ -15,6 +15,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster, toast } from "react-hot-toast";
 import { IconContext } from "react-icons";
 import Calendar from "./pages/Calendar";
+import Login from "./pages/Login";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,18 +33,29 @@ const queryClient = new QueryClient({
 
 const router = createBrowserRouter([
   {
+    path: "login",
+    element: <Login />,
+    errorElement: <ErrorPage />,
+  },
+  {
     path: "/",
-    element: <Root />,
+    element: <ProtectedRoute />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "tasks",
-        element: <Tasks />,
-        children: [{ path: ":taskId" }, { path: "trash" }],
-      },
-      {
-        path: "calendar",
-        element: <Calendar />,
+        path: "/",
+        element: <Root />,
+        children: [
+          {
+            path: "tasks",
+            element: <Tasks />,
+            children: [{ path: ":taskId" }, { path: "trash" }],
+          },
+          {
+            path: "calendar",
+            element: <Calendar />,
+          },
+        ],
       },
     ],
   },
