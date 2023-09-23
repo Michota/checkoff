@@ -53,6 +53,13 @@ const TaskFooter = styled.footer`
   justify-content: space-between;
 `;
 
+const CloseButton = styled(Button)`
+  background-color: var(--theme-red);
+  aspect-ratio: 1/1;
+  width: 2.4rem;
+  height: 2.4rem;
+`;
+
 function TaskDetails({ data, setState, setSelectedTaskId }) {
   if (!data?.id ?? setSelectedTaskId(null)) return;
   return (
@@ -62,12 +69,9 @@ function TaskDetails({ data, setState, setSelectedTaskId }) {
           <Task.Checkbox />
 
           <Title />
-          <Button
-            backgroundColor={"var(--theme-red)"}
-            onClick={() => setSelectedTaskId(null)}
-          >
+          <CloseButton size="5rem" onClick={() => setSelectedTaskId(null)}>
             <MdClose />
-          </Button>
+          </CloseButton>
         </Header>
         <DescriptionContainer>
           <Description />
