@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import DeleteButton from "../components/TaskChilds/DeleteButton";
 
 const StyledButton = styled.button`
   position: relative;
