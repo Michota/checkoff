@@ -2,6 +2,7 @@ import styled from "styled-components";
 import LoginForm from "../features/authentication/LoginForm";
 import { useUser } from "../features/authentication/useUser";
 import { useNavigate } from "react-router";
+import { useEffect } from "react";
 
 const StyledLogin = styled.div`
   display: grid;
@@ -20,7 +21,12 @@ function Login() {
   const navigate = useNavigate();
   const { isAuthenticated } = useUser();
 
-  if (isAuthenticated) navigate("/");
+  useEffect(
+    function () {
+      if (isAuthenticated) navigate("/");
+    },
+    [isAuthenticated, navigate]
+  );
 
   return (
     <StyledLogin>
