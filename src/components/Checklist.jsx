@@ -1,4 +1,4 @@
-import useCreateNewTask from "../services/useCreateNewTask";
+import useCreateNewTask from "../features/tasks/useCreateNewTask";
 import Task from "./Task";
 import Button from "../ui/Button";
 import { MdAdd } from "react-icons/md";

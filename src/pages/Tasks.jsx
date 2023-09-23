@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import { useState } from "react";
 
 import TaskDetails from "../components/TaskDetails";
-import { useManageTaskData } from "../services/useManageTaskData";
+import { useManageTaskData } from "../features/tasks/useManageTaskData";
 import Checklist from "../components/Checklist";
 import { useParams } from "react-router";
 import { useSearchParams } from "react-router-dom";

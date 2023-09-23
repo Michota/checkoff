@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { styled, css } from "styled-components";
-import useTaskDelete from "../services/useTaskDelete";
+import useTaskDelete from "../features/tasks/useTaskDelete";
 
 import Box from "../ui/Box";
 
