@@ -17,6 +17,7 @@ import { IconContext } from "react-icons";
 import Calendar from "./pages/Calendar";
 import Login from "./pages/Login";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import SingUp from "./pages/SingUp";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,6 +36,11 @@ const router = createBrowserRouter([
   {
     path: "login",
     element: <Login />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "signup",
+    element: <SingUp />,
     errorElement: <ErrorPage />,
   },
   {
