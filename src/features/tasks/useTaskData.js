@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getTasksData } from "../services/tasksAPI";
+import { getTasksData } from "../../services/tasksAPI";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
