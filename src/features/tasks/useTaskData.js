@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getTasksData } from "../../services/tasksAPI";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useUser } from "../authentication/useUser";
 
 /**
  * Stare for storing tasks data and updating it locally.
@@ -9,14 +10,15 @@ import toast from "react-hot-toast";
  * @param setTasksState - setter function for updating local state
  */
 function useTaskData() {
+  const { user } = useUser();
   const {
     isLoading,
     data: tasks,
     error,
     isPaused,
   } = useQuery({
-    queryKey: ["tasks"],
-    queryFn: getTasksData,
+    queryKey: ["tasks", user.id],
+    queryFn: () => getTasksData(user.id),
   });
 
   // Display notification if internet connection is lost.
