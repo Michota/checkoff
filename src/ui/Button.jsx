@@ -6,16 +6,13 @@ const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${(props) => props.$size || "2.4rem"};
-  height: ${(props) => props.$size || "2.4rem"};
   border: none;
-  background-color: ${(props) =>
-    props.$backgroundColor || css`var(--theme-primary)`};
   border-radius: var(--deafult-radius);
-  font-weight: bold;
-  color: ${(props) => props.$textColor || "white"};
-  aspect-ratio: 1 / 1;
-  opacity: 0.6;
+  opacity: 0.8;
+  color: ${(props) => props.$textColor || "var(--theme-white-200)"};
+  background-color: ${(props) => props.$backgroundColor || "transparent"};
+  width: ${(props) => props.$size || "initial"};
+  height: ${(props) => props.$size || "initial"};
 
   &:hover {
     transform: scale(105%);
@@ -49,12 +46,13 @@ const ButtonRestore = styled(StyledButton)`
 
 function Button({
   children,
+  btnType = "default",
   className,
   onClick,
-  btnType = "default",
   color,
-  size,
   backgroundColor,
+  // Dont use it to often.
+  size,
 }) {
   switch (btnType) {
     case "default":
