@@ -3,10 +3,13 @@ import { styled } from "styled-components";
 import Logo from "../ui/Logo";
 import {
   MdDeleteOutline,
+  MdLogout,
   MdOutlineCalendarMonth,
   MdTaskAlt,
 } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Button from "../ui/Button";
+import { useLogout } from "../features/authentication/useLogout";
 
 const StyledSidebar = styled.div`
   box-shadow: 0.5rem 0 2rem 0 var(--shadow-color);
@@ -54,6 +57,7 @@ const StyledSubNavLink = styled(StyledNavLink)`
 function Sidebar() {
   const { pathname } = useLocation();
   const [isRolled, setIsRolled] = useState(true);
+  const { logout, isLoading: isLoggingOut } = useLogout();
 
   if (pathname)
     return (
@@ -76,6 +80,9 @@ function Sidebar() {
           <StyledNavLink to="calendar">
             <MdOutlineCalendarMonth size="2.5rem" />
             {!isRolled && "Calendar"}
+          </StyledNavLink>
+          <StyledNavLink>
+            <MdLogout size="2.5rem" /> {!isRolled && "Logout"}
           </StyledNavLink>
         </StyledUl>
       </StyledSidebar>
