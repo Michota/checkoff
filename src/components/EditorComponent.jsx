@@ -8,27 +8,21 @@ import { useTaskContext } from "./Task";
 const StyledEditorDiv = styled.div`
   width: 100%;
   min-width: 50rem;
+  height: 100%;
 
-  background-color: darkgreen;
+  /* background-color: darkgreen; */
 `;
 
-const DEFAULT_INITIAL_DATA = {
-  time: new Date().getTime(),
-  blocks: [
-    {
-      type: "paragraph",
-      data: {
-        text: "",
-        level: 1,
-      },
-    },
-  ],
+const config = {
+  shortcuts: {
+    undo: "CMD+Z",
+    redo: "CMD+SHIFT+Z",
+  },
 };
 
 const EditorComponent = ({ data: providedData }) => {
   // const [data, setData] = useState(providedData);
   const { descjson, updateState, renderType } = useTaskContext();
-  console.log(descjson);
 
   const ejInstance = useRef();
 
@@ -39,12 +33,12 @@ const EditorComponent = ({ data: providedData }) => {
         ejInstance.current = editor;
       },
       autofocus: true,
-      data: descjson,
+      // read JSON
+      data: JSON.parse(descjson),
       onChange: async (e) => {
         let content = await editor.saver.save();
-
-        console.log(JSON.stringify(content));
-        updateState("descjson", content);
+        // save data as JSON
+        updateState("descjson", JSON.stringify(content));
       },
       tools: {
         header: Header,
