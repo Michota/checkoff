@@ -41,6 +41,7 @@
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.3",
+    "editorjs-drag-drop": "^1.1.13",
     "editorjs-text-color-plugin": "^2.0.4",
     "editorjs-undo": "^2.0.23",
     "eslint": "^8.48.0",

@@ -9,6 +9,7 @@ import Warning from "@editorjs/warning";
 import NestedList from "@editorjs/nested-list";
 import ColorPlugin from "editorjs-text-color-plugin";
 import Strikethrough from "@sotaproject/strikethrough";
+import DragDrop from "editorjs-drag-drop";
 
 import { useTaskContext } from "./Task";
 import styled from "styled-components";
@@ -78,6 +79,8 @@ const tools = {
 const handleReady = (editor, initialData) => {
   const undo = new Undo({ editor });
   undo.initialize(initialData);
+
+  new DragDrop(editor);
 };
 
 const EditorComponent = () => {
