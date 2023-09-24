@@ -1,3 +1,5 @@
+const DEBOUNCE_TIME = 5000;
+
 export default function createDebounce() {
   let timeout;
 
@@ -12,7 +14,7 @@ export default function createDebounce() {
 
     timeout = setTimeout(() => {
       callback();
-    }, 1500);
+    }, DEBOUNCE_TIME);
   };
 
   return { debounce };
