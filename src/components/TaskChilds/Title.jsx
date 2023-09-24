@@ -13,8 +13,8 @@ function Title({ className }) {
 
   return (
     <StyledTitle
+      onClick={(e) => e.stopPropagation()}
       onChange={(e) => {
-        e.stopPropagation();
         updateState("title", e.target.value);
       }}
       value={title}
