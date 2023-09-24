@@ -75,8 +75,9 @@ const tools = {
 };
 
 // allow Undo & Redo shortcuts to work
-const handleReady = (editor) => {
-  new Undo({ editor });
+const handleReady = (editor, initialData) => {
+  const undo = new Undo({ editor });
+  undo.initialize(initialData);
 };
 
 const EditorComponent = () => {
@@ -89,7 +90,7 @@ const EditorComponent = () => {
       holder: "editorjs",
       onReady: () => {
         ejInstance.current = editor;
-        handleReady();
+        handleReady(editor, JSON.parse(descjson));
       },
       autofocus: true,
       // read JSON
