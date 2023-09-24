@@ -11,6 +11,7 @@ import { Description } from "./TaskChilds/Description";
 import { DateTime } from "./TaskChilds/DateTime";
 import RestoreButton from "./TaskChilds/RestoreButton";
 import Priority from "./TaskChilds/Priority";
+import EditorComponent from "./EditorComponent";
 
 // Styling components with StyledComponents
 
@@ -131,7 +132,9 @@ function Task({
 // Compound Component Children as properties
 Task.Checkbox = Checkbox;
 Task.Title = Title;
-Task.Description = Description;
+// ! CHANGED FOR TESTING PURPOSES!
+// Task.Description = Description;
+Task.Description = EditorComponent;
 Task.DeleteButton = DeleteButton;
 Task.DateTime = DateTime;
 Task.RestoreButton = RestoreButton;
