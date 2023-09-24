@@ -13,7 +13,7 @@ const StyledTasksPanel = styled.div`
   grid-template-columns: max-content 1fr;
   column-gap: 2rem;
   height: 100%;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 `;
 
 const MainSpace = styled.div`
@@ -29,7 +29,8 @@ const MainSpace = styled.div`
 `;
 
 const SecondarySpace = styled.div`
-  padding: 1rem;
+  position: relative;
+  margin: 2rem;
 `;
 
 // const x = resolvePath("xyz", "tasks");
