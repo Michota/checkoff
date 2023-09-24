@@ -1,18 +1,20 @@
-import styled from "styled-components";
-import React, { useEffect, useRef, useState } from "react";
 import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import Quote from "@editorjs/quote";
 import SimpleImage from "@editorjs/simple-image";
 import Alert from "editorjs-alert";
-import { useTaskContext } from "./Task";
+import CodeTool from "@editorjs/code";
+import Underline from "@editorjs/underline";
+import Undo from "editorjs-undo";
 
-// ? table css
-// import "../styles/tceditor.css";
+import { useTaskContext } from "./Task";
+import styled from "styled-components";
+import React, { useEffect, useRef, useState } from "react";
+
 import "../styles/editor.css";
-import "../styles/myEditor.css";
 
 const StyledEditorDiv = styled.div`
+  /* color: initial; */
   width: 100%;
   min-width: 50rem;
   height: 100%;
@@ -27,6 +29,10 @@ const config = {
   },
 };
 
+const handleReady = (editor) => {
+  new Undo({ editor });
+};
+
 const EditorComponent = ({ data: providedData }) => {
   // const [data, setData] = useState(providedData);
   const { descjson, updateState, renderType } = useTaskContext();
@@ -38,6 +44,7 @@ const EditorComponent = ({ data: providedData }) => {
       holder: "editorjs",
       onReady: () => {
         ejInstance.current = editor;
+        handleReady();
       },
       autofocus: true,
       // read JSON
@@ -52,6 +59,9 @@ const EditorComponent = ({ data: providedData }) => {
         quote: Quote,
         image: SimpleImage,
         alert: Alert,
+        code: CodeTool,
+        underline: Underline,
+
         // ! tables disabled becasue of bugged CSS
       },
     });
