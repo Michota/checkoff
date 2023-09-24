@@ -84,12 +84,12 @@
 
 .codex-editor ::-moz-selection {
   background-color: var(--inlineSelectionColor);
-  color: black;
+  color: var(--theme-black-200);
 }
 
 .codex-editor ::selection {
   background-color: var(--inlineSelectionColor);
-  color: black;
+  color: var(--theme-black-200);
 }
 
 .codex-editor--toolbox-opened
@@ -482,7 +482,7 @@
   }
 }
 .ce-inline-tool--active {
-  color: #388ae5;
+  color: var(--bg-light);
 }
 .ce-inline-tool--focused {
   background: rgba(34, 186, 255, 0.08) !important;
@@ -1922,6 +1922,63 @@
   background-color: transparent;
 }
 
+/* * ColorPlugin Styles  Styling */
+
+.ce-inline-tool[data-tool="Color"] svg,
+.ce-inline-tool[data-tool="Marker"] svg {
+  fill: var(--theme-black-400) !important;
+  color: var(--theme-white-200) !important;
+}
+
+.colorPlugin.ce-inline-tool--active svg {
+  fill: currentColor !important;
+}
+
+.picker_wrapper.popup {
+  z-index: 99;
+  width: 170px;
+  margin: 0;
+  box-shadow: 0 0 10px 1px var(--drop-shadow);
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+
+.picker_arrow {
+  display: none;
+}
+
+.layout_default .picker_slider,
+.layout_default .picker_selector {
+  padding: 5px;
+}
+
+.colorPlugin.ce-inline-tool {
+  width: 32px;
+  border-radius: 3px;
+  color: var(--theme-white-200);
+}
+
+#color-left-btn {
+  height: 35px;
+  width: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  background: transparent;
+}
+
+#color-left-btn:hover {
+  border-radius: 5px 0 0 5px;
+  background: transparent;
+}
+
+#color-text {
+  padding: 0 4px;
+}
+
+#color-btn-text {
+  height: 15px;
+}
+
 /* ////////////////////////////////////////// */
 /* ! MY OWN CUSTOM STYLING */
 /* css above was also edited... */
@@ -2051,4 +2108,15 @@
   content: "❗" !important;
   font-size: 1.5em;
   width: min-content;
+}
+
+.ce-block a {
+  color: var(--theme-secondary);
+}
+
+:host {
+  background: rgba(0, 0, 0, 0.5) !important;
+}
+#popcon {
+  background: rgba(0, 0, 0, 0.5) !important;
 }
