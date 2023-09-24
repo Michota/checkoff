@@ -26,11 +26,23 @@ const StyledEditorDiv = styled.div`
   /* background-color: darkgreen; */
 `;
 
+// const inlineToolbar = [
+//   "bold",
+//   "italic",
+//   "underline",
+//   "strikethrough",
+//   "color",
+//   "marker",
+//   "list",
+//   "alert",
+//   "warning",
+// ];
+
 // Tools (plugins) for editor
 const tools = {
-  strikethrough: Strikethrough,
-  underline: Underline,
   header: Header,
+  underline: Underline,
+  strikethrough: Strikethrough,
   quote: Quote,
   image: SimpleImage,
   alert: Alert,
@@ -42,7 +54,7 @@ const tools = {
       defaultStyle: "unordered",
     },
   },
-  Color: {
+  color: {
     class: ColorPlugin, // if load from CDN, please try: window.ColorPlugin
     config: {
       colorCollections: [
@@ -63,7 +75,7 @@ const tools = {
       customPicker: true, // add a button to allow selecting any colour
     },
   },
-  Marker: {
+  marker: {
     class: ColorPlugin,
     config: {
       defaultColor: "#FFBF00",
@@ -104,6 +116,8 @@ const EditorComponent = () => {
         updateState("descjson", JSON.stringify(content));
       },
       tools,
+      placeholder: "A place for a description!",
+      logLevel: "ERROR",
     });
   };
 
