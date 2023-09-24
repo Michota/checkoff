@@ -80,7 +80,20 @@ function Priority({ sliderOnly }) {
 
   return (
     <StyledPriorty>
-      <p style={{ fontSize: "0.9em", position: "relative", bottom: 15 }}>
+      <p
+        onClick={(e) => {
+          localPriority = priority;
+          e.preventDefault();
+          e.stopPropagation();
+          updateState("priority", priority + 1 > 3 ? 0 : priority + 1);
+        }}
+        style={{
+          fontSize: "0.9em",
+          position: "relative",
+          bottom: 15,
+          cursor: "pointer",
+        }}
+      >
         {priorityString(localPriority)}
       </p>
       <StyledSlider
