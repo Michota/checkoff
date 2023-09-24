@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useTaskContext } from "../Task";
+import removeTags from "../../utils/removeTags";
 
 const StyledDescription = styled.span`
   font-size: 1.2rem;
@@ -13,6 +14,7 @@ export function Description({ className }) {
   const { descjson, updateState, renderType } = useTaskContext();
   // const descriptionPreview = descjson.blocks[0].data.text;
   const desc = JSON.parse(descjson);
+
   const firstRowOfDesc = desc?.blocks?.at(0)?.data?.text ?? null;
   return (
     <>
@@ -23,7 +25,7 @@ export function Description({ className }) {
             maxLength: 5,
             elipsis: "...",
           })} */}
-          {firstRowOfDesc}
+          {removeTags(firstRowOfDesc)}
         </StyledDescription>
       )}
 
