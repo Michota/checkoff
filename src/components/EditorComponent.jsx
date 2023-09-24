@@ -40,13 +40,25 @@ const StyledEditorDiv = styled.div`
 
 // Tools (plugins) for editor
 const tools = {
-  header: Header,
+  header: {
+    class: Header,
+    inlineToolbar: true,
+  },
   underline: Underline,
   strikethrough: Strikethrough,
-  quote: Quote,
+  quote: {
+    class: Quote,
+    inlineToolbar: true,
+  },
   image: SimpleImage,
-  alert: Alert,
-  warning: Warning,
+  alert: {
+    class: Alert,
+    inlineToolbar: true,
+  },
+  warning: {
+    class: Warning,
+    inlineToolbar: true,
+  },
   list: {
     class: NestedList,
     inlineToolbar: true,
