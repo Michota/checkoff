@@ -2,10 +2,10 @@
 /* ! MY OWN STYLING */
 /* ////////////////////////////////////////// */
 
-#editorjs > * {
+/* #editorjs > * {
   background-color: inherit;
   color: inherit;
-}
+} */
 
 /* .ce-block--selected .ce-block__content, */
 .ce-inline-toolbar,
@@ -17,9 +17,9 @@
 .cdx-button,
 .ce-popover,
 .ce-toolbar__plus:hover {
-  background: var(--theme-black-200);
+  background: var(--theme-black-250);
   color: inherit;
-  border: solid 0.1rem var(--theme-white-200);
+  border: none;
 }
 
 .ce-block--selected .ce-block__content {
@@ -62,19 +62,23 @@
 
 .ce-popover-item__icon {
   background-color: transparent;
-  border: solid 0.1rem var(--theme-white-200);
+  border: transparent;
   outline: transparent;
+}
+
+.ce-popover-item__icon:hover {
+  border: inherit;
 }
 
 .ce-popover-item__icon {
   background-color: transparent;
-  border: solid 0.1rem var(--theme-white-200);
+  border: inherit;
 }
 
 .ce-popover-item > * {
   border: transparent;
   outline: transparent;
-  border: initial;
+  border: transparent;
   color: var(--theme-white-200);
 }
 

@@ -1,14 +1,13 @@
+import styled from "styled-components";
 import React, { useEffect, useRef, useState } from "react";
 import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import Quote from "@editorjs/quote";
 import SimpleImage from "@editorjs/simple-image";
 import Alert from "editorjs-alert";
-import Table from "@editorjs/table";
-// !
-import styled from "styled-components";
 import { useTaskContext } from "./Task";
 
+// ? table css
 // import "../styles/tceditor.css";
 import "../styles/editor.css";
 import "../styles/myEditor.css";
@@ -54,7 +53,6 @@ const EditorComponent = ({ data: providedData }) => {
         image: SimpleImage,
         alert: Alert,
         // ! tables disabled becasue of bugged CSS
-        // table: Table,
       },
     });
   };
