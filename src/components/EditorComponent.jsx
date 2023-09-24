@@ -3,9 +3,9 @@ import Header from "@editorjs/header";
 import Quote from "@editorjs/quote";
 import SimpleImage from "@editorjs/simple-image";
 import Alert from "editorjs-alert";
-import CodeTool from "@editorjs/code";
 import Underline from "@editorjs/underline";
 import Undo from "editorjs-undo";
+import Warning from "@editorjs/warning";
 
 import { useTaskContext } from "./Task";
 import styled from "styled-components";
@@ -59,8 +59,8 @@ const EditorComponent = ({ data: providedData }) => {
         quote: Quote,
         image: SimpleImage,
         alert: Alert,
-        code: CodeTool,
         underline: Underline,
+        warning: Warning,
 
         // ! tables disabled becasue of bugged CSS
       },

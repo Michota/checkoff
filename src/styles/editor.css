@@ -2045,3 +2045,10 @@
   fill: var(--theme-black-250) !important;
   stroke: var(--theme-black-200) !important;
 }
+
+.cdx-warning::before {
+  background-image: none !important;
+  content: "❗" !important;
+  font-size: 1.5em;
+  width: min-content;
+}
