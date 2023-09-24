@@ -798,7 +798,7 @@
   margin-top: 0;
 }
 .ce-block--selected .ce-block__content {
-  background: #e1f2ff;
+  background: var(--theme-black-300) !important;
 }
 .ce-block--selected .ce-block__content [contenteditable] {
   -webkit-user-select: none;
