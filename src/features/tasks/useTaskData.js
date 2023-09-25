@@ -61,7 +61,7 @@ function useTaskData() {
     10000
   );
 
-  function setLocalAndUpdate(newLocalTasksState) {
+  function setLocalAndUpdateRemote(newLocalTasksState) {
     // Update local state
     setTasksState(newLocalTasksState);
     // Update remote state a few seconds after user will stop updating local state.
@@ -76,7 +76,7 @@ function useTaskData() {
     [tasks]
   );
 
-  return { isLoading, tasksState, error, setLocalAndUpdate };
+  return { isLoading, tasksState, error, setLocalAndUpdateRemote };
 }
 
 export default useTaskData;
