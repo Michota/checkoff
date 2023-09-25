@@ -50,7 +50,6 @@ function useTaskData() {
 
   const debounceUpdate = useDebouncedCallback(
     () => {
-      console.log(isUpdating);
       const updatedTasks = tasksState.filter(
         (task) =>
           JSON.stringify(task) !==
