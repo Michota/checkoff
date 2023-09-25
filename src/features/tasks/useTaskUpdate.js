@@ -9,9 +9,9 @@ function useUpdateTask() {
     mutationKey: ["tasks"],
     mutationFn: (tasks) => {
       return toast.promise(updateAllTasksData(tasks), {
-        loading: "Updating task...",
-        success: "Task was sucesfully updated!",
-        error: "There was an error! Task was not updated.",
+        loading: "Updating tasks...",
+        success: "Tasks were sucesfully updated!",
+        error: "There was an error! Tasks were not updated.",
       });
     },
     onSuccess: () => {
