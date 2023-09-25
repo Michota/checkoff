@@ -60,7 +60,7 @@ function useTaskData() {
       isUpdating = false;
     },
     // The time that must elapse to run the update
-    10000
+    5000
   );
 
   function setLocalAndUpdateRemote(newLocalTasksState) {
