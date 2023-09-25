@@ -11,7 +11,6 @@ export function useManageTaskData() {
   const { isUpdating: isUpdatingTasks } = useUpdateTask();
 
   function saveAndUpdateTask(updatedTask) {
-    // set
     setLocalAndUpdateRemote(
       tasks.map((task) => (task.id !== updatedTask.id ? task : updatedTask))
     );
