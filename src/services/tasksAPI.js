@@ -25,7 +25,6 @@ async function updateTaskData(task) {
 }
 
 async function updateAllTasksData(tasks) {
-  console.log(tasks);
   const { data, error } = await supabase.from("tasks").upsert(tasks).select();
 
   return data;

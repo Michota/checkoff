@@ -3,11 +3,8 @@ import { getTasksData } from "../../services/tasksAPI";
 import { useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useUser } from "../authentication/useUser";
-import createDebounce from "../../utils/debounce";
 import useUpdateTask from "./useTaskUpdate";
 import { useDebouncedCallback } from "use-debounce";
-
-// const { debounce } = createDebounce();
 
 /**
  * Stare for storing tasks data and updating it locally.
@@ -49,43 +46,29 @@ function useTaskData() {
 
   const [tasksState, setTasksState] = useState(tasks);
 
-  // const { processChange: debounce } = createDebounce();
-  const { updateTask: update, isUpdating: isUpdatingTasks } = useUpdateTask();
+  const { updateTask: update } = useUpdateTask();
 
-  // const isInitialMount = useRef(true);
-
-  // useEffect(() => {
-  //   if (isInitialMount.current) {
-  //     isInitialMount.current = false;
-  //   } else {
-  //     // Your useEffect code here to be run on update
-  //     console.log("UPDATE!!!");
-  //   }
-  // });
-  const debounced = useDebouncedCallback(() => {
-    const updatedTasks = tasksState.filter(
-      (task) =>
-        JSON.stringify(task) !==
-        JSON.stringify(tasks.find((oldTask) => oldTask.id === task.id))
-    );
-    // updatedTasks.forEach((task) => update(task));
-    update(updatedTasks);
-  }, 10000);
+  const debounceUpdate = useDebouncedCallback(
+    () => {
+      const updatedTasks = tasksState.filter(
+        (task) =>
+          JSON.stringify(task) !==
+          JSON.stringify(tasks.find((oldTask) => oldTask.id === task.id))
+      );
+      update(updatedTasks);
+    },
+    // The time that must elapse to run the update
+    10000
+  );
 
   function setLocalAndUpdate(newLocalTasksState) {
-    // 1. update tasks locally
-    // 2. debounce
-    // 3. if debounced timeout, run update for every
-    // 3.1 tasksState.forEach(task => JSON.stringify(task) === JSON.stringify(oldTasks.find(oldTask.id === task.id)))
+    // Update local state
     setTasksState(newLocalTasksState);
-    // console.log(newLocalTasksState);
-
-    // console.log(updatedTasks);
-    debounced();
-    // updatedTasks.forEach((task) => update(task));
-    // console.log(debouncedMemo);
+    // Update remote state a few seconds after user will stop updating local state.
+    debounceUpdate();
   }
 
+  // Check whether remote state was updated and if it was then update local state.
   useEffect(
     function () {
       setTasksState(tasks);
