@@ -68,8 +68,9 @@ function useTaskData() {
         JSON.stringify(task) !==
         JSON.stringify(tasks.find((oldTask) => oldTask.id === task.id))
     );
-    updatedTasks.forEach((task) => update(task));
-  }, 3000);
+    // updatedTasks.forEach((task) => update(task));
+    update(updatedTasks);
+  }, 10000);
 
   function setLocalAndUpdate(newLocalTasksState) {
     // 1. update tasks locally
