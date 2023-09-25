@@ -11,7 +11,7 @@ import { useDebouncedCallback } from "use-debounce";
  * @param taskState - array containing all the tasks
  * @param setLocalTaskState - setter function for updating local state
  */
-
+let isUpdating;
 function useTaskData() {
   const { user } = useUser();
   const {
@@ -50,18 +50,21 @@ function useTaskData() {
 
   const debounceUpdate = useDebouncedCallback(
     () => {
+      console.log(isUpdating);
       const updatedTasks = tasksState.filter(
         (task) =>
           JSON.stringify(task) !==
           JSON.stringify(tasks.find((oldTask) => oldTask.id === task.id))
       );
       update(updatedTasks);
+      isUpdating = false;
     },
     // The time that must elapse to run the update
     10000
   );
 
   function setLocalAndUpdateRemote(newLocalTasksState) {
+    isUpdating = true;
     // Update local state
     setTasksState(newLocalTasksState);
     // Update remote state a few seconds after user will stop updating local state.
@@ -71,12 +74,12 @@ function useTaskData() {
   // Check whether remote state was updated and if it was then update local state.
   useEffect(
     function () {
-      setTasksState(tasks);
+      if (!isUpdating) setTasksState(tasks);
     },
     [tasks]
   );
 
-  return { isLoading, tasksState, error, setLocalAndUpdateRemote };
+  return { isLoading, tasksState, error, setLocalAndUpdateRemote, isUpdating };
 }
 
 export default useTaskData;
