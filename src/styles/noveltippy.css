@@ -1,0 +1,42 @@
+/* ! MY STYLES */
+
+.tippy-box {
+  background-color: transparent;
+  color: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+#slash-command {
+  background: var(--theme-black-200);
+  border: 1px solid var(--theme-white-200);
+  min-width: 25rem;
+  max-width: max-content;
+}
+
+#slash-command > button:hover,
+#slash-command > button:focus,
+#slash-command > button:active {
+  background: var(--theme-black-250) !important;
+}
+
+#slash-command * {
+  /* font-size: 1.6rem; */
+  background-color: transparent;
+}
+#slash-command > button {
+  font-size: 1.6rem;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+#slash-command {
+}
+
+#slash-command > * .text-xs {
+  font-size: 0.7em;
+}
+
+#slash-command > * svg {
+  stroke: var(--theme-white-200);
+}
