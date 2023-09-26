@@ -1,0 +1,89 @@
+diff --git a/node_modules/novel/dist/index.js b/node_modules/novel/dist/index.js
+index 5f2089c..57c0fd0 100644
+--- a/node_modules/novel/dist/index.js
++++ b/node_modules/novel/dist/index.js
+@@ -16667,14 +16667,19 @@ function Editor2({
+   onDebouncedUpdate = () => {
+   },
+   debounceDuration = 750,
+-  storageKey = "novel__content"
++  storageKey = "kutas",
++   disableStorage = false,
+ }) {
+   const [content, setContent] = use_local_storage_default(storageKey, defaultValue);
+   const [hydrated, setHydrated] = (0, import_react10.useState)(false);
+   const debouncedUpdates = (0, import_use_debounce.useDebouncedCallback)((_0) => __async(this, [_0], function* ({ editor: editor2 }) {
+     const json = editor2.getJSON();
+-    setContent(json);
++
+     onDebouncedUpdate(editor2);
++    
++    if (!disableStorage) {
++      setContent(json);
++    }
+   }), debounceDuration);
+   const editor = (0, import_react11.useEditor)({
+     extensions: [...defaultExtensions, ...extensions],
+@@ -16758,11 +16763,15 @@ function Editor2({
+     };
+   }, [stop, isLoading, editor, complete, completion.length]);
+   (0, import_react10.useEffect)(() => {
+-    if (editor && content && !hydrated) {
+-      editor.commands.setContent(content);
++    if (!editor || hydrated) return;
++
++    const value = disableStorage ? defaultValue : content;
++
++    if (value) {
++      editor.commands.setContent(value);
+       setHydrated(true);
+     }
+-  }, [editor, content, hydrated]);
++  }, [editor, defaultValue, content, hydrated]);
+   return /* @__PURE__ */ (0, import_jsx_runtime9.jsxs)(
+     "div",
+     {
+diff --git a/node_modules/novel/dist/index.mjs b/node_modules/novel/dist/index.mjs
+index 9cd8fca..8f41f31 100644
+--- a/node_modules/novel/dist/index.mjs
++++ b/node_modules/novel/dist/index.mjs
+@@ -16672,14 +16672,18 @@ function Editor2({
+   onDebouncedUpdate = () => {
+   },
+   debounceDuration = 750,
+-  storageKey = "novel__content"
++  storageKey = "kutas",
++  disableStorage = true
+ }) {
+   const [content, setContent] = use_local_storage_default(storageKey, defaultValue);
+   const [hydrated, setHydrated] = useState4(false);
+   const debouncedUpdates = useDebouncedCallback((_0) => __async(this, [_0], function* ({ editor: editor2 }) {
+     const json = editor2.getJSON();
+-    setContent(json);
++
+     onDebouncedUpdate(editor2);
++     if (!disableStorage) {
++      setContent(json);
++    }
+   }), debounceDuration);
+   const editor = useEditor({
+     extensions: [...defaultExtensions, ...extensions],
+@@ -16763,11 +16767,15 @@ function Editor2({
+     };
+   }, [stop, isLoading, editor, complete, completion.length]);
+   useEffect5(() => {
+-    if (editor && content && !hydrated) {
+-      editor.commands.setContent(content);
++    if (!editor || hydrated) return;
++
++    const value = disableStorage ? defaultValue : content;
++
++    if (value) {
++      editor.commands.setContent(value);
+       setHydrated(true);
+     }
+-  }, [editor, content, hydrated]);
++   }, [editor, defaultValue, content, hydrated]);
+   return /* @__PURE__ */ jsxs8(
+     "div",
+     {

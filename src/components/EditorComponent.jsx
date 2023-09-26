@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 import "../styles/editor.css";
+import { Editor } from "novel";
 
 const StyledEditorDiv = styled.div`
   /* color: initial; */
@@ -12,7 +13,7 @@ const StyledEditorDiv = styled.div`
 `;
 
 function EditorComponent() {
-  return <p>s</p>;
+  return <Editor disableStorage={true}>s</Editor>;
 }
 
 export default EditorComponent;
