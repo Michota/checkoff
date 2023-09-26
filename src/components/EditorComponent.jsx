@@ -3,6 +3,7 @@ import styled from "styled-components";
 import "../styles/editor.css";
 import { Editor } from "novel";
 import { useState } from "react";
+import { useTaskContext } from "./Task";
 
 const StyledEditorDiv = styled.div`
   /* color: initial; */
@@ -14,8 +15,15 @@ const StyledEditorDiv = styled.div`
 `;
 
 function EditorComponent() {
+  const { descjson, updateState, renderType } = useTaskContext();
   return (
-    <Editor disableStorage={true} defaultValue={"xD!"} onUpdate={}>
+    <Editor
+      disableStorage={true}
+      defaultValue={JSON.parse(descjson)}
+      onUpdate={(e) =>
+        updateState("descjson", JSON.stringify(e.getJSON().content))
+      }
+    >
       s
     </Editor>
   );
