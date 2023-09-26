@@ -1,7 +1,7 @@
 import { Editor } from "novel";
 import styled from "styled-components";
 import { useTaskContext } from "./Task";
-
+import Placeholder from "@tiptap/extension-placeholder";
 import "../styles/noveltippy.css";
 
 const StyledEditorDiv = styled(Editor)`
@@ -28,8 +28,10 @@ function EditorComponent() {
   const { descjson, updateState, renderType } = useTaskContext();
   return (
     <StyledEditorDiv
+      extensions={[]}
       disableStorage={true}
       defaultValue={JSON.parse(descjson)}
+      className="novelEditor"
       onUpdate={(e) => {
         // Save content
         console.log(e);
