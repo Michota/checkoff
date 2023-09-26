@@ -7,6 +7,7 @@ import Checklist from "../components/Checklist";
 import { useParams } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import LoadingSpinner from "../ui/LoadingSpinner";
+import SearchBar from "../components/SearchBar";
 
 const StyledTasksPanel = styled.div`
   display: grid;
@@ -42,18 +43,28 @@ function Tasks() {
   const areWeInTrash = searchParams.has("trash");
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const { tasks, isLoadingTasks, saveAndUpdateTask } = useManageTaskData();
+  const [tasksFound, setTasksFound] = useState([]);
+
+  // console.log(tasks.find((element) => element["title"] === "novelss"));
+  console.log("!!!", tasksFound.length > 0 ? tasksFound : tasks);
 
   return (
     <StyledTasksPanel>
       <MainSpace>
+        <SearchBar
+          searchParameter="title"
+          whereToSearch={tasks}
+          setResultsFn={setTasksFound}
+        />
         {isLoadingTasks ? (
           <LoadingSpinner type="full" />
         ) : (
           <>
             <h2>{areWeInTrash ? "Trash" : "Checklist"}</h2>
-            <Checklist
+              <Checklist
+                key={}
               dataManager={{
-                tasks,
+                tasks: tasksFound.length > 0 ? tasksFound : tasks,
                 isLoadingTasks,
                 saveAndUpdateTask,
                 selectedTaskId,
