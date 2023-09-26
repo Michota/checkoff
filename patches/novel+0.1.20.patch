@@ -1,8 +1,86 @@
 diff --git a/node_modules/novel/dist/index.js b/node_modules/novel/dist/index.js
-index 5f2089c..f4de1d3 100644
+index 5f2089c..68d3f65 100644
 --- a/node_modules/novel/dist/index.js
 +++ b/node_modules/novel/dist/index.js
-@@ -16667,14 +16667,19 @@ function Editor2({
+@@ -1091,38 +1091,31 @@ var defaultExtensions = [
+   import_starter_kit.default.configure({
+     bulletList: {
+       HTMLAttributes: {
+-        class: "list-disc list-outside leading-3 -mt-2"
+       }
+     },
+     orderedList: {
+       HTMLAttributes: {
+-        class: "list-decimal list-outside leading-3 -mt-2"
+       }
+     },
+     listItem: {
+       HTMLAttributes: {
+-        class: "leading-normal -mb-2"
+       }
+     },
+     blockquote: {
+       HTMLAttributes: {
+-        class: "border-l-4 border-stone-700"
+       }
+     },
+     codeBlock: {
+       HTMLAttributes: {
+-        class: "rounded-sm bg-stone-100 p-5 font-mono font-medium text-stone-800"
+       }
+     },
+     code: {
+       HTMLAttributes: {
+-        class: "rounded-md bg-stone-200 px-1.5 py-1 font-mono font-medium text-stone-900",
+         spellcheck: "false"
+       }
+     },
+     horizontalRule: false,
+     dropcursor: {
+-      color: "#DBEAFE",
+       width: 4
+     },
+     gapcursor: false
+@@ -1148,12 +1141,10 @@ var defaultExtensions = [
+     }
+   }).configure({
+     HTMLAttributes: {
+-      class: "mt-4 mb-6 border-t border-stone-300"
+     }
+   }),
+   import_extension_link.default.configure({
+     HTMLAttributes: {
+-      class: "text-stone-400 underline underline-offset-[3px] hover:text-stone-600 transition-colors cursor-pointer"
+     }
+   }),
+   import_extension_image2.default.extend({
+@@ -1163,12 +1154,10 @@ var defaultExtensions = [
+   }).configure({
+     allowBase64: true,
+     HTMLAttributes: {
+-      class: "rounded-lg border border-stone-200"
+     }
+   }),
+   updated_image_default.configure({
+     HTMLAttributes: {
+-      class: "rounded-lg border border-stone-200"
+     }
+   }),
+   import_extension_placeholder.default.configure({
+@@ -1189,12 +1178,10 @@ var defaultExtensions = [
+   }),
+   import_extension_task_list.default.configure({
+     HTMLAttributes: {
+-      class: "not-prose pl-2"
+     }
+   }),
+   import_extension_task_item.default.configure({
+     HTMLAttributes: {
+-      class: "flex items-start my-4"
+     },
+     nested: true
+   }),
+@@ -16667,14 +16654,19 @@ function Editor2({
    onDebouncedUpdate = () => {
    },
    debounceDuration = 750,
@@ -24,7 +102,7 @@ index 5f2089c..f4de1d3 100644
    }), debounceDuration);
    const editor = (0, import_react11.useEditor)({
      extensions: [...defaultExtensions, ...extensions],
-@@ -16758,11 +16763,15 @@ function Editor2({
+@@ -16758,11 +16750,15 @@ function Editor2({
      };
    }, [stop, isLoading, editor, complete, completion.length]);
    (0, import_react10.useEffect)(() => {
