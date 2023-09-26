@@ -8,7 +8,7 @@ const StyledRoot = styled.div`
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: var(--theme-black-200);
+  background-color: var(--theme-black-100);
   color: var(--theme-white-100);
 `;
 
