@@ -31,7 +31,7 @@ const GlobalStyles = createGlobalStyle`
   --theme-red: #ff7d7d;
   --theme-green: #8aff95;
 
-  --deafult-radius: 6px;
+  --default-radius: 6px;
   --drop-shadow: 0px 2px 10px 0px var(--shadow-color);
   --shadow-color: rgba(0,0,0, 0.3)
 }

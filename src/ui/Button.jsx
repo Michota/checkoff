@@ -7,7 +7,7 @@ const StyledButton = styled.button`
   justify-content: center;
   align-items: center;
   border: none;
-  border-radius: var(--deafult-radius);
+  border-radius: var(--default-radius);
   opacity: 0.8;
   color: ${(props) => props.$textColor || "var(--theme-white-200)"};
   background-color: ${(props) => props.$backgroundColor || "transparent"};
