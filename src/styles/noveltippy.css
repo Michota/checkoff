@@ -30,7 +30,10 @@
   padding: 1rem 0;
 }
 
-#slash-command {
+/* ! Dont display "Continue writing with AI" */
+#slash-command button:nth-child(1),
+#slash-command button:nth-child(2) {
+  display: none;
 }
 
 #slash-command > * .text-xs {
