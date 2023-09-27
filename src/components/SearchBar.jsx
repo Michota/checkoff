@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledSearchBar = styled.input`
@@ -52,27 +52,25 @@ function SearchBar({
   // * if mode is "filter" then search trough provided array
   // * if mode is set to "url" then use URL as return point for search parameters
   mode = "filter",
-  searchParameter = "",
+  searchParameters = [""],
   whereToSearch = [],
 }) {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(
-    function () {
-      if (mode !== "filter")
-        navigate({
-          search: `?${createSearchParams({ [searchParameter]: searchQuery })}`,
-        });
-    },
-    [navigate, searchParameter, searchQuery, mode]
-  );
+  function setParams(newParams) {
+    const params = searchParameters.map((sP) => {
+      return [sP, newParams];
+    });
+    navigate({
+      search: `?${createSearchParams(params)}`,
+    });
+  }
 
   if (mode === "filter") {
     const searchResults = whereToSearch?.filter((element) =>
-      element[searchParameter].includes(searchQuery)
+      element[searchParameters].includes(searchQuery)
     );
-    console.log(searchResults);
   }
 
   return (
@@ -81,6 +79,7 @@ function SearchBar({
       value={searchQuery}
       onChange={(e) => {
         setSearchQuery(e.target.value);
+        setParams(e.target.value);
       }}
     />
   );
