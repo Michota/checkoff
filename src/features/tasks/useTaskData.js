@@ -6,6 +6,8 @@ import { useUser } from "../authentication/useUser";
 import useUpdateTask from "./useTaskUpdate";
 import { useDebouncedCallback } from "use-debounce";
 
+const DEBOUNCE_TIME = 2500;
+
 /**
  * Stare for storing tasks data and updating it locally.
  * @param taskState - array containing all the tasks
@@ -59,7 +61,7 @@ function useTaskData() {
       isUpdating = false;
     },
     // The time that must elapse to run the update
-    5000
+    DEBOUNCE_TIME
   );
 
   function setLocalAndUpdateRemote(newLocalTasksState) {
