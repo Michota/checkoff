@@ -12,6 +12,8 @@ import { DateTime } from "./TaskChilds/DateTime";
 import RestoreButton from "./TaskChilds/RestoreButton";
 import Priority from "./TaskChilds/Priority";
 import EditorComponent from "./EditorComponent";
+import { useLocation, useNavigate } from "react-router";
+import { useSelectedTaskContext } from "../contexts/selectedTaskContext";
 
 // Styling components with StyledComponents
 
@@ -71,15 +73,7 @@ function useTaskContext() {
 }
 
 // * Main Component
-function Task({
-  children,
-  data,
-  setSelectedTaskId,
-  setState,
-  renderType = "tab",
-}) {
-  const amICompound = renderType === "compound";
-
+function Task({ children, data, setState, renderType = "tab" }) {
   // * Managing data
   const { deleteTask } = useTaskDelete();
   function updateState(columnName, newData) {
@@ -89,9 +83,11 @@ function Task({
   // * Data (value atr.) for TaskContext.Provider
   const valueProvider = { ...data, updateState, renderType, deleteTask };
 
+  const { taskId, setTaskId: setSelectedTaskId } = useSelectedTaskContext();
+
   return (
     <TaskContext.Provider value={valueProvider}>
-      {!amICompound && (
+      {renderType !== "compound" && (
         <StyledTask
           $inTrash={data.inTrash}
           $isCompleted={data.isCompleted}
@@ -124,7 +120,7 @@ function Task({
         </StyledTask>
       )}
       {/* Render task as compound component */}
-      {amICompound && <>{children}</>}
+      {renderType === "compound" && <>{children}</>}
     </TaskContext.Provider>
   );
 }

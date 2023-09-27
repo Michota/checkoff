@@ -7,6 +7,7 @@ import Checklist from "../components/Checklist";
 import { useLocation } from "react-router-dom";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import SearchBar from "../components/SearchBar";
+import { useSelectedTaskContext } from "../contexts/selectedTaskContext";
 
 const StyledTasksPanel = styled.div`
   display: grid;
@@ -41,8 +42,9 @@ function Tasks() {
   const location = useLocation();
   const areWeInTrash = location.state === "trash";
 
-  const [selectedTaskId, setSelectedTaskId] = useState(null);
   const { tasks, isLoadingTasks, saveAndUpdateTask } = useManageTaskData();
+
+  const { taskId: selectedTaskId } = useSelectedTaskContext();
 
   return (
     <StyledTasksPanel>
@@ -59,7 +61,6 @@ function Tasks() {
                 tasks,
                 isLoadingTasks,
                 saveAndUpdateTask,
-                setSelectedTaskId,
               }}
               amITrash={areWeInTrash}
             />
@@ -70,8 +71,7 @@ function Tasks() {
         {selectedTaskId !== null && (
           <TaskDetails
             setState={saveAndUpdateTask}
-            data={tasks.find((task) => task.id === selectedTaskId)}
-            setSelectedTaskId={setSelectedTaskId}
+            data={tasks?.find((task) => task.id === selectedTaskId)}
           />
         )}
       </SecondarySpace>
