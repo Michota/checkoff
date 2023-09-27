@@ -41,15 +41,11 @@ function Tasks() {
   const areWeInTrash = searchParams.has("trash");
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const { tasks, isLoadingTasks, saveAndUpdateTask } = useManageTaskData();
-  const searchByParameter = "title";
-
-  // console.log(tasks.find((element) => element["title"] === "novelss"));
-  // console.log("!!!", tasksFound.length > 0 ? tasksFound : tasks);
 
   return (
     <StyledTasksPanel>
       <MainSpace>
-        <SearchBar mode="url" searchParameter={searchByParameter} />
+        <SearchBar mode="url" searchParameters={["title"]} />
         {isLoadingTasks ? (
           <LoadingSpinner type="full" />
         ) : (
