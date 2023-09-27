@@ -4,7 +4,7 @@ import { useState } from "react";
 import TaskDetails from "../components/TaskDetails";
 import { useManageTaskData } from "../features/tasks/useManageTaskData";
 import Checklist from "../components/Checklist";
-import { useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import SearchBar from "../components/SearchBar";
 
@@ -37,8 +37,10 @@ const SecondarySpace = styled.div`
 // console.log(x);
 
 function Tasks() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const areWeInTrash = searchParams.has("trash");
+  // Decide whether to render Tasks or deleted tasks.
+  const location = useLocation();
+  const areWeInTrash = location.state === "trash";
+
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const { tasks, isLoadingTasks, saveAndUpdateTask } = useManageTaskData();
 
@@ -54,7 +56,7 @@ function Tasks() {
             <Checklist
               // key={}
               dataManager={{
-                tasks: tasks,
+                tasks,
                 isLoadingTasks,
                 saveAndUpdateTask,
                 setSelectedTaskId,

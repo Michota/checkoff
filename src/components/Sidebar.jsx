@@ -73,7 +73,7 @@ function Sidebar() {
             {!isRolled && "Tasks"}
           </StyledNavLink>
           {pathname.includes("/tasks") && (
-            <StyledSubNavLink to="tasks/?trash">
+            <StyledSubNavLink to="tasks" state={"trash"}>
               <MdDeleteOutline size="2.5rem" /> {!isRolled && "Trash"}
             </StyledSubNavLink>
           )}
