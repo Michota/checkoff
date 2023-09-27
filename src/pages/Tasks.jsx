@@ -42,9 +42,14 @@ function Tasks() {
   const location = useLocation();
   const areWeInTrash = location.state === "trash";
 
-  const { tasks, isLoadingTasks, saveAndUpdateTask } = useManageTaskData();
+  // const { tasks, isLoadingTasks, saveAndUpdateTask } = useManageTaskData();
 
-  const { taskId: selectedTaskId } = useSelectedTaskContext();
+  const {
+    taskId: selectedTaskId,
+    tasks,
+    isLoadingTasks,
+    saveAndUpdateTask,
+  } = useSelectedTaskContext();
 
   return (
     <StyledTasksPanel>
@@ -67,13 +72,7 @@ function Tasks() {
           </>
         )}
       </MainSpace>
-      <SecondarySpace>
-        {selectedTaskId !== null && (
-          <TaskDetails
-            data={tasks?.find((task) => task.id === selectedTaskId)}
-          />
-        )}
-      </SecondarySpace>
+      <SecondarySpace>{selectedTaskId && <TaskDetails />}</SecondarySpace>
     </StyledTasksPanel>
   );
 }

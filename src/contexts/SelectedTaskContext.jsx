@@ -16,7 +16,17 @@ function SelectedTaskProvider({ children }) {
   } = useManageTaskData();
 
   return (
-    <SelectedTaskContext.Provider value={{ taskId, setTaskId }}>
+    <SelectedTaskContext.Provider
+      value={{
+        taskId,
+        setTaskId,
+        saveAndUpdateTask,
+        tasks,
+        setTasks,
+        isLoadingTasks,
+        isUpdatingTasks,
+      }}
+    >
       {children}
     </SelectedTaskContext.Provider>
   );

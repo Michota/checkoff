@@ -78,15 +78,13 @@ const CloseButton = styled(Button)`
 // };
 
 function TaskDetails() {
-  const { taskId: selectedTaskId, setTaskId: setSelectedTaskId } =
-    useSelectedTaskContext();
   const {
+    taskId: selectedTaskId,
+    setTaskId: setSelectedTaskId,
     saveAndUpdateTask,
     tasks,
-    setTasks,
-    isLoadingTasks,
-    isUpdatingTasks,
-  } = useManageTaskData();
+  } = useSelectedTaskContext();
+
   const data = tasks?.find((task) => task.id === selectedTaskId);
   if (!data?.id ?? setSelectedTaskId(null)) return;
   return (
