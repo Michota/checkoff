@@ -1,13 +1,11 @@
 import { styled } from "styled-components";
-import { useState } from "react";
 
 import TaskDetails from "../components/TaskDetails";
-import { useManageTaskData } from "../features/tasks/useManageTaskData";
 import Checklist from "../components/Checklist";
 import { useLocation } from "react-router-dom";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import SearchBar from "../components/SearchBar";
-import { useSelectedTaskContext } from "../contexts/selectedTaskContext";
+import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 
 const StyledTasksPanel = styled.div`
   display: grid;
@@ -44,12 +42,8 @@ function Tasks() {
 
   // const { tasks, isLoadingTasks, saveAndUpdateTask } = useManageTaskData();
 
-  const {
-    taskId: selectedTaskId,
-    tasks,
-    isLoadingTasks,
-    saveAndUpdateTask,
-  } = useSelectedTaskContext();
+  const { selectedTaskId, tasks, isLoadingTasks, saveAndUpdateTask } =
+    useGeneralTasksProvider();
 
   return (
     <StyledTasksPanel>

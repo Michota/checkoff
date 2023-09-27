@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { styled } from "styled-components";
 import Sidebar from "../components/Sidebar";
-import SelectedTaskProvider from "../contexts/selectedTaskContext";
+import GeneralTasksProvider from "../contexts/GeneralTasksContext";
 
 const StyledRoot = styled.div`
   display: grid;
@@ -22,12 +22,12 @@ const Main = styled.main`
 function Root() {
   return (
     <StyledRoot>
-      <SelectedTaskProvider>
+      <GeneralTasksProvider>
         <Sidebar />
         <Main>
           <Outlet />
         </Main>
-      </SelectedTaskProvider>
+      </GeneralTasksProvider>
     </StyledRoot>
   );
 }

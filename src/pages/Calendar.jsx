@@ -5,7 +5,7 @@ import styled from "styled-components";
 import useCreateNewTask from "../features/tasks/useCreateNewTask";
 
 import CallendarEvent from "../components/CallendarEvent";
-import { useManageTaskData } from "../features/tasks/useManageTaskData";
+import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 
 const CalendarContainer = styled.div`
   height: 100%;
@@ -45,7 +45,7 @@ function Calendar() {
   const { createTask } = useCreateNewTask();
   // const { isLoading, tasksState, setTasksState } = useTaskData();
   // const { updateTask, isUpdating } = useUpdateTask();
-  const { tasks, saveAndUpdateTask } = useManageTaskData();
+  const { tasks, saveAndUpdateTask } = useGeneralTasksProvider();
 
   function openEventDialog(eventId) {
     // console.log(tasks.find((task) => eventId === task.id));

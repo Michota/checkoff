@@ -12,7 +12,7 @@ import { DateTime } from "./TaskChilds/DateTime";
 import RestoreButton from "./TaskChilds/RestoreButton";
 import Priority from "./TaskChilds/Priority";
 import EditorComponent from "./EditorComponent";
-import { useSelectedTaskContext } from "../contexts/selectedTaskContext";
+import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 
 // Styling components with StyledComponents
 
@@ -72,17 +72,18 @@ function useTaskContext() {
 }
 
 // * Main Component
-function Task({ children, data, setState, renderType = "tab" }) {
+function Task({ children, data, renderType = "tab" }) {
+  const { saveAndUpdateTask } = useGeneralTasksProvider();
   // * Managing data
   const { deleteTask } = useTaskDelete();
   function updateState(columnName, newData) {
-    setState({ ...data, [columnName]: newData });
+    saveAndUpdateTask({ ...data, [columnName]: newData });
   }
 
   // * Data (value atr.) for TaskContext.Provider
   const valueProvider = { ...data, updateState, renderType, deleteTask };
 
-  const { taskId, setTaskId: setSelectedTaskId } = useSelectedTaskContext();
+  const { taskId, setSelectedTaskId } = useGeneralTasksProvider();
 
   return (
     <TaskContext.Provider value={valueProvider}>

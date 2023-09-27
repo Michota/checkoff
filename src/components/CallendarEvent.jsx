@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import Box from "../ui/Box";
 import Task from "./Task";
-import useTaskData from "../features/tasks/useTaskData";
 
 const StyledEvent = styled(Box)`
   background-color: var(--theme-black-250);

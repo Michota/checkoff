@@ -3,8 +3,7 @@ import Box from "../ui/Box";
 import Task from "./Task";
 import Button from "../ui/Button";
 import { MdClose } from "react-icons/md";
-import { useSelectedTaskContext } from "../contexts/selectedTaskContext";
-import { useManageTaskData } from "../features/tasks/useManageTaskData";
+import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 
 const StyledTaskDetails = styled(Box)`
   position: absolute;
@@ -78,12 +77,8 @@ const CloseButton = styled(Button)`
 // };
 
 function TaskDetails() {
-  const {
-    taskId: selectedTaskId,
-    setTaskId: setSelectedTaskId,
-    saveAndUpdateTask,
-    tasks,
-  } = useSelectedTaskContext();
+  const { selectedTaskId, setSelectedTaskId, saveAndUpdateTask, tasks } =
+    useGeneralTasksProvider();
 
   const data = tasks?.find((task) => task.id === selectedTaskId);
   if (!data?.id ?? setSelectedTaskId(null)) return;
