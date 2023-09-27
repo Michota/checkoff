@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
 import { styled, css } from "styled-components";
 import useTaskDelete from "../features/tasks/useTaskDelete";
 
@@ -12,10 +12,15 @@ import { DateTime } from "./TaskChilds/DateTime";
 import RestoreButton from "./TaskChilds/RestoreButton";
 import Priority from "./TaskChilds/Priority";
 import EditorComponent from "./EditorComponent";
-import { useLocation, useNavigate } from "react-router";
 import { useSelectedTaskContext } from "../contexts/selectedTaskContext";
 
 // Styling components with StyledComponents
+
+const TaskFlexContainer = styled.div`
+  align-items: center;
+  display: flex;
+  padding: 0.2rem;
+`;
 
 const StyledTask = styled(Box)`
   overflow-y: hidden;
@@ -45,12 +50,6 @@ const StyledTask = styled(Box)`
     css`
       border-bottom: var(--theme-darkred-250) 2px solid;
     `}
-`;
-
-const TaskFlexContainer = styled.div`
-  align-items: center;
-  display: flex;
-  padding: 0.2rem;
 `;
 
 const StyledDetails = styled.span`
