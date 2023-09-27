@@ -1,11 +1,19 @@
 import { useContext } from "react";
 import { createContext } from "react";
 import { useState } from "react";
+import { useManageTaskData } from "../features/tasks/useManageTaskData";
 
 const SelectedTaskContext = createContext();
 
 function SelectedTaskProvider({ children }) {
   const [taskId, setTaskId] = useState();
+  const {
+    saveAndUpdateTask,
+    tasks,
+    setTasks,
+    isLoadingTasks,
+    isUpdatingTasks,
+  } = useManageTaskData();
 
   return (
     <SelectedTaskContext.Provider value={{ taskId, setTaskId }}>

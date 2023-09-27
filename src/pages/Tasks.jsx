@@ -70,7 +70,6 @@ function Tasks() {
       <SecondarySpace>
         {selectedTaskId !== null && (
           <TaskDetails
-            setState={saveAndUpdateTask}
             data={tasks?.find((task) => task.id === selectedTaskId)}
           />
         )}

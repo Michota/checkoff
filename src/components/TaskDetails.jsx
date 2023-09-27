@@ -4,6 +4,7 @@ import Task from "./Task";
 import Button from "../ui/Button";
 import { MdClose } from "react-icons/md";
 import { useSelectedTaskContext } from "../contexts/selectedTaskContext";
+import { useManageTaskData } from "../features/tasks/useManageTaskData";
 
 const StyledTaskDetails = styled(Box)`
   position: absolute;
@@ -76,12 +77,26 @@ const CloseButton = styled(Button)`
 // ],
 // };
 
-function TaskDetails({ data, setState }) {
-  const { setTaskId: setSelectedTaskId } = useSelectedTaskContext();
+function TaskDetails() {
+  const { taskId: selectedTaskId, setTaskId: setSelectedTaskId } =
+    useSelectedTaskContext();
+  const {
+    saveAndUpdateTask,
+    tasks,
+    setTasks,
+    isLoadingTasks,
+    isUpdatingTasks,
+  } = useManageTaskData();
+  const data = tasks?.find((task) => task.id === selectedTaskId);
   if (!data?.id ?? setSelectedTaskId(null)) return;
   return (
     <StyledTaskDetails>
-      <Task data={data} key={data.id} setState={setState} renderType="compound">
+      <Task
+        data={data}
+        key={data.id}
+        setState={saveAndUpdateTask}
+        renderType="compound"
+      >
         <Header>
           <Task.Checkbox />
 
