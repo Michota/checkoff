@@ -35,32 +35,13 @@ function Checklist({ dataManager, amITrash }) {
   const { tasks, isLoadingTasks, saveAndUpdateTask, setSelectedTaskId } =
     dataManager;
 
-  // Render only filtered tasks
-  // * working
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const searchByParameters = ["title", "description"];
-  // function filterTasks() {
-  //   const tasksMatchingParams = searchByParameters?.map(
-  //     (parameter) =>
-  //       tasks?.filter((task) =>
-  //         task[parameter]?.includes(searchParams.get(parameter))
-  //       )
-  //     // return
-  //   );
-  //   const uniqueTasks = []
-  //     .concat(...tasksMatchingParams)
-  //     .filter(
-  //       (task, index, arr) =>
-  //         task.id !== arr.filter((t) => t.id === task.id).length > 1
-  //     );
-  //   console.log(uniqueTasks);
-  // }
-
   const filteredTasks = useFilterWithParameters(tasks, ["title"], "id");
+
+  console.log(filteredTasks);
 
   function renderTasks() {
     if (amITrash)
-      return tasks?.map((task) => {
+      return filteredTasks?.map((task) => {
         if (task.inTrash)
           return (
             <Task
@@ -72,7 +53,7 @@ function Checklist({ dataManager, amITrash }) {
           );
       });
     else
-      return tasks?.map((task) => {
+      return filteredTasks?.map((task) => {
         if (!task.inTrash)
           return (
             <Task
