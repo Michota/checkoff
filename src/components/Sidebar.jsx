@@ -8,11 +8,13 @@ import {
   MdTaskAlt,
 } from "react-icons/md";
 import { useState } from "react";
-import Button from "../ui/Button";
 import { useLogout } from "../features/authentication/useLogout";
 
 const StyledSidebar = styled.div`
-  box-shadow: 0.5rem 0 2rem 0 var(--shadow-color);
+  position: absolute;
+  background-color: var(--theme-black-200);
+  z-index: 10;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,7 +22,16 @@ const StyledSidebar = styled.div`
   font-size: 2.4rem;
   gap: 2rem;
   width: ${(props) => (!props.$rolled ? "20rem" : "7rem")};
-  transition: width 300ms;
+  transition: box-shadow 50ms, width 300ms;
+
+  &:hover {
+    box-shadow: 0.5rem 0 2rem 0 var(--shadow-color);
+  }
+`;
+
+// ? created for calendars width purposes
+const SidebarPlaceholder = styled.div`
+  width: 8rem;
 `;
 
 const StyledUl = styled.ul`
@@ -61,31 +72,33 @@ function Sidebar() {
 
   if (pathname)
     return (
-      <StyledSidebar
-        $rolled={isRolled}
-        onMouseLeave={(e) => setIsRolled(true)}
-        onMouseEnter={(e) => setIsRolled(false)}
-      >
-        <Logo size="40rem" />
-        <StyledUl>
-          <StyledNavLink to="tasks">
-            <MdTaskAlt size="2.5rem" />
-            {!isRolled && "Tasks"}
-          </StyledNavLink>
-          {pathname.includes("/tasks") && (
-            <StyledSubNavLink to="tasks" state={"trash"}>
-              <MdDeleteOutline size="2.5rem" /> {!isRolled && "Trash"}
-            </StyledSubNavLink>
-          )}
-          <StyledNavLink to="calendar">
-            <MdOutlineCalendarMonth size="2.5rem" />
-            {!isRolled && "Calendar"}
-          </StyledNavLink>
-          <StyledNavLink onClick={logout}>
-            <MdLogout size="2.5rem" /> {!isRolled && "Logout"}
-          </StyledNavLink>
-        </StyledUl>
-      </StyledSidebar>
+      <SidebarPlaceholder>
+        <StyledSidebar
+          $rolled={isRolled}
+          onMouseLeave={(e) => setIsRolled(true)}
+          onMouseEnter={(e) => setIsRolled(false)}
+        >
+          <Logo size="40rem" />
+          <StyledUl>
+            <StyledNavLink to="tasks">
+              <MdTaskAlt size="2.5rem" />
+              {!isRolled && "Tasks"}
+            </StyledNavLink>
+            {pathname.includes("/tasks") && (
+              <StyledSubNavLink to="tasks" state={"trash"}>
+                <MdDeleteOutline size="2.5rem" /> {!isRolled && "Trash"}
+              </StyledSubNavLink>
+            )}
+            <StyledNavLink to="calendar">
+              <MdOutlineCalendarMonth size="2.5rem" />
+              {!isRolled && "Calendar"}
+            </StyledNavLink>
+            <StyledNavLink onClick={logout}>
+              <MdLogout size="2.5rem" /> {!isRolled && "Logout"}
+            </StyledNavLink>
+          </StyledUl>
+        </StyledSidebar>
+      </SidebarPlaceholder>
     );
 }
 
