@@ -31,7 +31,7 @@ const ButtonCreateTask = styled(Button)`
 
 function Checklist({ dataManager, amITrash }) {
   const { createTask } = useCreateNewTask();
-  const { tasks, isLoadingTasks, saveAndUpdateTask } = dataManager;
+  const { tasks, isLoadingTasks } = dataManager;
 
   // Task filtered with search parameters.
   // ! descjson searching is currently not working due to JSON format of descriptions.
@@ -45,17 +45,11 @@ function Checklist({ dataManager, amITrash }) {
   function renderTasks() {
     if (amITrash)
       return filteredTasks?.map((task) => {
-        if (task.inTrash)
-          return (
-            <Task data={task} key={task.id} setState={saveAndUpdateTask} />
-          );
+        if (task.inTrash) return <Task data={task} key={task.id} />;
       });
     else
       return filteredTasks?.map((task) => {
-        if (!task.inTrash)
-          return (
-            <Task data={task} key={task.id} setState={saveAndUpdateTask} />
-          );
+        if (!task.inTrash) return <Task data={task} key={task.id} />;
       });
   }
 

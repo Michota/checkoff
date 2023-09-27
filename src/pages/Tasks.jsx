@@ -42,8 +42,7 @@ function Tasks() {
 
   // const { tasks, isLoadingTasks, saveAndUpdateTask } = useManageTaskData();
 
-  const { selectedTaskId, tasks, isLoadingTasks, saveAndUpdateTask } =
-    useGeneralTasksProvider();
+  const { selectedTaskId, tasks, isLoadingTasks } = useGeneralTasksProvider();
 
   return (
     <StyledTasksPanel>
@@ -59,7 +58,6 @@ function Tasks() {
               dataManager={{
                 tasks,
                 isLoadingTasks,
-                saveAndUpdateTask,
               }}
               amITrash={areWeInTrash}
             />

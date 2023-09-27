@@ -84,12 +84,7 @@ function TaskDetails() {
   if (!data?.id ?? setSelectedTaskId(null)) return;
   return (
     <StyledTaskDetails>
-      <Task
-        data={data}
-        key={data.id}
-        setState={saveAndUpdateTask}
-        renderType="compound"
-      >
+      <Task data={data} key={data.id} renderType="compound">
         <Header>
           <Task.Checkbox />
 
