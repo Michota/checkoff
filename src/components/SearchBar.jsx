@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { useState } from "react";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledSearchBar = styled.input`
@@ -47,25 +49,39 @@ const StyledSearchBar = styled.input`
 
 function SearchBar({
   placeholder = "Search",
+  // * if mode is "filter" then search trough provided array
+  // * if mode is set to "url" then use URL as return point for search parameters
+  mode = "filter",
   searchParameter = "",
   whereToSearch = [],
-  setResultsFn,
 }) {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  if (search)
-  const searchResults = whereToSearch?.filter((element) =>
-    element[searchParameter].includes(searchQuery)
+
+  useEffect(
+    function () {
+      if (mode !== "filter")
+        navigate({
+          search: `?${createSearchParams({ [searchParameter]: searchQuery })}`,
+        });
+    },
+    [navigate, searchParameter, searchQuery, mode]
   );
 
-  console.log(searchResults);
-  console.log(searchParameter);
-  console.log(whereToSearch);
+  if (mode === "filter") {
+    const searchResults = whereToSearch?.filter((element) =>
+      element[searchParameter].includes(searchQuery)
+    );
+    console.log(searchResults);
+  }
 
   return (
     <StyledSearchBar
       placeholder={placeholder}
       value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)}
+      onChange={(e) => {
+        setSearchQuery(e.target.value);
+      }}
     />
   );
 }

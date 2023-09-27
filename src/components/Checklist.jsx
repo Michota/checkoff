@@ -3,6 +3,8 @@ import Task from "./Task";
 import Button from "../ui/Button";
 import { MdAdd } from "react-icons/md";
 import styled from "styled-components";
+import { useSearchParams } from "react-router-dom";
+import useFilterWithParameters from "../hooks/useFilterWithParameters";
 
 const StyledChecklist = styled.div`
   display: flex;
@@ -30,13 +32,31 @@ const ButtonCreateTask = styled(Button)`
 
 function Checklist({ dataManager, amITrash }) {
   const { createTask } = useCreateNewTask();
-  const {
-    tasks,
-    isLoadingTasks,
-    saveAndUpdateTask,
-    selectedTaskId,
-    setSelectedTaskId,
-  } = dataManager;
+  const { tasks, isLoadingTasks, saveAndUpdateTask, setSelectedTaskId } =
+    dataManager;
+
+  // Render only filtered tasks
+  // * working
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const searchByParameters = ["title", "description"];
+  // function filterTasks() {
+  //   const tasksMatchingParams = searchByParameters?.map(
+  //     (parameter) =>
+  //       tasks?.filter((task) =>
+  //         task[parameter]?.includes(searchParams.get(parameter))
+  //       )
+  //     // return
+  //   );
+  //   const uniqueTasks = []
+  //     .concat(...tasksMatchingParams)
+  //     .filter(
+  //       (task, index, arr) =>
+  //         task.id !== arr.filter((t) => t.id === task.id).length > 1
+  //     );
+  //   console.log(uniqueTasks);
+  // }
+
+  const filteredTasks = useFilterWithParameters(tasks, ["title"], "id");
 
   function renderTasks() {
     if (amITrash)
