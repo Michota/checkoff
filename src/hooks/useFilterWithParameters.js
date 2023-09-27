@@ -7,6 +7,14 @@ function useFilterWithParameters(
 ) {
   const [searchParams, setSearchParams] = useSearchParams();
 
+  // console.log(searchParams.get(parameters[0]).length);
+
+  // function allIfNone() {
+  //   const x = parameters.map((param) => searchParams.get(param)?.length);
+  //   console.log(x);
+  // }
+  // allIfNone();
+
   const elementsMatchingParams = parameters?.map((parameter) =>
     filteredArray?.filter((el) =>
       el[parameter]?.includes(searchParams.get(parameter))
