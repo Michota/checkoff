@@ -3,7 +3,6 @@ import Task from "./Task";
 import Button from "../ui/Button";
 import { MdAdd } from "react-icons/md";
 import styled from "styled-components";
-import { useSearchParams } from "react-router-dom";
 import useFilterWithParameters from "../hooks/useFilterWithParameters";
 
 const StyledChecklist = styled.div`
@@ -35,9 +34,14 @@ function Checklist({ dataManager, amITrash }) {
   const { tasks, isLoadingTasks, saveAndUpdateTask, setSelectedTaskId } =
     dataManager;
 
-  const filteredTasks = useFilterWithParameters(tasks, ["title"], "id");
-
-  console.log(filteredTasks);
+  // Task filtered with search parameters.
+  // ! descjson searching is currently not working due to JSON format of descriptions.
+  const filteredTasks = useFilterWithParameters(
+    tasks,
+    ["title", "descjson"],
+    "id",
+    true
+  );
 
   function renderTasks() {
     if (amITrash)

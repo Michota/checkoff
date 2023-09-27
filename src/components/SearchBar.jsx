@@ -1,6 +1,12 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { createSearchParams, useNavigate, useParams } from "react-router-dom";
+import {
+  createSearchParams,
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import styled from "styled-components";
 
 const StyledSearchBar = styled.input`
@@ -56,22 +62,31 @@ function SearchBar({
   whereToSearch = [],
 }) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Function created to avoid problems caused by useState being asynchronous
   function setParams(newParams) {
     const params = searchParameters.map((sP) => {
       return [sP, newParams];
     });
-    navigate({
-      search: `?${createSearchParams(params)}`,
-    });
-  }
-
-  if (mode === "filter") {
-    const searchResults = whereToSearch?.filter((element) =>
-      element[searchParameters].includes(searchQuery)
+    navigate(
+      {
+        search: `?${createSearchParams(params)}`,
+      },
+      {
+        // ! if state === "trash" then search in removed tasks.
+        state: location.state,
+      }
     );
   }
+
+  // ? To be removed in the future
+  // if (mode === "filter") {
+  //   const searchResults = whereToSearch?.filter((element) =>
+  //     element[searchParameters].includes(searchQuery)
+  //   );
+  // }
 
   return (
     <StyledSearchBar

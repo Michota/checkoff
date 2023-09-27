@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 function useFilterWithParameters(
   filteredArray = [],
@@ -6,6 +6,7 @@ function useFilterWithParameters(
   uniqueForElements = "id" // Something that allows you to distinguish elements
 ) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const paramsInURL = useParams();
 
   const elementsMatchingParams = parameters?.map((parameter) =>
     filteredArray?.filter((el) =>
@@ -27,6 +28,11 @@ function useFilterWithParameters(
         ).length >
           1
     );
+
+  // If there are parameters in URL but they are blank.
+  if (uniqueElements && searchParams.getAll(...parameters).length === 0)
+    return filteredArray;
+
   return uniqueElements;
 }
 
