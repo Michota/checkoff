@@ -4,11 +4,11 @@ import Sidebar from "../components/Sidebar";
 
 const StyledRoot = styled.div`
   display: grid;
-  grid-template-columns: 20rem 1fr;
+  grid-template-columns: max-content 1fr;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: var(--theme-black-200);
+  background-color: var(--theme-black-100);
   color: var(--theme-white-100);
 `;
 

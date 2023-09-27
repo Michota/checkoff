@@ -6,41 +6,55 @@ const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${(props) => props.$size || "2.4rem"};
-  height: ${(props) => props.$size || "2.4rem"};
   border: none;
-  background-color: ${(props) =>
-    props.$backgroundColor || css`var(--theme-primary)`};
-  border-radius: var(--deafult-radius);
-  font-weight: bold;
-  color: ${(props) => props.$textColor || "white"};
-  aspect-ratio: 1 / 1;
+  border-radius: var(--default-radius);
+  opacity: 0.8;
+  color: ${(props) => props.$textColor || "var(--theme-white-200)"};
+  background-color: ${(props) => props.$backgroundColor || "transparent"};
+  width: ${(props) => props.$size || "initial"};
+  height: ${(props) => props.$size || "initial"};
 
   &:hover {
     transform: scale(105%);
+    opacity: 1;
   }
-  transition: transform 100ms;
+  transition: opacity transform 100ms;
 `;
 
 const ButtonDelete = styled(StyledButton)`
   font-size: 2rem;
   background-color: transparent;
   transition: color 200ms;
+  opacity: 0.6;
+
   &:hover {
     color: var(--theme-red);
+    opacity: 1;
+  }
+`;
+
+const ButtonRestore = styled(StyledButton)`
+  font-size: 2rem;
+  background-color: transparent;
+  transition: color 200ms;
+  opacity: 0.6;
+  &:hover {
+    color: var(--theme-green);
+    opacity: 1;
   }
 `;
 
 function Button({
   children,
+  btnType = "default",
   className,
   onClick,
-  type = "default",
   color,
-  size,
   backgroundColor,
+  // Dont use it to often.
+  size,
 }) {
-  switch (type) {
+  switch (btnType) {
     case "default":
       return (
         <StyledButton
@@ -64,6 +78,18 @@ function Button({
         >
           {children}
         </ButtonDelete>
+      );
+    case "restore":
+      return (
+        <ButtonRestore
+          className={className}
+          onClick={onClick}
+          $size={size}
+          $textColor={color}
+          $backgroundColor={backgroundColor}
+        >
+          {children}
+        </ButtonRestore>
       );
   }
 }

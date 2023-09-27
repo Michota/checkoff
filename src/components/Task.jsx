@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { styled, css } from "styled-components";
-import useTaskDelete from "../services/useTaskDelete";
+import useTaskDelete from "../features/tasks/useTaskDelete";
 
 import Box from "../ui/Box";
 
@@ -9,14 +9,16 @@ import Checkbox from "./TaskChilds/Checkbox";
 import Title from "./TaskChilds/Title";
 import { Description } from "./TaskChilds/Description";
 import { DateTime } from "./TaskChilds/DateTime";
+import RestoreButton from "./TaskChilds/RestoreButton";
+import Priority from "./TaskChilds/Priority";
+import EditorComponent from "./EditorComponent";
 
 // Styling components with StyledComponents
 
 const StyledTask = styled(Box)`
   overflow-y: hidden;
   cursor: pointer;
-  min-width: 30rem;
-  width: max-content;
+  width: 30rem;
   min-height: 7rem;
   height: fit-content;
   transition: transform 100ms;
@@ -36,6 +38,11 @@ const StyledTask = styled(Box)`
           color: var(--theme-white-100);
           background-color: var(--theme-black-250);
         `};
+  ${(props) =>
+    props.$inTrash === true &&
+    css`
+      border-bottom: var(--theme-darkred-250) 2px solid;
+    `}
 `;
 
 const TaskFlexContainer = styled.div`
@@ -78,6 +85,7 @@ function Task({
   function updateState(columnName, newData) {
     setState({ ...data, [columnName]: newData });
   }
+
   // * Data (value atr.) for TaskContext.Provider
   const valueProvider = { ...data, updateState, renderType, deleteTask };
 
@@ -85,6 +93,7 @@ function Task({
     <TaskContext.Provider value={valueProvider}>
       {!amICompound && (
         <StyledTask
+          $inTrash={data.inTrash}
           $isCompleted={data.isCompleted}
           onClick={(e) => {
             // ? StopPropagation on all the child components
@@ -99,9 +108,10 @@ function Task({
               {/* span-element created for styling reasons only */}
               <span
                 style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  gap: "2rem",
+                  display: "grid",
+                  gridTemplateColumns: "8rem 1fr",
+                  gap: "1rem",
+                  width: "100%",
                 }}
               >
                 <Description />
@@ -110,6 +120,7 @@ function Task({
             </StyledDetails>
           </TaskFlexContainer>
           <DeleteButton />
+          <RestoreButton />
         </StyledTask>
       )}
       {/* Render task as compound component */}
@@ -121,9 +132,13 @@ function Task({
 // Compound Component Children as properties
 Task.Checkbox = Checkbox;
 Task.Title = Title;
-Task.Description = Description;
+// ! CHANGED FOR TESTING PURPOSES!
+// Task.Description = Description;
+Task.Description = EditorComponent;
 Task.DeleteButton = DeleteButton;
 Task.DateTime = DateTime;
+Task.RestoreButton = RestoreButton;
+Task.Priority = Priority;
 
 export default Task;
 export { useTaskContext };

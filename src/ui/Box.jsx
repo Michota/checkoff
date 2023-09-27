@@ -6,7 +6,7 @@ const Box = styled.div`
   overflow: auto;
   display: flex;
   align-items: center;
-  border-radius: var(--deafult-radius);
+  border-radius: var(--default-radius);
   box-shadow: var(--drop-shadow);
 `;
 

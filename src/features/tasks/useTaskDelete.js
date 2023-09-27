@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteTaskData } from "../services/tasksAPI";
+import { deleteTaskData } from "../../services/tasksAPI";
 import { toast } from "react-hot-toast";
 
 function useTaskDelete() {

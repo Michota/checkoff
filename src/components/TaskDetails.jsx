@@ -5,9 +5,12 @@ import Button from "../ui/Button";
 import { MdClose } from "react-icons/md";
 
 const StyledTaskDetails = styled(Box)`
-  flex-direction: column;
+  position: absolute;
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
   gap: 2rem;
   padding: 2rem;
+  width: 100%;
   height: 100%;
 `;
 
@@ -22,23 +25,23 @@ const Title = styled(Task.Title)`
   text-align: center;
   font-size: 2.8rem;
 `;
-const Description = styled(Task.Description)`
-  background-color: transparent;
-  color: var(--theme-white-100);
-  overflow: auto;
-  width: 100%;
-  height: 100%;
-  font-size: 2rem;
-  border: 0;
-  resize: none;
-`;
+// const Description = styled(Task.Description)`
+//   background-color: transparent;
+//   color: var(--theme-white-100);
+//   overflow: auto;
+//   width: min-content;
+//   height: 100%;
+//   font-size: 2rem;
+//   border: 0;
+//   resize: none;
+// `;
 
-const DescriptionContainer = styled.label`
-  width: 100%;
-  height: auto;
-  overflow-y: hidden;
-  flex: 1;
-`;
+// const DescriptionContainer = styled.label`
+//   width: 100%;
+//   height: auto;
+//   overflow-y: hidden;
+//   flex: 1;
+// `;
 
 const Date = styled.input`
   margin-top: auto;
@@ -48,8 +51,29 @@ const Date = styled.input`
 const TaskFooter = styled.footer`
   display: flex;
   width: 100%;
+  height: 3.2rem;
+  align-items: center;
   justify-content: space-between;
 `;
+
+const CloseButton = styled(Button)`
+  background-color: var(--theme-red);
+  aspect-ratio: 1/1;
+  width: 2.4rem;
+  height: 2.4rem;
+`;
+
+// const tempData = {
+// blocks: [
+//   {
+//     type: "paragraph",
+//     data: {
+//       text: "",
+//       level: 1,
+//     },
+//   },
+// ],
+// };
 
 function TaskDetails({ data, setState, setSelectedTaskId }) {
   if (!data?.id ?? setSelectedTaskId(null)) return;
@@ -58,21 +82,29 @@ function TaskDetails({ data, setState, setSelectedTaskId }) {
       <Task data={data} key={data.id} setState={setState} renderType="compound">
         <Header>
           <Task.Checkbox />
+
           <Title />
-          <Button
-            backgroundColor={"var(--theme-red)"}
-            onClick={() => setSelectedTaskId(null)}
-          >
+          <CloseButton size="5rem" onClick={() => setSelectedTaskId(null)}>
             <MdClose />
-          </Button>
+          </CloseButton>
         </Header>
-        <DescriptionContainer>
-          <Description />
-        </DescriptionContainer>
+        {/* <DescriptionContainer> */}
+        <Task.Description />
+        {/* </DescriptionContainer> */}
         <TaskFooter>
-          <span onClick={() => setSelectedTaskId(null)}>
-            <Task.DeleteButton />
+          <span
+            style={{
+              display: "flex",
+              gap: "2rem",
+            }}
+          >
+            <span onClick={() => setSelectedTaskId(null)}>
+              <Task.DeleteButton />
+            </span>
+            <Task.RestoreButton />
           </span>
+
+          <Task.Priority />
           <Task.DateTime />
         </TaskFooter>
       </Task>
