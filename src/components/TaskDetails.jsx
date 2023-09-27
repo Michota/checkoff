@@ -3,6 +3,7 @@ import Box from "../ui/Box";
 import Task from "./Task";
 import Button from "../ui/Button";
 import { MdClose } from "react-icons/md";
+import { useSelectedTaskContext } from "../contexts/selectedTaskContext";
 
 const StyledTaskDetails = styled(Box)`
   position: absolute;
@@ -75,7 +76,8 @@ const CloseButton = styled(Button)`
 // ],
 // };
 
-function TaskDetails({ data, setState, setSelectedTaskId }) {
+function TaskDetails({ data, setState }) {
+  const { setTaskId: setSelectedTaskId } = useSelectedTaskContext();
   if (!data?.id ?? setSelectedTaskId(null)) return;
   return (
     <StyledTaskDetails>

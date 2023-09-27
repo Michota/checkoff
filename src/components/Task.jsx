@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
 import { styled, css } from "styled-components";
 import useTaskDelete from "../features/tasks/useTaskDelete";
 
@@ -12,8 +12,15 @@ import { DateTime } from "./TaskChilds/DateTime";
 import RestoreButton from "./TaskChilds/RestoreButton";
 import Priority from "./TaskChilds/Priority";
 import EditorComponent from "./EditorComponent";
+import { useSelectedTaskContext } from "../contexts/selectedTaskContext";
 
 // Styling components with StyledComponents
+
+const TaskFlexContainer = styled.div`
+  align-items: center;
+  display: flex;
+  padding: 0.2rem;
+`;
 
 const StyledTask = styled(Box)`
   overflow-y: hidden;
@@ -45,12 +52,6 @@ const StyledTask = styled(Box)`
     `}
 `;
 
-const TaskFlexContainer = styled.div`
-  align-items: center;
-  display: flex;
-  padding: 0.2rem;
-`;
-
 const StyledDetails = styled.span`
   padding: 0.5rem;
   display: flex;
@@ -71,15 +72,7 @@ function useTaskContext() {
 }
 
 // * Main Component
-function Task({
-  children,
-  data,
-  setSelectedTaskId,
-  setState,
-  renderType = "tab",
-}) {
-  const amICompound = renderType === "compound";
-
+function Task({ children, data, setState, renderType = "tab" }) {
   // * Managing data
   const { deleteTask } = useTaskDelete();
   function updateState(columnName, newData) {
@@ -89,9 +82,11 @@ function Task({
   // * Data (value atr.) for TaskContext.Provider
   const valueProvider = { ...data, updateState, renderType, deleteTask };
 
+  const { taskId, setTaskId: setSelectedTaskId } = useSelectedTaskContext();
+
   return (
     <TaskContext.Provider value={valueProvider}>
-      {!amICompound && (
+      {renderType !== "compound" && (
         <StyledTask
           $inTrash={data.inTrash}
           $isCompleted={data.isCompleted}
@@ -124,7 +119,7 @@ function Task({
         </StyledTask>
       )}
       {/* Render task as compound component */}
-      {amICompound && <>{children}</>}
+      {renderType === "compound" && <>{children}</>}
     </TaskContext.Provider>
   );
 }
