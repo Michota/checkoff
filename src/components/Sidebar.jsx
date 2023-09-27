@@ -12,7 +12,7 @@ import { useLogout } from "../features/authentication/useLogout";
 
 const StyledSidebar = styled.div`
   position: absolute;
-  background-color: var(--theme-black-200);
+  background-color: var(--theme-black-100);
   z-index: 10;
   height: 100%;
   display: flex;
@@ -22,7 +22,7 @@ const StyledSidebar = styled.div`
   font-size: 2.4rem;
   gap: 2rem;
   width: ${(props) => (!props.$rolled ? "20rem" : "7rem")};
-  transition: box-shadow 50ms, width 300ms;
+  transition: box-shadow 50ms, width 200ms ease-out;
 
   &:hover {
     box-shadow: 0.5rem 0 2rem 0 var(--shadow-color);
