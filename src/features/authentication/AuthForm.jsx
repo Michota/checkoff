@@ -1,8 +1,9 @@
-import { Form } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../ui/Button";
 import { useState } from "react";
 import { useLogin } from "./useLogin";
+import { useSignUp } from "./useSignup";
 
 const StyledInput = styled.input`
   background-color: var(--theme-white-100);
@@ -32,29 +33,50 @@ const StyledLabel = styled.label`
   font-weight: 600;
 `;
 
-const LoginButton = styled(Button)`
+const StyledButton = styled(Button)`
   background-color: var(--theme-primary);
   color: var(--theme-black-200);
   padding: 1rem 2rem;
 `;
 
-function LoginForm() {
-  const { login, isLoading } = useLogin();
+const Buttons = styled.span`
+  display: flex;
+  justify-content: space-between;
+`;
+
+function AuthForm({ action }) {
+  const navigate = useNavigate();
+  const { login, isLoading: isLoadingLogin } = useLogin();
+  const { signUp, isLoading: isLoadingSignUp } = useSignUp();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password) return;
-    login(
-      { email, password },
-      {
-        onSettled: () => {
-          setEmail("");
-          setPassword("");
-        },
-      }
-    );
+    // Login
+    if (action === "login")
+      login(
+        { email, password },
+        {
+          onSettled: () => {
+            setEmail("");
+            setPassword("");
+          },
+        }
+      );
+    // Signup
+    if (action === "signup")
+      signUp(
+        { email, password },
+        {
+          onSettled: () => {
+            setEmail("");
+            setPassword("");
+          },
+        }
+      );
   }
 
   return (
@@ -66,7 +88,7 @@ function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
-            autoComplete="off"
+            autoComplete={action === "login" ? "on" : "off"}
             id="email"
           />
         </InputContainer>
@@ -76,14 +98,23 @@ function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
-            autoComplete="off"
+            autoComplete={action === "login" ? "on" : "off"}
             id="pass"
           />
         </InputContainer>
-        <LoginButton type="submit">Log in</LoginButton>
+        <Buttons>
+          <StyledButton type="submit">
+            {action === "login" ? "Login!" : "Sign up!"}
+          </StyledButton>
+          <StyledButton
+            onClick={() => navigate(action === "login" ? "?signup" : "?login")}
+          >
+            {action === "login" ? "Sign up!" : "Already singed up? Login!"}
+          </StyledButton>
+        </Buttons>
       </FormContainer>
     </Form>
   );
 }
 
-export default LoginForm;
+export default AuthForm;

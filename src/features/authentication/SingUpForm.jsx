@@ -1,4 +1,4 @@
-import { Form } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../ui/Button";
 import { useState } from "react";
@@ -40,6 +40,7 @@ const SignUpButton = styled(Button)`
 `;
 
 function SignUpForm() {
+  const navigate = useNavigate();
   const { signUp, isLoading } = useSignUp();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -81,7 +82,12 @@ function SignUpForm() {
             id="pass"
           />
         </InputContainer>
-        <SignUpButton type="submit">Sign up!</SignUpButton>
+        <Buttons>
+          <SignUpButton type="submit">Sign up!</SignUpButton>
+          <SignUpButton onClick={() => navigate("/login")}>
+            Already signed up?
+          </SignUpButton>
+        </Buttons>
       </FormContainer>
     </Form>
   );
