@@ -45,6 +45,10 @@ const Buttons = styled.span`
 `;
 
 function AuthForm({ action }) {
+  const MIN_PASS_LENGTH = 6;
+  const PASSWORD_LOOKAHEAD =
+    /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,32}$/;
+
   const navigate = useNavigate();
   const { login, isLoading: isLoadingLogin } = useLogin();
   const { signUp, isLoading: isLoadingSignUp } = useSignUp();
@@ -67,16 +71,31 @@ function AuthForm({ action }) {
         }
       );
     // Signup
-    if (action === "signup")
-      signUp(
-        { email, password },
+    if (action !== "signup") return;
+    if (password.length < MIN_PASS_LENGTH) {
+      toast.error("Password needs to be at least 6 characters long!", {
+        position: "top-center",
+      });
+      return;
+    }
+    if (!password.match(PASSWORD_LOOKAHEAD)) {
+      toast.error(
+        "Password needs at least one number and one special character!",
         {
-          onSettled: () => {
-            setEmail("");
-            setPassword("");
-          },
+          position: "top-center",
         }
       );
+      return;
+    }
+    signUp(
+      { email, password },
+      {
+        onSettled: () => {
+          setEmail("");
+          setPassword("");
+        },
+      }
+    );
   }
 
   return (
