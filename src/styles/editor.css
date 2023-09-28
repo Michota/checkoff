@@ -2120,3 +2120,16 @@
 #popcon {
   background: rgba(0, 0, 0, 0.5) !important;
 }
+
+.ce-block__content,
+.ce-toolbar__content {
+  max-width: 90%;
+  position: relative;
+}
+
+.ce-toolbar {
+  position: absolute !important;
+  left: 5%;
+  top: 0;
+  width: 1px;
+}
