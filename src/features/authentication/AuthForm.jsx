@@ -4,17 +4,21 @@ import Button from "../../ui/Button";
 import { useState } from "react";
 import { useLogin } from "./useLogin";
 import { useSignUp } from "./useSignup";
+import toast from "react-hot-toast";
 
 const StyledInput = styled.input`
   background-color: var(--theme-white-100);
   color: var(--theme-black-200);
+  width: max-content;
   height: 1rem;
   padding: 2rem 1rem;
+  font-size: 1.6rem;
+  border-radius: var(--default-radius);
 `;
 
 const InputContainer = styled.span`
   display: grid;
-  grid-template-columns: 10rem 100%;
+  grid-template-columns: 10rem 1fr;
   gap: 2rem;
   align-items: center;
 `;
@@ -25,7 +29,6 @@ const FormContainer = styled.div`
   gap: 2rem;
   justify-content: center;
   align-items: center;
-  width: 40vw;
 `;
 
 const StyledLabel = styled.label`
@@ -33,15 +36,24 @@ const StyledLabel = styled.label`
   font-weight: 600;
 `;
 
-const StyledButton = styled(Button)`
+const MainButton = styled(Button)`
   background-color: var(--theme-primary);
   color: var(--theme-black-200);
   padding: 1rem 2rem;
+  width: 100%;
+`;
+
+const SecondButton = styled(MainButton)`
+  background-color: transparent;
+  color: var(--theme-primary);
+  outline: 0.2rem solid var(--theme-primary);
 `;
 
 const Buttons = styled.span`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  gap: 2rem;
+  width: 100%;
 `;
 
 function AuthForm({ action }) {
@@ -104,6 +116,7 @@ function AuthForm({ action }) {
         <InputContainer>
           <StyledLabel htmlFor="email">E-mail</StyledLabel>
           <StyledInput
+            placeholder="john.doe@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
@@ -114,6 +127,7 @@ function AuthForm({ action }) {
         <InputContainer>
           <StyledLabel htmlFor="pass">Password</StyledLabel>
           <StyledInput
+            placeholder="••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
@@ -122,14 +136,14 @@ function AuthForm({ action }) {
           />
         </InputContainer>
         <Buttons>
-          <StyledButton type="submit">
+          <MainButton type="submit">
             {action === "login" ? "Login!" : "Sign up!"}
-          </StyledButton>
-          <StyledButton
+          </MainButton>
+          <SecondButton
             onClick={() => navigate(action === "login" ? "?signup" : "?login")}
           >
             {action === "login" ? "Sign up!" : "Already singed up? Login!"}
-          </StyledButton>
+          </SecondButton>
         </Buttons>
       </FormContainer>
     </Form>
