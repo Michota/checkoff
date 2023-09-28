@@ -71,11 +71,27 @@ function App() {
             style: {
               backgroundColor: "var(--theme-black-200)",
               color: "var(--theme-white-100)",
+              iconTheme: {
+                primary: "var(--theme-primary)",
+                secondary: "var(--theme-black-200)",
+              },
             },
             error: {
               style: {
-                backgroundColor: "var(--theme-red)",
-                color: "var(--theme-black-100)",
+                borderBottom: "0.2rem solid var(--theme-red)",
+              },
+              iconTheme: {
+                primary: "var(--theme-red)",
+                secondary: "var(--theme-black-200)",
+              },
+            },
+            success: {
+              style: {
+                borderBottom: "0.2rem solid var(--theme-primary)",
+              },
+              iconTheme: {
+                primary: "var(--theme-primary)",
+                secondary: "var(--theme-black-200)",
               },
             },
           }}
