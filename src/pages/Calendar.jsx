@@ -6,9 +6,22 @@ import useCreateNewTask from "../features/tasks/useCreateNewTask";
 
 import CallendarEvent from "../components/CallendarEvent";
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
+import TaskDetails from "../components/TaskDetails";
 
 const CalendarContainer = styled.div`
   height: 100%;
+  z-index: 0;
+`;
+
+const FloatingBox = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 50%;
+  overflow: auto;
+  background-color: var(--theme-black-200);
+  z-index: 1;
 `;
 
 const events = [
@@ -43,31 +56,34 @@ function eventContent(renderObject, data) {
 
 function Calendar() {
   const { createTask } = useCreateNewTask();
-  // const { isLoading, tasksState, setTasksState } = useTaskData();
-  // const { updateTask, isUpdating } = useUpdateTask();
-  const { tasks, saveAndUpdateTask } = useGeneralTasksProvider();
-
-  function openEventDialog(eventId) {
-    // console.log(tasks.find((task) => eventId === task.id));
-  }
+  const { tasks, saveAndUpdateTask, setSelectedTaskId, selectedTaskId } =
+    useGeneralTasksProvider();
 
   return (
-    <CalendarContainer>
-      <FullCalendar
-        buttonIcons={false}
-        height={"100%"}
-        plugins={[dayGridPlugin]}
-        events={parseTaskToEvents([tasks, saveAndUpdateTask] ?? null)}
-        eventClick={function (info) {
-          info.jsEvent.preventDefault();
-          openEventDialog(Number(info.event.id));
-        }}
-        eventContent={(arg) => {
-          const task = tasks.find((t) => Number(arg.event.id) === t.id);
-          return eventContent(arg, task);
-        }}
-      />
-    </CalendarContainer>
+    <>
+      <CalendarContainer>
+        <FullCalendar
+          buttonIcons={false}
+          height={"100%"}
+          plugins={[dayGridPlugin]}
+          events={parseTaskToEvents([tasks, saveAndUpdateTask] ?? null)}
+          eventClick={function (info) {
+            info.jsEvent.preventDefault();
+            // openEventDialog(Number(info.event.id));
+          }}
+          eventContent={(arg) => {
+            const task = tasks.find((t) => Number(arg.event.id) === t.id);
+            return eventContent(arg, task);
+          }}
+        />
+      </CalendarContainer>
+
+      {selectedTaskId && (
+        <FloatingBox>
+          <TaskDetails />
+        </FloatingBox>
+      )}
+    </>
   );
 }
 

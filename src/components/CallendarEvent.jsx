@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import Box from "../ui/Box";
 import Task from "./Task";
+import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 
 const StyledEvent = styled(Box)`
   background-color: var(--theme-black-250);
@@ -43,14 +44,16 @@ function CallendarEvent({ children, renderObject, data }) {
   const { timeText, event } = renderObject;
   const { id: stringId, title, extendedProps } = event;
   const { isCompleted, setState } = extendedProps;
-  const { startDate } = data;
+  const { startDate, id } = data;
   const hoursAndMinutes = new Date(startDate).toLocaleTimeString(undefined, {
     hour: "2-digit",
     minute: "2-digit",
   });
 
+  const { selectedTaskId, setSelectedTaskId } = useGeneralTasksProvider();
+
   return (
-    <StyledEvent>
+    <StyledEvent onClick={(e) => setSelectedTaskId(id)}>
       <Task setState={setState} renderType="compound" data={data}>
         <Task.Checkbox></Task.Checkbox>
         <span>{hoursAndMinutes}</span>
