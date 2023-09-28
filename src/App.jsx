@@ -15,9 +15,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster, toast } from "react-hot-toast";
 import { IconContext } from "react-icons";
 import Calendar from "./pages/Calendar";
-import Login from "./pages/Login";
+import Authentication from "./pages/Authentication";
 import ProtectedRoute from "./ui/ProtectedRoute";
-import SingUp from "./pages/SingUp";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,13 +33,8 @@ const queryClient = new QueryClient({
 
 const router = createBrowserRouter([
   {
-    path: "login",
-    element: <Login />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "signup",
-    element: <SingUp />,
+    path: "Authentication",
+    element: <Authentication />,
     errorElement: <ErrorPage />,
   },
   {
