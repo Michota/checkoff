@@ -26,23 +26,6 @@ const Title = styled(Task.Title)`
   text-align: center;
   font-size: 2.8rem;
 `;
-// const Description = styled(Task.Description)`
-//   background-color: transparent;
-//   color: var(--theme-white-100);
-//   overflow: auto;
-//   width: min-content;
-//   height: 100%;
-//   font-size: 2rem;
-//   border: 0;
-//   resize: none;
-// `;
-
-// const DescriptionContainer = styled.label`
-//   width: 100%;
-//   height: auto;
-//   overflow-y: hidden;
-//   flex: 1;
-// `;
 
 const Date = styled.input`
   margin-top: auto;
@@ -64,20 +47,8 @@ const CloseButton = styled(Button)`
   height: 2.4rem;
 `;
 
-// const tempData = {
-// blocks: [
-//   {
-//     type: "paragraph",
-//     data: {
-//       text: "",
-//       level: 1,
-//     },
-//   },
-// ],
-// };
-
 function TaskDetails() {
-  const { selectedTaskId, setSelectedTaskId, saveAndUpdateTask, tasks } =
+  const { selectedTaskId, setSelectedTaskId, tasks } =
     useGeneralTasksProvider();
 
   const data = tasks?.find((task) => task.id === selectedTaskId);
