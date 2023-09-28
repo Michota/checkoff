@@ -38,7 +38,8 @@ const StyledUl = styled.ul`
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 4rem;
+  height: 100%;
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -50,6 +51,14 @@ const StyledNavLink = styled(NavLink)`
 
   &:hover {
     color: var(--theme-white-200);
+  }
+
+  &:last-child {
+    margin-top: auto;
+    transition: color 100ms;
+  }
+  &:last-child:hover {
+    color: var(--theme-red);
   }
 `;
 
@@ -65,6 +74,8 @@ const StyledSubNavLink = styled(StyledNavLink)`
   }
 `;
 
+let logoFullSize = false;
+
 function Sidebar() {
   const { pathname } = useLocation();
   const [isRolled, setIsRolled] = useState(true);
@@ -75,10 +86,16 @@ function Sidebar() {
       <SidebarPlaceholder>
         <StyledSidebar
           $rolled={isRolled}
-          onMouseLeave={(e) => setIsRolled(true)}
-          onMouseEnter={(e) => setIsRolled(false)}
+          onMouseLeave={(e) => {
+            logoFullSize = false;
+            setIsRolled(true);
+          }}
+          onMouseEnter={(e) => {
+            logoFullSize = true;
+            setIsRolled(false);
+          }}
         >
-          <Logo size="40rem" />
+          <Logo size={logoFullSize ? "125rem" : "25rem"} full={logoFullSize} />
           <StyledUl>
             <StyledNavLink to="tasks">
               <MdTaskAlt size="2.5rem" />
