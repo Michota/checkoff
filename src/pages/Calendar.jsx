@@ -15,23 +15,12 @@ const CalendarContainer = styled.div`
   position: relative;
   height: 100%;
   z-index: 0;
-
-  & > * {
-    z-index: 0;
-  }
-`;
-
-const DraggableField = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  overflow: hidden;
 `;
 
 const StyledDraggableContainer = styled(Box)`
+  position: fixed;
+  top: 50%;
+  left: 50%;
   width: 50%;
   height: 70rem;
   background-color: var(--theme-black-100);
@@ -76,7 +65,11 @@ const DraggableContent = styled.div`
 
 function DraggableWithHandle({ children }) {
   return (
-    <Draggable handle=".dragHandle">
+    <Draggable
+      defaultClassName="draggable"
+      // defaultPosition={{ x: 0, y: 0 }}
+      handle=".dragHandle"
+    >
       <StyledDraggableContainer>
         <StyledGrabHandle className="dragHandle">
           <MdDragHandle />
@@ -124,13 +117,6 @@ function Calendar() {
 
   return (
     <>
-      {selectedTaskId && (
-        <DraggableField>
-          <DraggableWithHandle>
-            <TaskDetails />
-          </DraggableWithHandle>
-        </DraggableField>
-      )}
       <CalendarContainer>
         <FullCalendar
           buttonIcons={false}
@@ -147,6 +133,13 @@ function Calendar() {
           }}
         />
       </CalendarContainer>
+      {selectedTaskId && (
+        // <DraggableField>
+        <DraggableWithHandle>
+          <TaskDetails />
+        </DraggableWithHandle>
+        // </DraggableField>
+      )}
     </>
   );
 }
