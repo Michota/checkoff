@@ -7,22 +7,85 @@ import useCreateNewTask from "../features/tasks/useCreateNewTask";
 import CallendarEvent from "../components/CallendarEvent";
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 import TaskDetails from "../components/TaskDetails";
+import Draggable from "react-draggable";
+import Box from "../ui/Box";
+import { MdDragHandle } from "react-icons/md";
 
 const CalendarContainer = styled.div`
+  position: relative;
   height: 100%;
   z-index: 0;
+
+  & > * {
+    z-index: 0;
+  }
 `;
 
-const FloatingBox = styled.div`
-  position: fixed;
+const DraggableField = styled.div`
+  position: absolute;
   top: 0;
   left: 0;
-  width: 50%;
-  height: 50%;
-  overflow: auto;
-  background-color: var(--theme-black-200);
+  width: 100%;
+  height: 100%;
   z-index: 1;
+  overflow: hidden;
 `;
+
+const StyledDraggableContainer = styled(Box)`
+  width: 50%;
+  height: 70rem;
+  background-color: var(--theme-black-100);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+`;
+
+const StyledGrabHandle = styled.div`
+  position: relative;
+  top: 0;
+  width: 100%;
+  height: 3rem;
+  cursor: grab;
+  z-index: 5;
+  background-color: rgba(255, 255, 255, 0.05);
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: white;
+    opacity: 0.2;
+    color: black;
+  }
+
+  &:active,
+  &:focus {
+    opacity: 0.3;
+    color: black;
+    background-color: white;
+  }
+`;
+
+const DraggableContent = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
+
+function DraggableWithHandle({ children }) {
+  return (
+    <Draggable handle=".dragHandle">
+      <StyledDraggableContainer>
+        <StyledGrabHandle className="dragHandle">
+          <MdDragHandle />
+        </StyledGrabHandle>
+        <DraggableContent>{children}</DraggableContent>
+      </StyledDraggableContainer>
+    </Draggable>
+  );
+}
 
 const events = [
   {
@@ -61,6 +124,13 @@ function Calendar() {
 
   return (
     <>
+      {selectedTaskId && (
+        <DraggableField>
+          <DraggableWithHandle>
+            <TaskDetails />
+          </DraggableWithHandle>
+        </DraggableField>
+      )}
       <CalendarContainer>
         <FullCalendar
           buttonIcons={false}
@@ -77,12 +147,6 @@ function Calendar() {
           }}
         />
       </CalendarContainer>
-
-      {selectedTaskId && (
-        <FloatingBox>
-          <TaskDetails />
-        </FloatingBox>
-      )}
     </>
   );
 }

@@ -13,6 +13,9 @@ const StyledTaskDetails = styled(Box)`
   padding: 2rem;
   width: 100%;
   height: 100%;
+  left: 0;
+  top: 0;
+  box-shadow: none;
 `;
 
 const Header = styled.header`
@@ -25,11 +28,6 @@ const Header = styled.header`
 const Title = styled(Task.Title)`
   text-align: center;
   font-size: 2.8rem;
-`;
-
-const Date = styled.input`
-  margin-top: auto;
-  align-self: self-start;
 `;
 
 const TaskFooter = styled.footer`
