@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { styled } from "styled-components";
 
-function Logo({ size = "200rem" }) {
+function Logo({ size = "250rem" }) {
   return (
     <NavLink to="/">
       <img
