@@ -34,7 +34,7 @@ function Authentication() {
   return (
     <StyledAuthentication>
       <Logo />
-      <AuthForm action={searchParams.has("login") ? "login" : "signup"} />
+      <AuthForm action={searchParams.has("signup") ? "signup" : "login"} />
     </StyledAuthentication>
   );
 }
