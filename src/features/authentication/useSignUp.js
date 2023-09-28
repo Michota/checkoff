@@ -12,10 +12,6 @@ export function useSignUp() {
         {
           position: "top-center",
           duration: 5000,
-          iconTheme: {
-            primary: "var(--theme-primary)",
-            secondary: "var(--theme-black-200)",
-          },
         }
       );
     },
