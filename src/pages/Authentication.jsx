@@ -16,7 +16,7 @@ const StyledAuthentication = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 4.8rem;
+  gap: 2rem;
 `;
 
 function Authentication() {
