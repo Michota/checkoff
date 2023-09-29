@@ -58,7 +58,11 @@ function CallendarEvent({ children, renderObject, data }) {
   const { selectedTaskId, setSelectedTaskId } = useGeneralTasksProvider();
 
   return (
-    <StyledEvent onClick={(e) => setSelectedTaskId(id)}>
+    <StyledEvent
+      onClick={(e) => {
+        setSelectedTaskId(id);
+      }}
+    >
       <Task setState={setState} renderType="compound" data={data}>
         <Task.Checkbox></Task.Checkbox>
         <span>{hoursAndMinutes}</span>
