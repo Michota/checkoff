@@ -18,6 +18,8 @@ const StyledDraggableContainer = styled(Box)`
   padding: 0;
   top: 50%;
   left: 50%;
+
+  transition: margin 300ms;
   ${(props) =>
     `
       margin-left: ${props.$boxSize.w}px;
