@@ -5,7 +5,7 @@ import Button from "../../ui/Button";
 import { useTaskContext } from "../Task";
 
 import "../../styles/DateTimePicker.css";
-import "../../styles/Callendar.css";
+import "../../styles/DateTimePickerCalendar.css";
 
 const StyledDate = styled.span`
   font-size: 1.2rem;
