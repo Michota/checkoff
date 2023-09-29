@@ -12,6 +12,8 @@ import Draggable from "react-draggable";
 import Box from "../ui/Box";
 import { MdDragHandle } from "react-icons/md";
 import DraggableWindow from "../components/DraggableWindow";
+// import Styles
+import "../styles/FullCalendar.css";
 
 const CalendarContainer = styled.div`
   position: relative;
