@@ -77,11 +77,14 @@ function DraggableWindow({ children }) {
       defaultClassName="draggable"
       handle=".dragHandle"
     >
-      <StyledDraggableContainer $boxSize={boxSize ?? { w: 0, h: 0 }}>
-        <StyledGrabHandle ref={nodeRef} className="dragHandle">
-          <MdDragHandle ref={nodeRef} />
+      <StyledDraggableContainer
+        ref={nodeRef}
+        $boxSize={boxSize ?? { w: 0, h: 0 }}
+      >
+        <StyledGrabHandle className="dragHandle">
+          <MdDragHandle />
         </StyledGrabHandle>
-        <DraggableContent ref={nodeRef}>{children}</DraggableContent>
+        <DraggableContent>{children}</DraggableContent>
       </StyledDraggableContainer>
     </Draggable>
   );
