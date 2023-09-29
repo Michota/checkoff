@@ -15,6 +15,10 @@ function GeneralTasksProvider({ children }) {
     isUpdatingTasks,
   } = useManageTaskData();
 
+  function updateColumnByOverwriting(columnName, oldData, newData) {
+    saveAndUpdateTask({ ...oldData, [columnName]: newData });
+  }
+
   return (
     <GeneralTasksContext.Provider
       value={{
@@ -25,6 +29,7 @@ function GeneralTasksProvider({ children }) {
         isUpdatingTasks,
         selectedTaskId,
         setSelectedTaskId,
+        updateColumnByOverwriting,
       }}
     >
       {children}
