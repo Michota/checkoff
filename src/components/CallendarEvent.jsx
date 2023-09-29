@@ -45,7 +45,7 @@ function CallendarEvent({ children, renderObject, data }) {
   const { id: stringId, title, extendedProps } = event;
   const { isCompleted, setState } = extendedProps;
   const { startDate, id } = data;
-  const hoursAndMinutes = new Date(startDate).toLocaleTimeString(undefined, {
+  const hoursAndMinutes = new Date(startDate).toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
   });

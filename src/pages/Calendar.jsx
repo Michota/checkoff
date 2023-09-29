@@ -1,5 +1,6 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import enLocale from "@fullcalendar/core/locales/en-au";
 import styled from "styled-components";
 
 import useCreateNewTask from "../features/tasks/useCreateNewTask";
@@ -57,6 +58,7 @@ function Calendar() {
     <>
       <CalendarContainer>
         <FullCalendar
+          locales={[enLocale]}
           buttonIcons={false}
           height={"100%"}
           plugins={[dayGridPlugin]}

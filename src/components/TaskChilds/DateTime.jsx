@@ -61,6 +61,7 @@ export function DateTime({ customRenderType }) {
   // * If there is date and its not tab-task (its tasks details)
   return (
     <DateTimePicker
+      locale="en"
       calendarIcon={<MdDateRange color="var(--theme-white-100)" />}
       defaultValue={null}
       value={startDate}
