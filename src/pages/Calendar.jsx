@@ -1,19 +1,21 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
 import enLocale from "@fullcalendar/core/locales/en-au";
+
 import styled from "styled-components";
-
-import useCreateNewTask from "../features/tasks/useCreateNewTask";
-
 import CallendarEvent from "../components/CallendarEvent";
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 import TaskDetails from "../components/TaskDetails";
-import Draggable from "react-draggable";
-import Box from "../ui/Box";
-import { MdDragHandle } from "react-icons/md";
 import DraggableWindow from "../components/DraggableWindow";
+import useCreateNewTask from "../features/tasks/useCreateNewTask";
+import { useState } from "react";
+
 // import Styles
 import "../styles/FullCalendar.css";
+
+// Styling Components
 
 const CalendarContainer = styled.div`
   position: relative;
@@ -21,14 +23,7 @@ const CalendarContainer = styled.div`
   z-index: 0;
 `;
 
-const events = [
-  {
-    // this object will be "parsed" into an Event Object
-    title: "The Title", // a property!
-    start: "2023-09-15", // a property!
-    end: "2018-09-02", // a property! ** see important note below about 'end' **,
-  },
-];
+// Functions
 
 function parseTaskToEvents([tasks, setState]) {
   if (!tasks) return;
@@ -51,10 +46,30 @@ function eventContent(renderObject, data) {
   return <CallendarEvent renderObject={renderObject} data={data} />;
 }
 
+const customButtons = {};
+
+const views = {};
+
+const headerToolbar = {
+  start: "timeGridDay,timeGridWeek,dayGridMonth", // will normally be on the left. if RTL, will be on the right
+  center: "prevYear,title,nextYear",
+  end: "prev,next", // will normally be on the right. if RTL, will be on the left
+};
+
+// Main component of Calendar
 function Calendar() {
   const { createTask } = useCreateNewTask();
-  const { tasks, saveAndUpdateTask, setSelectedTaskId, selectedTaskId } =
+  const [calendarView, setCalendarView] = useState("timeGridWeek");
+  const { tasks, saveAndUpdateTask, selectedTaskId } =
     useGeneralTasksProvider();
+
+  // Handle Change View
+  function handleChangeView(calendarObj) {
+    const newView =
+      calendarView === "dayGridMonth" ? "timeGridWeek" : "dayGridMonth";
+    setCalendarView(newView);
+    calendarObj.changeView(newView);
+  }
 
   return (
     <>
@@ -62,12 +77,16 @@ function Calendar() {
         <FullCalendar
           locales={[enLocale]}
           buttonIcons={false}
+          initialView={calendarView}
+          headerToolbar={headerToolbar}
           height={"100%"}
-          plugins={[dayGridPlugin]}
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          dateClick={(e) => {
+            console.log(e);
+          }}
           events={parseTaskToEvents([tasks, saveAndUpdateTask] ?? null)}
           eventClick={function (info) {
             info.jsEvent.preventDefault();
-            // openEventDialog(Number(info.event.id));
           }}
           eventContent={(arg) => {
             const task = tasks.find((t) => Number(arg.event.id) === t.id);
@@ -75,6 +94,7 @@ function Calendar() {
           }}
         />
       </CalendarContainer>
+      {/* Display task editing window. */}
       {selectedTaskId && (
         // <DraggableField>
         <DraggableWindow>
