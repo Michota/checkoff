@@ -11,6 +11,7 @@ import TaskDetails from "../components/TaskDetails";
 import DraggableWindow from "../components/DraggableWindow";
 import useCreateNewTask from "../features/tasks/useCreateNewTask";
 import { useState } from "react";
+import getUNIX from "../utils/getUNIX";
 
 // import Styles
 import "../styles/FullCalendar.css";
@@ -25,7 +26,7 @@ const CalendarContainer = styled.div`
 
 // Functions
 
-function parseTaskToEvents([tasks, setState]) {
+function parseTaskToEvents([tasks]) {
   if (!tasks) return;
   const events = tasks.map((task) => {
     return {
@@ -60,8 +61,12 @@ const headerToolbar = {
 function Calendar() {
   const { createTask } = useCreateNewTask();
   const [calendarView, setCalendarView] = useState("timeGridWeek");
-  const { tasks, saveAndUpdateTask, selectedTaskId } =
-    useGeneralTasksProvider();
+  const {
+    tasks,
+    saveAndUpdateTask,
+    selectedTaskId,
+    updateColumnByOverwriting,
+  } = useGeneralTasksProvider();
 
   // Handle Change View
   function handleChangeView(calendarObj) {
@@ -71,20 +76,42 @@ function Calendar() {
     calendarObj.changeView(newView);
   }
 
+  function handleEventUpdate(e) {
+    console.log(e);
+    const { start, end, id } = e.event;
+    const { start: oldStart, end: oldEnd } = e.oldEvent;
+    console.log(start, end);
+    if (getUNIX(start) !== getUNIX(oldStart))
+      updateColumnByOverwriting(
+        "startDate",
+        tasks.find((task) => task.id),
+        start
+      );
+    if (getUNIX(end) !== getUNIX(oldEnd))
+      updateColumnByOverwriting(
+        "endDate",
+        tasks.find((task) => task.id),
+        end
+      );
+  }
+
   return (
     <>
       <CalendarContainer>
         <FullCalendar
-          locales={[enLocale]}
+          timeZone="local"
+          locale="local"
+          views={views}
+          headerToolbar={headerToolbar}
+          editable={true}
           buttonIcons={false}
           initialView={calendarView}
-          headerToolbar={headerToolbar}
           height={"100%"}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           dateClick={(e) => {
             console.log(e);
           }}
-          events={parseTaskToEvents([tasks, saveAndUpdateTask] ?? null)}
+          events={parseTaskToEvents([tasks] ?? null)}
           eventClick={function (info) {
             info.jsEvent.preventDefault();
           }}
@@ -92,6 +119,7 @@ function Calendar() {
             const task = tasks.find((t) => Number(arg.event.id) === t.id);
             return eventContent(arg, task);
           }}
+          eventChange={(e) => handleEventUpdate(e)}
         />
       </CalendarContainer>
       {/* Display task editing window. */}
