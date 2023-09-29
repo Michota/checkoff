@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyles = createGlobalStyle`
 :root {
   --theme-primary: #ffbd2d;
+  --theme-primary-rgba: 255,189,45;
   --theme-secondary: #ffd270;
 
   --theme-white-100: #ececec;
