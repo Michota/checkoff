@@ -13,6 +13,7 @@ const StyledEvent = styled(Box)`
   z-index: 5;
   display: flex;
   gap: 2rem;
+  cursor: pointer;
 
   ${(props) =>
     props.$isCompleted === true
@@ -40,6 +41,10 @@ const StyledEvent = styled(Box)`
 //   );
 // }
 
+const Title = styled.span`
+  font-size: 1.6rem;
+`;
+
 function CallendarEvent({ children, renderObject, data }) {
   const { timeText, event } = renderObject;
   const { id: stringId, title, extendedProps } = event;
@@ -57,7 +62,7 @@ function CallendarEvent({ children, renderObject, data }) {
       <Task setState={setState} renderType="compound" data={data}>
         <Task.Checkbox></Task.Checkbox>
         <span>{hoursAndMinutes}</span>
-        <Task.Title></Task.Title>
+        <Title>{title}</Title>
       </Task>
     </StyledEvent>
   );
