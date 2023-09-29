@@ -6,7 +6,8 @@ import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 const StyledEvent = styled(Box)`
   background-color: var(--theme-black-250);
   width: 100%;
-  height: min-content;
+  /* height: min-content; */
+  height: 100%;
   font-size: 1.2rem;
   padding: 0.4em;
   /* // ? Temporary fix for calendar nested event */
@@ -14,6 +15,7 @@ const StyledEvent = styled(Box)`
   display: flex;
   gap: 2rem;
   cursor: pointer;
+  overflow: hidden;
 
   ${(props) =>
     props.$isCompleted === true
