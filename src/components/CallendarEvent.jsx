@@ -29,35 +29,21 @@ const StyledEvent = styled(Box)`
         `};
 `;
 
-// function CallendarEvent({ children, data }) {
-//   const { timeText, event } = data;
-//   const { id, title, extendedProps } = event;
-//   const { isCompleted } = extendedProps;
-//   return (
-//     <StyledEvent $isCompleted={isCompleted}>
-//       <p>{isCompleted && "i am completed"}</p>
-//       <p>
-//         <span>{timeText} </span>| {title}
-//       </p>
-//     </StyledEvent>
-//   );
-// }
-
 const Title = styled.span`
   font-size: 1.6rem;
 `;
 
 function CallendarEvent({ children, renderObject, data }) {
-  const { timeText, event } = renderObject;
-  const { id: stringId, title, extendedProps } = event;
-  const { isCompleted, setState } = extendedProps;
+  const { event } = renderObject;
+  const { title, extendedProps } = event;
+  const { setState } = extendedProps;
   const { startDate, id } = data;
   const hoursAndMinutes = new Date(startDate).toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
   });
 
-  const { selectedTaskId, setSelectedTaskId } = useGeneralTasksProvider();
+  const { setSelectedTaskId } = useGeneralTasksProvider();
 
   return (
     <StyledEvent
