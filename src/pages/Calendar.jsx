@@ -1,18 +1,17 @@
+import { useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-
 import styled from "styled-components";
-import CallendarEvent from "../components/CallendarEvent";
+
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
-import TaskDetails from "../components/TaskDetails";
-import DraggableWindow from "../components/DraggableWindow";
-import useCreateNewTask from "../features/tasks/useCreateNewTask";
-import { useState } from "react";
 import getUNIX from "../utils/getUNIX";
 
-// import Styles
+import CallendarEvent from "../components/CallendarEvent";
+import TaskDetails from "../components/TaskDetails";
+import DraggableWindow from "../components/DraggableWindow";
+
 import "../styles/FullCalendar.css";
 
 // Styling Components
@@ -23,7 +22,7 @@ const CalendarContainer = styled.div`
   z-index: 0;
 `;
 
-// Functions
+// Parse Task Data to Event compatible data
 
 function parseTaskToEvents([tasks]) {
   if (!tasks) return;
@@ -41,11 +40,10 @@ function parseTaskToEvents([tasks]) {
   return events;
 }
 
+// Render Event
 function eventContent(renderObject, data) {
   return <CallendarEvent renderObject={renderObject} data={data} />;
 }
-
-const customButtons = {};
 
 const views = {
   week: {
@@ -59,6 +57,7 @@ const views = {
   },
 };
 
+// HTML elements appearing in Header of Calendar
 const headerToolbar = {
   start: "timeGridDay,timeGridWeek,dayGridMonth", // will normally be on the left. if RTL, will be on the right
   center: "prevYear,title,nextYear",
@@ -67,8 +66,8 @@ const headerToolbar = {
 
 // Main component of Calendar
 function Calendar() {
-  const { createTask } = useCreateNewTask();
   const [calendarView, setCalendarView] = useState("timeGridWeek");
+  const { tasks, saveAndUpdateTask, selectedTaskId } =
     useGeneralTasksProvider();
 
   // Handle Change View
@@ -128,13 +127,11 @@ function Calendar() {
           eventChange={(e) => handleEventUpdate(e)}
         />
       </CalendarContainer>
-      {/* Display task editing window. */}
+      {/* Display task editing (<TaskDetails>) window as draggable element. */}
       {selectedTaskId && (
-        // <DraggableField>
         <DraggableWindow>
           <TaskDetails />
         </DraggableWindow>
-        // </DraggableField>
       )}
     </>
   );
