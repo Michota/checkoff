@@ -19,9 +19,9 @@ const ButtonCreateTask = styled(Button)`
   font-size: 2rem;
   width: 4rem;
   height: 4rem;
-  position: absolute;
+  position: sticky;
   bottom: 2rem;
-  right: 0;
+  left: 100%;
   opacity: 50%;
   transition: all 200ms;
   &:hover {
