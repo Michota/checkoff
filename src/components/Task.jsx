@@ -77,7 +77,15 @@ function Task({ children, data, renderType = "tab" }) {
   // * Managing data
   const { deleteTask } = useTaskDelete();
   function updateState(columnName, newData) {
-    saveAndUpdateTask({ ...data, [columnName]: newData });
+    if (columnName !== "bothDate")
+      saveAndUpdateTask({ ...data, [columnName]: newData });
+    // update startDate and endDate
+    else
+      saveAndUpdateTask({
+        ...data,
+        startDate: newData[0],
+        endDate: newData[1],
+      });
   }
 
   // * Data (value atr.) for TaskContext.Provider
