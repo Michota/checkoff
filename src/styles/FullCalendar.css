@@ -1,7 +1,9 @@
 /* * Common */
+/* Commented vars are deafult. */
 :root {
   --fc-small-font-size: 0.85em;
-  --fc-page-bg-color: #fff;
+  /* --fc-page-bg-color: #fff; */
+  --fc-page-bg-color: transparent;
   --fc-neutral-bg-color: rgba(208, 208, 208, 0.3);
   --fc-neutral-text-color: #808080;
   --fc-border-color: rgba(255, 255, 255, 0.1);
@@ -15,9 +17,12 @@
   --fc-button-active-bg-color: #1a252f;
   --fc-button-active-border-color: #151e27;
 
-  --fc-event-bg-color: #3788d8;
-  --fc-event-border-color: #3788d8;
-  --fc-event-text-color: #fff;
+  /* --fc-event-bg-color: #3788d8; */
+  --fc-event-bg-color: transparent;
+  /* --fc-event-border-color: #3788d8; */
+  --fc-event-border-color: transparent;
+  /* --fc-event-text-color: #fff; */
+  --fc-event-text-color: transparent;
   --fc-event-selected-overlay-color: rgba(0, 0, 0, 0.25);
 
   --fc-more-link-bg-color: #d0d0d0;
