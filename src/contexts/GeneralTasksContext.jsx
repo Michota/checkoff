@@ -6,7 +6,14 @@ import { useManageTaskData } from "../features/tasks/useManageTaskData";
 const GeneralTasksContext = createContext();
 
 function GeneralTasksProvider({ children }) {
-  const [selectedTaskId, setSelectedTaskId] = useState("");
+  const [selectedTaskId, setSelectedTaskIdState] = useState("");
+
+  // ! its a handler, but renamed to setter.
+  function setSelectedTaskId(newId) {
+    const selectedTask = tasks.find((task) => task.id === newId);
+    setSelectedTaskIdState(newId);
+  }
+
   const {
     saveAndUpdateTask,
     tasks,
