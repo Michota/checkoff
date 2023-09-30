@@ -13,6 +13,7 @@ import TaskDetails from "../components/TaskDetails";
 import DraggableWindow from "../components/DraggableWindow";
 
 import "../styles/FullCalendar.css";
+import "../styles/FullCalendarCustom.css";
 
 // Styling Components
 
