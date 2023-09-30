@@ -27,6 +27,14 @@ const StyledEvent = styled(Box)`
           color: var(--theme-white-100);
           background-color: var(--theme-black-250);
         `};
+
+  ${(props) =>
+    props.$inTrash === true &&
+    css`
+      border-bottom: var(--theme-darkred-250) 2px solid;
+      color: var(--theme-red);
+      opacity: 0.5;
+    `}
 `;
 
 const Title = styled.span`
@@ -37,7 +45,7 @@ function CallendarEvent({ children, renderObject, data }) {
   const { event } = renderObject;
   const { title, extendedProps } = event;
   const { setState } = extendedProps;
-  const { startDate, id } = data;
+  const { startDate, id, inTrash } = data;
   const hoursAndMinutes = new Date(startDate).toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
@@ -47,6 +55,7 @@ function CallendarEvent({ children, renderObject, data }) {
 
   return (
     <StyledEvent
+      $inTrash={inTrash}
       onClick={(e) => {
         setSelectedTaskId(id);
       }}
