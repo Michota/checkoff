@@ -14,6 +14,7 @@ import DraggableWindow from "../components/DraggableWindow";
 
 import "../styles/FullCalendar.css";
 import "../styles/FullCalendarCustom.css";
+import useCreateNewTask from "../features/tasks/useCreateNewTask";
 
 // Styling Components
 
@@ -68,8 +69,9 @@ const headerToolbar = {
 // Main component of Calendar
 function Calendar() {
   const [calendarView, setCalendarView] = useState("timeGridWeek");
-  const { tasks, saveAndUpdateTask, selectedTaskId } =
+  const { tasks, saveAndUpdateTask, selectedTaskId, setSelectedTaskId } =
     useGeneralTasksProvider();
+  const { createTask } = useCreateNewTask();
 
   // Handle Change View
   function handleChangeView(calendarObj) {
@@ -115,7 +117,7 @@ function Calendar() {
           height={"100%"}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           dateClick={(e) => {
-            console.log(e);
+            setSelectedTaskId(createTask({ startDate: e.dateStr }));
           }}
           events={parseTaskToEvents([tasks] ?? null)}
           eventClick={function (info) {

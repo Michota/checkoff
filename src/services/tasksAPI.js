@@ -47,10 +47,19 @@ async function createNewTask(userId) {
   return data;
 }
 
+async function createNewTaskWithData(task) {
+  const { data, error } = await supabase.from("tasks").insert([task]).select();
+
+  if (error) throw new Error();
+
+  return data;
+}
+
 export {
   getTasksData,
   updateTaskData,
   createNewTask,
+  createNewTaskWithData,
   deleteTaskData,
   updateAllTasksData,
 };
