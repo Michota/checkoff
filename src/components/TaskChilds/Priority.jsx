@@ -36,13 +36,14 @@ const StyledPriorty = styled.div`
   align-items: center;
   justify-content: center;
   cursor: default;
+  text-align: center;
 
   & p::selection {
     background-color: transparent;
     color: inherit;
   }
   width: 100%;
-  min-width: 8rem;
+  min-width: 4rem;
   max-width: 40rem;
 `;
 

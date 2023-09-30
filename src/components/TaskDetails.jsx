@@ -36,6 +36,16 @@ const TaskFooter = styled.footer`
   height: 3.2rem;
   align-items: center;
   justify-content: space-between;
+  gap: 5rem;
+
+  & > * {
+    opacity: 0.4;
+    transition: 300ms all;
+  }
+
+  & > *:hover {
+    opacity: initial;
+  }
 `;
 
 const CloseButton = styled(Button)`

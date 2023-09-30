@@ -18,7 +18,8 @@ const StyledButton = styled.button`
     transform: scale(105%);
     opacity: 1;
   }
-  transition: opacity transform 100ms;
+  transition-property: transform, opacity;
+  transition-duration: 200ms;
 `;
 
 const ButtonDelete = styled(StyledButton)`

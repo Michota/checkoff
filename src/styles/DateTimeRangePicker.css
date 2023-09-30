@@ -148,29 +148,33 @@
   position: relative;
 }
 
-.react-datetimerange-picker__inputGroup:first-child::after {
+.react-datetimerange-picker__inputGroup::after {
   position: absolute;
-  content: "Date";
   font-size: 0.7em;
   left: 0%;
   text-align: center;
   top: 100%;
-  border-bottom: var(--theme-primary) 1px solid;
   width: 100%;
   border-radius: 6px;
+  opacity: 0;
+  transition: all 500ms;
+}
+
+.react-datetimerange-picker__inputGroup:first-child::after {
+  content: "Start date";
+  border-bottom: var(--theme-primary) 1px solid;
+}
+
+.react-datetimerange-picker__inputGroup:hover:first-child::after {
   opacity: 0.1;
 }
 
 .react-datetimerange-picker__inputGroup:nth-child(3)::after {
-  position: absolute;
   content: "End date";
-  font-size: 0.7em;
-  left: 0%;
-  text-align: center;
-  top: 100%;
-  border-bottom: var(--theme-green) 1px solid;
-  width: 100%;
-  border-radius: 6px;
+  border-bottom: var(--theme-red) 1px solid;
+}
+
+.react-datetimerange-picker__inputGroup:hover:nth-child(3)::after {
   opacity: 0.1;
 }
 
