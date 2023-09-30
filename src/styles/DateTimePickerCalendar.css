@@ -152,4 +152,10 @@
 
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: var(--theme-secondary) !important;
+  color: var(--theme-black-100);
+  font-weight: bold;
+}
+
+abbr[title] {
+  text-decoration: none;
 }
