@@ -62,7 +62,7 @@ function TaskDetails() {
   const data = tasks?.find((task) => task.id === selectedTaskId);
   if (!data?.id ?? setSelectedTaskId(null)) return;
   return (
-    <StyledTaskDetails>
+    <StyledTaskDetails className="TaskDetails">
       <Task data={data} key={data.id} renderType="compound">
         <Header>
           <Task.Checkbox />

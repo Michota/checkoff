@@ -30,7 +30,9 @@ const MainSpace = styled.div`
 const SecondarySpace = styled.div`
   position: relative;
   margin: 2rem;
-  box-shadow: var(--drop-shadow);
+  & .TaskDetails {
+    box-shadow: var(--drop-shadow);
+  }
 `;
 
 // const x = resolvePath("xyz", "tasks");
