@@ -4,8 +4,9 @@ import DateTimePicker from "react-datetime-picker";
 import Button from "../../ui/Button";
 import { useTaskContext } from "../Task";
 
-import "../../styles/DateTimePicker.css";
+// CSS import
 import "../../styles/DateTimePickerCalendar.css";
+import "../../styles/DateTimeRangePicker.css";
 
 const StyledDate = styled.span`
   font-size: 1.2rem;
