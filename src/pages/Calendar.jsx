@@ -69,12 +69,7 @@ const headerToolbar = {
 function Calendar() {
   const { createTask } = useCreateNewTask();
   const [calendarView, setCalendarView] = useState("timeGridWeek");
-  const {
-    tasks,
-    saveAndUpdateTask,
-    selectedTaskId,
-    updateColumnByOverwriting,
-  } = useGeneralTasksProvider();
+    useGeneralTasksProvider();
 
   // Handle Change View
   function handleChangeView(calendarObj) {
@@ -85,22 +80,25 @@ function Calendar() {
   }
 
   function handleEventUpdate(e) {
-    console.log(e);
-    const { start, end, id } = e.event;
+    // Data from event. OldEvent is data from before the changes
+    const { start, end, id: eventId } = e.event;
     const { start: oldStart, end: oldEnd } = e.oldEvent;
-    console.log(start, end);
-    if (getUNIX(start) !== getUNIX(oldStart))
-      updateColumnByOverwriting(
-        "startDate",
-        tasks.find((task) => task.id),
-        start
-      );
-    if (getUNIX(end) !== getUNIX(oldEnd))
-      updateColumnByOverwriting(
-        "endDate",
-        tasks.find((task) => task.id),
-        end
-      );
+
+    // Get task data for subsequent data operations
+    const data = tasks.find((task) => task.id === Number(eventId));
+
+    // Check if date actually changed.
+    if (
+      getUNIX(start) !== getUNIX(oldStart) ||
+      getUNIX(end) !== getUNIX(oldEnd)
+    ) {
+      // Save new data by overwriting old data
+      saveAndUpdateTask({
+        ...data,
+        startDate: start,
+        endDate: end,
+      });
+    }
   }
 
   return (
