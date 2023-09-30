@@ -1,6 +1,7 @@
+import DateTimeRangePicker from "@wojtekmaj/react-datetimerange-picker";
 import styled from "styled-components";
 import { MdCalendarToday, MdDateRange } from "react-icons/md";
-import DateTimePicker from "react-datetime-picker";
+
 import Button from "../../ui/Button";
 import { useTaskContext } from "../Task";
 
@@ -61,14 +62,20 @@ export function DateTime({ customRenderType }) {
 
   // * If there is date and its not tab-task (its tasks details)
   return (
-    <DateTimePicker
+    <DateTimeRangePicker
+      autoFocus={false}
       locale="en"
       calendarIcon={<MdDateRange color="var(--theme-white-100)" />}
       defaultValue={null}
-      value={startDate}
+      value={[startDate, endDate]}
       onChange={(value) => {
-        const dateValue = value ? new Date(value).toISOString() : null;
-        updateState("startDate", dateValue);
+        if (value !== null) {
+          const start = value[0] ? new Date(value[0]).toISOString() : null;
+          const end = value[1] ? new Date(value[1]).toISOString() : null;
+          updateState("bothDate", [start, end]);
+        } else {
+          updateState("bothDate", [null, null]);
+        }
       }}
     />
   );
