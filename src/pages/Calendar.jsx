@@ -2,7 +2,6 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import enLocale from "@fullcalendar/core/locales/en-au";
 
 import styled from "styled-components";
 import CallendarEvent from "../components/CallendarEvent";
@@ -36,7 +35,6 @@ function parseTaskToEvents([tasks]) {
       end: task.endDate,
       extendedProps: {
         isCompleted: task.isCompleted,
-        setState: setState,
       },
     };
   });
@@ -49,7 +47,17 @@ function eventContent(renderObject, data) {
 
 const customButtons = {};
 
-const views = {};
+const views = {
+  week: {
+    titleFormat: { meridiem: false },
+  },
+  timeGrid: {
+    titleFormat: { meridiem: false },
+  },
+  day: {
+    titleFormat: { hour: "numeric", minute: "2-digit", meridiem: false },
+  },
+};
 
 const headerToolbar = {
   start: "timeGridDay,timeGridWeek,dayGridMonth", // will normally be on the left. if RTL, will be on the right
