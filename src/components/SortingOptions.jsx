@@ -58,7 +58,7 @@ function SortingOptions() {
     )
       newState = { option: "", ascending: false };
 
-    navigate("", {
+    navigate(`${location.pathname}${location.search}`, {
       state: addURLState("sortingOption", {
         ...newState,
       }),
