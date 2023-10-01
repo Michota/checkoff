@@ -1,14 +1,9 @@
-import { useLocation, useNavigate } from "react-router";
-
 /**
  *
  * Returns a function that returns updated URL State.
  */
 
-function useLocationState() {
-  const location = useLocation();
-  const state = location.state;
-
+function useLocationState(state) {
   /**
    *
    * @param {[string]} key  Name of key that will be added/updated in URLState
@@ -19,7 +14,6 @@ function useLocationState() {
   function addURLState(key, value) {
     const newState = Object.assign(state ?? {});
     newState[key] = value;
-
     return newState;
   }
 
