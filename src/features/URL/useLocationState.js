@@ -17,7 +17,8 @@ function useLocationState() {
    */
 
   function addURLState(key, value) {
-    const newState = state?.[key][value] ?? { [key]: value };
+    const newState = Object.assign(state ?? {});
+    newState[key] = value;
 
     return newState;
   }
