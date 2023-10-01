@@ -65,7 +65,6 @@ const StyledNavLink = styled(NavLink)`
 const StyledSubNavLink = styled(StyledNavLink)`
   font-size: 0.8em;
   margin-top: -1rem;
-  /* margin-left: 1rem; */
   color: var(--theme-white-400);
   text-decoration: none;
 
