@@ -37,11 +37,11 @@ function sortTasks(tasks, sortBy, ascending = true) {
   if (sortBy === "startDate") {
     sortedTasks = ascending
       ? tasks?.sort(
-          (a, b) =>
+          (b, a) =>
             new Date(a[sortBy]).getTime() - new Date(b[sortBy]).getTime()
         )
       : tasks?.sort(
-          (b, a) =>
+          (a, b) =>
             new Date(a[sortBy]).getTime() - new Date(b[sortBy]).getTime()
         );
     return sortedTasks;
@@ -49,8 +49,8 @@ function sortTasks(tasks, sortBy, ascending = true) {
 
   if (method === "number")
     sortedTasks = ascending
-      ? tasks?.sort((a, b) => a[sortBy] - b[sortBy])
-      : tasks?.sort((b, a) => a[sortBy] - b[sortBy]);
+      ? tasks?.sort((b, a) => a[sortBy] - b[sortBy])
+      : tasks?.sort((a, b) => a[sortBy] - b[sortBy]);
   // Sort by strings.
   if (method === "string")
     sortedTasks = ascending
