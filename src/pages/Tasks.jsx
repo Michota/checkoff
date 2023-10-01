@@ -41,7 +41,7 @@ const SecondarySpace = styled.div`
 function Tasks() {
   // Decide whether to render Tasks or deleted tasks.
   const location = useLocation();
-  const areWeInTrash = location.state === "trash";
+  const areWeInTrash = location.state?.trash === true ?? false;
 
   // const { tasks, isLoadingTasks, saveAndUpdateTask } = useManageTaskData();
 
