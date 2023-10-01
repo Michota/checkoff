@@ -10,10 +10,11 @@ function useFilterWithParameters(
 
   const elementsMatchingParams = parameters?.map((parameter) =>
     filteredArray?.filter((el) =>
-      el[parameter]?.includes(searchParams.get(parameter))
+      el[parameter]
+        ?.toLocaleLowerCase()
+        ?.includes(searchParams.get(parameter)?.toLocaleLowerCase())
     )
   );
-
   // ! If there were multiple parameters, the arrays may contain the same elements many times.
   // * uniqueElements is an array that filters out duplicates.
   const uniqueElements = []
