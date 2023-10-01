@@ -85,11 +85,13 @@ function Checklist({ dataManager, location }) {
 
   // Task filtered with search parameters.
   // ! descjson searching is currently not working due to JSON format of descriptions.
+  const sortedTasks = sortingSettings?.option
+    ? sortTasks(tasks, sortingSettings?.option, sortingSettings?.ascending)
+    : sortTasks(tasks, defaultSorting, false);
+
   const filteredTasks = useFilterWithParameters(
-    sortingSettings.option
-      ? sortTasks(tasks, sortingSettings?.option, sortingSettings?.ascending)
-      : sortTasks(tasks, defaultSorting),
-    [("title", "descjson")],
+    sortedTasks,
+    ["title", "descjson"],
     "id",
     true
   );
