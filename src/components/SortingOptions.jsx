@@ -44,9 +44,24 @@ function SortingOptions() {
   const selectedOption = location?.state?.sortingOption;
 
   function handleSortingOption(option) {
-    if (selectedOption === option) option = null;
+    let newState;
+    // 1. option, asc
+    if (selectedOption?.option !== option)
+      newState = { option, ascending: true };
+    // 2. option, desc
+    if (selectedOption?.option === option && selectedOption?.ascending === true)
+      newState = { option, ascending: false };
+    // 3. null, null
+    if (
+      selectedOption?.option === option &&
+      selectedOption?.ascending === false
+    )
+      newState = { option: "", ascending: false };
+
     navigate("", {
-      state: addURLState("sortingOption", option),
+      state: addURLState("sortingOption", {
+        ...newState,
+      }),
     });
   }
 
