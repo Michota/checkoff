@@ -71,6 +71,38 @@ p {
   color: var(--theme-white-200);
 }
 
+::-webkit-scrollbar {
+  width: 1.6rem;
+  height: 1rem;
+}
+
+
+::-webkit-scrollbar-track {
+  background-color: var(--theme-black-200);
+  margin-block: 2rem;
+  border-radius: 1rem;
+
+}
+
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--theme-black-250);
+  border-radius: 1rem;
+  border: 0.2em var(--theme-black-200) solid;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--theme-black-300);
+}
+
+
+@supports (scrollbar-color: var(--theme-black-200) var(--theme-black-250)) {
+  * {
+    scrollbar-color: var(--theme-black-250)  var(--theme-black-200);
+    scrollbar-width: auto;
+  }
+}
+
 `;
 
 export default GlobalStyles;
