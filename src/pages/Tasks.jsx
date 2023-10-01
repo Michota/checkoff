@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import LoadingSpinner from "../ui/LoadingSpinner";
 import SearchBar from "../components/SearchBar";
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
+import SortingOptions from "../components/SortingOptions";
 
 const StyledTasksPanel = styled.div`
   display: grid;
@@ -39,11 +40,9 @@ const SecondarySpace = styled.div`
 // console.log(x);
 
 function Tasks() {
-  // Decide whether to render Tasks or deleted tasks.
   const location = useLocation();
+  // Decide whether to render Tasks or deleted tasks.
   const areWeInTrash = location.state?.trash === true ?? false;
-
-  // const { tasks, isLoadingTasks, saveAndUpdateTask } = useManageTaskData();
 
   const { selectedTaskId, tasks, isLoadingTasks } = useGeneralTasksProvider();
 
@@ -51,6 +50,7 @@ function Tasks() {
     <StyledTasksPanel>
       <MainSpace>
         <SearchBar mode="url" searchParameters={["title"]} />
+        <SortingOptions />
         {isLoadingTasks ? (
           <LoadingSpinner type="full" />
         ) : (
