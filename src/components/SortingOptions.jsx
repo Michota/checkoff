@@ -54,25 +54,25 @@ function SortingOptions() {
     <StyledSortingOptions>
       <p>Order by</p>
       <SortButton
-        className={selectedOption === "priority" ? "active" : null}
+        className={selectedOption?.option === "priority" ? "active" : null}
         onClick={() => handleSortingOption("priority")}
       >
         Priority
       </SortButton>
       <SortButton
-        className={selectedOption === "date" ? "active" : null}
+        className={selectedOption?.option === "date" ? "active" : null}
         onClick={() => handleSortingOption("date")}
       >
         Date
       </SortButton>
       <SortButton
-        className={selectedOption === "name" ? "active" : null}
+        className={selectedOption?.option === "name" ? "active" : null}
         onClick={() => handleSortingOption("name")}
       >
         Name
       </SortButton>
       <SortButton
-        className={selectedOption === "created" ? "active" : null}
+        className={selectedOption?.option === "created" ? "active" : null}
         onClick={() => handleSortingOption("created")}
       >
         Created
