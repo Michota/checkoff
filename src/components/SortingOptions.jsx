@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Button from "../ui/Button";
 import { useLocation, useNavigate } from "react-router";
 import useLocationState from "../features/URL/useLocationState";
+import { useState } from "react";
+import { MdArrowDownward, MdArrowUpward } from "react-icons/md";
 
 const StyledSortingOptions = styled.div`
   ::selection {
@@ -24,6 +26,17 @@ const StyledSortingOptions = styled.div`
   }
 `;
 
+const StyledOptions = styled.div`
+  font-size: 0.7em;
+  display: grid;
+  grid-template-columns: 5rem max-content 1fr;
+  align-items: center;
+`;
+
+const IconContainer = styled.span`
+  width: 3rem;
+`;
+
 const SortButton = styled(Button)`
   background-color: var(--theme-black-300);
   color: var(--theme-white-400);
@@ -43,20 +56,26 @@ function SortingOptions() {
   const { addURLState } = useLocationState(location.state);
   const selectedOption = location?.state?.sortingOption;
 
+  const [orderIndicator, setOrderIndicator] = useState(0);
+
   function handleSortingOption(option) {
     let newState;
     // 1. option, asc
     if (selectedOption?.option !== option)
       newState = { option, ascending: true };
+      setOrderIndicator(1);
     // 2. option, desc
     if (selectedOption?.option === option && selectedOption?.ascending === true)
       newState = { option, ascending: false };
+      setOrderIndicator(2);
+    }
     // 3. null, null
     if (
       selectedOption?.option === option &&
       selectedOption?.ascending === false
-    )
+    ) {
       newState = { option: "", ascending: false };
+      setOrderIndicator(0);
 
     navigate(`${location.pathname}${location.search}`, {
       state: addURLState("sortingOption", {
@@ -64,35 +83,19 @@ function SortingOptions() {
       }),
     });
   }
+  let icon;
+
+  if (orderIndicator === 0) icon = "";
+  if (orderIndicator === 1) icon = <MdArrowUpward />;
+  if (orderIndicator === 2) icon = <MdArrowDownward />;
 
   return (
-    <StyledSortingOptions>
-      <p>Order by</p>
-      <SortButton
-        className={selectedOption?.option === "priority" ? "active" : null}
-        onClick={() => handleSortingOption("priority")}
-      >
-        Priority
-      </SortButton>
-      <SortButton
-        className={selectedOption?.option === "date" ? "active" : null}
-        onClick={() => handleSortingOption("date")}
-      >
-        Date
-      </SortButton>
-      <SortButton
-        className={selectedOption?.option === "name" ? "active" : null}
-        onClick={() => handleSortingOption("name")}
-      >
-        Name
-      </SortButton>
-      <SortButton
-        className={selectedOption?.option === "created" ? "active" : null}
-        onClick={() => handleSortingOption("created")}
-      >
-        Created
-      </SortButton>
-    </StyledSortingOptions>
+      <p>Order By</p>
+      <IconContainer>{icon}</IconContainer>
+          className={selectedOption?.option === "priority" ? "active" : null}
+          className={selectedOption?.option === "startDate" ? "active" : null}
+          className={selectedOption?.option === "title" ? "active" : null}
+    </StyledOptions>
   );
 }
 
