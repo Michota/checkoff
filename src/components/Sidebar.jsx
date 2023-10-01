@@ -9,7 +9,6 @@ import {
 } from "react-icons/md";
 import { useState } from "react";
 import { useLogout } from "../features/authentication/useLogout";
-import useLocationState from "../features/URL/useLocationState";
 
 const StyledSidebar = styled.div`
   position: absolute;
@@ -78,12 +77,11 @@ const StyledSubNavLink = styled(StyledNavLink)`
 let logoFullSize = false;
 
 function Sidebar() {
-  const { pathname } = useLocation();
+  const location = useLocation();
   const [isRolled, setIsRolled] = useState(true);
   const { logout, isLoading: isLoggingOut } = useLogout();
-  const { addURLState } = useLocationState();
 
-  if (pathname)
+  if (location.pathname)
     return (
       <SidebarPlaceholder>
         <StyledSidebar
@@ -103,8 +101,11 @@ function Sidebar() {
               <MdTaskAlt size="2.5rem" />
               {!isRolled && "Tasks"}
             </StyledNavLink>
-            {pathname.includes("/tasks") && (
-              <StyledSubNavLink to="tasks" state={addURLState("trash", true)}>
+            {location.pathname.includes("/tasks") && (
+              <StyledSubNavLink
+                to="tasks"
+                state={{ ...location.state, trash: true }}
+              >
                 <MdDeleteOutline size="2.5rem" /> {!isRolled && "Trash"}
               </StyledSubNavLink>
             )}
