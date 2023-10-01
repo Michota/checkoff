@@ -5,7 +5,7 @@ import useLocationState from "../features/URL/useLocationState";
 import { useState } from "react";
 import { MdArrowDownward, MdArrowUpward } from "react-icons/md";
 
-const StyledSortingOptions = styled.div`
+const StyledSortingButtons = styled.div`
   ::selection {
     background-color: transparent;
     color: inherit;
@@ -44,7 +44,6 @@ const SortButton = styled(Button)`
   padding: 0.5rem 1rem;
   &.active {
     color: var(--theme-white-200);
-    font-weight: bold;
     border-bottom: 0.1rem var(--theme-white-100) solid;
     margin-bottom: -0.1rem;
   }
@@ -61,11 +60,15 @@ function SortingOptions() {
   function handleSortingOption(option) {
     let newState;
     // 1. option, asc
-    if (selectedOption?.option !== option)
+    if (selectedOption?.option !== option) {
       newState = { option, ascending: true };
       setOrderIndicator(1);
+    }
     // 2. option, desc
-    if (selectedOption?.option === option && selectedOption?.ascending === true)
+    if (
+      selectedOption?.option === option &&
+      selectedOption?.ascending === true
+    ) {
       newState = { option, ascending: false };
       setOrderIndicator(2);
     }
@@ -76,6 +79,7 @@ function SortingOptions() {
     ) {
       newState = { option: "", ascending: false };
       setOrderIndicator(0);
+    }
 
     navigate(`${location.pathname}${location.search}`, {
       state: addURLState("sortingOption", {
@@ -90,11 +94,29 @@ function SortingOptions() {
   if (orderIndicator === 2) icon = <MdArrowDownward />;
 
   return (
+    <StyledOptions>
       <p>Order By</p>
       <IconContainer>{icon}</IconContainer>
+      <StyledSortingButtons>
+        <SortButton
           className={selectedOption?.option === "priority" ? "active" : null}
+          onClick={() => handleSortingOption("priority")}
+        >
+          Priority
+        </SortButton>
+        <SortButton
           className={selectedOption?.option === "startDate" ? "active" : null}
+          onClick={() => handleSortingOption("startDate")}
+        >
+          Date
+        </SortButton>
+        <SortButton
           className={selectedOption?.option === "title" ? "active" : null}
+          onClick={() => handleSortingOption("title")}
+        >
+          Name
+        </SortButton>
+      </StyledSortingButtons>
     </StyledOptions>
   );
 }
