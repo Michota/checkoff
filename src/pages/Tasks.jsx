@@ -42,7 +42,6 @@ const SecondarySpace = styled.div`
 function Tasks() {
   const location = useLocation();
   // Decide whether to render Tasks or deleted tasks.
-  const areWeInTrash = location.state?.trash === true ?? false;
 
   const { selectedTaskId, tasks, isLoadingTasks } = useGeneralTasksProvider();
 
@@ -55,14 +54,16 @@ function Tasks() {
           <LoadingSpinner type="full" />
         ) : (
           <>
-            <h2>{areWeInTrash ? "Trash" : "Checklist"}</h2>
+            <h2>
+              {location.state?.trash === true ?? false ? "Trash" : "Checklist"}
+            </h2>
             <Checklist
               // key={}
               dataManager={{
                 tasks,
                 isLoadingTasks,
               }}
-              amITrash={areWeInTrash}
+              location={location}
             />
           </>
         )}
