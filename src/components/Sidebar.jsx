@@ -1,14 +1,16 @@
+import { useState } from "react";
 import { NavLink, useLocation, useParams } from "react-router-dom";
-import { styled } from "styled-components";
+import { useLogout } from "../features/authentication/useLogout";
+import { css, styled } from "styled-components";
 import Logo from "../ui/Logo";
 import {
   MdDeleteOutline,
   MdLogout,
   MdOutlineCalendarMonth,
+  MdOutlineSettings,
+  MdPersonOutline,
   MdTaskAlt,
 } from "react-icons/md";
-import { useState } from "react";
-import { useLogout } from "../features/authentication/useLogout";
 
 const StyledSidebar = styled.div`
   position: absolute;
@@ -18,10 +20,10 @@ const StyledSidebar = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 2rem 0;
   font-size: 2.4rem;
   gap: 2rem;
-  width: ${(props) => (!props.$rolled ? "20rem" : "7rem")};
+  width: ${(props) => (!props.$rolled ? "18rem" : "6rem")};
   transition: box-shadow 50ms, width 200ms ease-out;
 
   &:hover {
@@ -31,47 +33,80 @@ const StyledSidebar = styled.div`
 
 // ? created for calendars width purposes
 const SidebarPlaceholder = styled.div`
-  width: 8rem;
+  width: 7rem;
 `;
 
 const StyledUl = styled.ul`
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 2rem;
   height: 100%;
-`;
-
-const StyledNavLink = styled(NavLink)`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  color: var(--theme-white-400);
-  text-decoration: none;
-
-  &:hover {
-    color: var(--theme-white-200);
-  }
+  width: 100%;
+  padding: 1rem;
 
   &:last-child {
     margin-top: auto;
-    transition: color 100ms;
   }
   &:last-child:hover {
     color: var(--theme-red);
   }
 `;
 
-const StyledSubNavLink = styled(StyledNavLink)`
-  font-size: 0.8em;
-  margin-top: -1rem;
+const StyledNavLink = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
   color: var(--theme-white-400);
   text-decoration: none;
+  font-size: 2.4rem;
+  height: 3rem;
+  padding: 0.8rem;
+  transition: color 100ms;
+
+  border-radius: 2rem;
+
+  ${(props) =>
+    props.$isRolled === false
+      ? css`
+          justify-content: left;
+        `
+      : ""}
 
   &:hover {
     color: var(--theme-white-200);
   }
+
+  &.active {
+    background-color: var(--theme-black-300);
+  }
+  &.active.trash {
+    background-color: transparent !important;
+  }
 `;
+
+const LogoutLink = styled.span`
+  & > * {
+    margin-top: auto;
+    transition: color 100ms;
+  }
+
+  & > *:hover {
+    color: var(--theme-red);
+  }
+`;
+
+const LogoContainer = styled.div`
+  height: 4em;
+`;
+
+// ==== end of styling ====
+
+NavLink.defaultProps = {
+  className: ({ isActive, isPending }) =>
+    isPending ? "pending" : isActive ? "active" : "",
+};
 
 let logoFullSize = false;
 
@@ -94,28 +129,45 @@ function Sidebar() {
             setIsRolled(false);
           }}
         >
-          <Logo size={logoFullSize ? "125rem" : "25rem"} full={logoFullSize} />
+          <LogoContainer>
+            {logoFullSize ? (
+              <Logo size={"125rem"} full={true} />
+            ) : (
+              <Logo size={"25rem"} full={false} />
+            )}
+          </LogoContainer>
           <StyledUl>
-            <StyledNavLink to="tasks">
-              <MdTaskAlt size="2.5rem" />
-              {!isRolled && "Tasks"}
+            <StyledNavLink $isRolled={isRolled} to="/tasks">
+              <MdTaskAlt size="0.8em" />
+              {!isRolled && <span>Tasks</span>}
             </StyledNavLink>
             {location.pathname.includes("/tasks") && (
-              <StyledSubNavLink
-                to="tasks"
+              <StyledNavLink
+                to="/tasks"
+                className="trash"
+                $isRolled={isRolled}
                 state={{ ...location.state, trash: true }}
               >
-                <MdDeleteOutline size="2.5rem" /> {!isRolled && "Trash"}
-              </StyledSubNavLink>
+                <MdDeleteOutline size="0.8em" />
+                {!isRolled && <span>Trash</span>}
+              </StyledNavLink>
             )}
-            <StyledNavLink to="calendar">
-              <MdOutlineCalendarMonth size="2.5rem" />
-              {!isRolled && "Calendar"}
+            <StyledNavLink $isRolled={isRolled} to="/calendar">
+              <MdOutlineCalendarMonth size="0.8em" />
+              {!isRolled && <span>Calendar</span>}
+            </StyledNavLink>
+          </StyledUl>
             </StyledNavLink>
             <StyledNavLink onClick={logout}>
               <MdLogout size="2.5rem" /> {!isRolled && "Logout"}
             </StyledNavLink>
           </StyledUl>
+          <LogoutLink>
+            <StyledNavLink to="logout" size="0.8em" onClick={logout}>
+              <MdLogout size="0.8em" />
+              {!isRolled && <span>Logout</span>}
+            </StyledNavLink>
+          </LogoutLink>
         </StyledSidebar>
       </SidebarPlaceholder>
     );
