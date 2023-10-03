@@ -5,16 +5,7 @@ import { useState } from "react";
 import { useLogin } from "./useLogin";
 import { useSignUp } from "./useSignup";
 import toast from "react-hot-toast";
-
-const StyledInput = styled.input`
-  background-color: var(--theme-white-100);
-  color: var(--theme-black-200);
-  width: max-content;
-  height: 1rem;
-  padding: 2rem 1rem;
-  font-size: 1.6rem;
-  border-radius: var(--default-radius);
-`;
+import LabeledInput from "../../ui/LabeledInput";
 
 const InputContainer = styled.span`
   display: grid;
@@ -29,24 +20,6 @@ const FormContainer = styled.div`
   gap: 2rem;
   justify-content: center;
   align-items: center;
-`;
-
-const StyledLabel = styled.label`
-  font-size: 1.8rem;
-  font-weight: 600;
-`;
-
-const MainButton = styled(Button)`
-  background-color: var(--theme-primary);
-  color: var(--theme-black-200);
-  padding: 1rem 2rem;
-  width: 100%;
-`;
-
-const SecondButton = styled(MainButton)`
-  background-color: transparent;
-  color: var(--theme-primary);
-  outline: 0.2rem solid var(--theme-primary);
 `;
 
 const Buttons = styled.span`
@@ -114,36 +87,41 @@ function AuthForm({ action }) {
     <Form onSubmit={handleSubmit}>
       <FormContainer>
         <InputContainer>
-          <StyledLabel htmlFor="email">E-mail</StyledLabel>
-          <StyledInput
+          <LabeledInput
             placeholder="john.doe@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
             autoComplete={action === "login" ? "on" : "off"}
             id="email"
-          />
+            htmlFor="email"
+          >
+            E-mail
+          </LabeledInput>
         </InputContainer>
         <InputContainer>
-          <StyledLabel htmlFor="pass">Password</StyledLabel>
-          <StyledInput
+          <LabeledInput
+            htmlFor="pass"
             placeholder="••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
             autoComplete={action === "login" ? "on" : "off"}
             id="pass"
-          />
+          >
+            Password
+          </LabeledInput>
         </InputContainer>
         <Buttons>
-          <MainButton type="submit">
+          <Button btnType="primary" type="submit">
             {action === "login" ? "Login!" : "Sign up!"}
-          </MainButton>
-          <SecondButton
+          </Button>
+          <Button
+            btnType="secondary"
             onClick={() => navigate(action === "login" ? "?signup" : "?login")}
           >
             {action === "login" ? "Sign up!" : "Already singed up? Login!"}
-          </SecondButton>
+          </Button>
         </Buttons>
       </FormContainer>
     </Form>
