@@ -34,6 +34,19 @@ const ButtonDelete = styled(StyledButton)`
   }
 `;
 
+const PrimaryButton = styled(StyledButton)`
+  background-color: var(--theme-primary);
+  color: var(--theme-black-200);
+  padding: 1rem 2rem;
+  width: 100%;
+`;
+
+const SecondaryButton = styled(PrimaryButton)`
+  background-color: transparent;
+  color: var(--theme-primary);
+  outline: 0.2rem solid var(--theme-primary);
+`;
+
 const ButtonRestore = styled(StyledButton)`
   font-size: 2rem;
   background-color: transparent;
@@ -67,6 +80,30 @@ function Button({
         >
           {children}
         </StyledButton>
+      );
+    case "primary":
+      return (
+        <PrimaryButton
+          className={className}
+          onClick={onClick}
+          $size={size}
+          $textColor={color}
+          $backgroundColor={backgroundColor}
+        >
+          {children}
+        </PrimaryButton>
+      );
+    case "secondary":
+      return (
+        <SecondaryButton
+          className={className}
+          onClick={onClick}
+          $size={size}
+          $textColor={color}
+          $backgroundColor={backgroundColor}
+        >
+          {children}
+        </SecondaryButton>
       );
     case "delete":
       return (
