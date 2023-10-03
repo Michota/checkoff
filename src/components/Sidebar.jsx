@@ -157,9 +157,15 @@ function Sidebar() {
               {!isRolled && <span>Calendar</span>}
             </StyledNavLink>
           </StyledUl>
+
+          <StyledUl>
+            <StyledNavLink $isRolled={isRolled} to="/profile">
+              <MdPersonOutline size="0.8em" />
+              {!isRolled && <span>Profile</span>}
             </StyledNavLink>
-            <StyledNavLink onClick={logout}>
-              <MdLogout size="2.5rem" /> {!isRolled && "Logout"}
+            <StyledNavLink $isRolled={isRolled} to="/settings">
+              <MdOutlineSettings size="0.8em" />
+              {!isRolled && <span>Settings</span>}
             </StyledNavLink>
           </StyledUl>
           <LogoutLink>
