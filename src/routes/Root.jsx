@@ -14,7 +14,7 @@ const StyledRoot = styled.div`
 `;
 
 const Main = styled.main`
-  padding: 2rem;
+  padding: 2rem 2rem 0 2rem;
   overflow-y: auto;
   overflow-x: hidden;
 `;
