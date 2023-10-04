@@ -13,13 +13,19 @@ const StyledButton = styled.button`
   background-color: ${(props) => props.$backgroundColor || "transparent"};
   width: ${(props) => props.$size || "initial"};
   height: ${(props) => props.$size || "initial"};
+  font-size: 1em;
 
-  &:hover {
-    transform: scale(105%);
-    opacity: 1;
-  }
   transition-property: transform, opacity;
   transition-duration: 200ms;
+
+  &:hover {
+    transform: scale(102%);
+    opacity: 1;
+  }
+
+  &:active {
+    transform: scale(99%);
+  }
 `;
 
 const ButtonDelete = styled(StyledButton)`
