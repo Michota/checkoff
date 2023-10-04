@@ -108,8 +108,6 @@ NavLink.defaultProps = {
     isPending ? "pending" : isActive ? "active" : "",
 };
 
-let logoFullSize = false;
-
 function Sidebar() {
   const location = useLocation();
   const [isRolled, setIsRolled] = useState(true);
@@ -121,16 +119,14 @@ function Sidebar() {
         <StyledSidebar
           $rolled={isRolled}
           onMouseLeave={(e) => {
-            logoFullSize = false;
             setIsRolled(true);
           }}
           onMouseEnter={(e) => {
-            logoFullSize = true;
             setIsRolled(false);
           }}
         >
           <LogoContainer>
-            {logoFullSize ? (
+            {!isRolled ? (
               <Logo size={"125rem"} full={true} />
             ) : (
               <Logo size={"25rem"} full={false} />
