@@ -38,3 +38,41 @@ export async function signUpApi({ email, password }) {
 
   return data;
 }
+
+// export async function updatePassword(newPassword) {
+//   console.log(newPassword);
+//   const { data: reauthentication, error: err } =
+//     await supabase.auth.reauthenticate();
+
+//   console.log(reauthentication, err);
+
+//   if (err) throw new Error(err.message);
+
+//   // const { data, error } = await supabase.auth.updateUser({
+//   //   password: newPassword,
+//   // });
+
+//   // console.log(data);
+
+//   // if (error) throw new Error(error.message);
+
+//   // return data;
+// }
+
+export async function reauthenticate() {
+  const { data, error } = await supabase.auth.reauthenticate();
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+export async function updateCredentials(newCredentials) {
+  const { data, error } = await supabase.auth.updateUser({
+    ...newCredentials,
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
