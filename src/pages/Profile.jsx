@@ -8,6 +8,7 @@ import {
   useUpdateCredentials,
 } from "../features/authentication/useUpdateCredentials";
 import toast from "react-hot-toast";
+import { NavLink } from "react-router-dom";
 
 const StyledProfile = styled.div`
   display: flex;
@@ -103,7 +104,9 @@ function Profile() {
     <StyledProfile>
       <h1>Hi, {user.email}!</h1>
       <Tiles>
-        <OutlinedTile>
+        <OutlinedTile
+          style={{ filter: "blur(2px) grayscale(100%)", pointerEvents: "none" }}
+        >
           <header>
             <h2>Your Profile</h2>
             <p>Change your nickname.</p>
@@ -113,12 +116,17 @@ function Profile() {
             <Button btnType="primary">Change your nickname</Button>
           </TileSection>
         </OutlinedTile>
-        <Tile>
-          <header>
-            <h2>Change Settings</h2>
-            <p>Change display lanuage, theme, timezone, and others.</p>
-          </header>
-        </Tile>
+        <NavLink
+          to="/settings"
+          style={{ color: "inherit", textDecoration: "none" }}
+        >
+          <Tile>
+            <header>
+              <h2>Change Settings</h2>
+              <p>Change display lanuage, theme, timezone, and others.</p>
+            </header>
+          </Tile>
+        </NavLink>
         <OutlinedTile style={{ gridColumn: "3", gridRow: "1 / span 2" }}>
           <header>
             <h2>Change Credentials</h2>
