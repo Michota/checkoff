@@ -4,6 +4,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import multiMonthPlugin from "@fullcalendar/multimonth";
 import allLocales from "@fullcalendar/core/locales-all";
 
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
@@ -28,72 +29,6 @@ const CalendarContainer = styled.div`
   position: relative;
   height: 100%;
   z-index: 0;
-
-  /* .material-symbols-outlined,
-  .fc-icon-material-symbols-outlined {
-    font-family: "Material Symbols Outlined";
-    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-  } */
-  .fc-icon-customButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &::after {
-      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-      font-family: "Material Symbols Outlined";
-      -webkit-font-feature-settings: "liga";
-      -webkit-font-smoothing: antialiased;
-    }
-  }
-
-  .fc-button-group > button {
-  }
-
-  .todayBtn {
-    /* &::after {
-      content: "today";
-    } */
-  }
-  .dayBtn {
-    &::after {
-      content: "calendar_today";
-    }
-  }
-  .weekBtn {
-    &::after {
-      content: "date_range";
-    }
-  }
-  .monthBtn {
-    &::after {
-      content: "calendar_month";
-    }
-  }
-  .yearBtn {
-    &::after {
-      content: "event";
-    }
-  }
-  .prevBtn {
-    &::after {
-      content: "chevron_left";
-    }
-  }
-  .nextBtn {
-    &::after {
-      content: "chevron_right";
-    }
-  }
-  .prevYearBtn {
-    &::after {
-      content: "keyboard_double_arrow_left";
-    }
-  }
-  .nextYearBtn {
-    &::after {
-      content: "keyboard_double_arrow_right";
-    }
-  }
 `;
 
 // Variables used by main calendar component
@@ -126,7 +61,7 @@ function customButtons(fullCalendar) {
       yearBtn: {
         icon: "customButton yearBtn",
 
-        click: () => api.changeView("dayGridYear"),
+        click: () => api.changeView("multiMonthYear"),
       },
       prevBtn: {
         icon: "customButton prevBtn",
@@ -138,16 +73,16 @@ function customButtons(fullCalendar) {
 
         click: () => api.next(),
       },
-      prevYearBtn: {
-        icon: "customButton prevYearBtn",
+      // prevYearBtn: {
+      //   icon: "customButton prevYearBtn",
 
-        click: () => api.next(),
-      },
-      nextYearBtn: {
-        icon: "customButton nextYearBtn",
+      //   click: () => api.next(),
+      // },
+      // nextYearBtn: {
+      //   icon: "customButton nextYearBtn",
 
-        click: () => api.next(),
-      },
+      //   click: () => api.next(),
+      // },
     };
 }
 
@@ -162,7 +97,7 @@ const views = {
     titleFormat: { hour: "numeric", minute: "2-digit", meridiem: false },
   },
   year: {
-    titleFormat: { hour: "numeric" },
+    titleFormat: { year: "numeric" },
   },
 };
 
@@ -170,7 +105,7 @@ const views = {
 const headerToolbar = {
   start: "todayBtn dayBtn,weekBtn,monthBtn,yearBtn",
   // start: "timeGridDay,timeGridWeek,dayGridMonth", // will normally be on the left. if RTL, will be on the right
-  center: "prevYearBtn,title,nextYearBtn",
+  center: "title",
   end: "prevBtn,nextBtn", // will normally be on the right. if RTL, will be on the left
 };
 
@@ -231,6 +166,7 @@ function Calendar() {
   return (
     <>
       <CalendarContainer>
+        {/* Buttons stylesheet */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
@@ -246,7 +182,12 @@ function Calendar() {
           buttonIcons={false}
           customButtons={customButtons(calendarRef.current)}
           height={"100%"}
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          plugins={[
+            dayGridPlugin,
+            timeGridPlugin,
+            multiMonthPlugin,
+            interactionPlugin,
+          ]}
           dateClick={(e) => {
             setSelectedTaskId(createTask({ startDate: e.dateStr }));
           }}
