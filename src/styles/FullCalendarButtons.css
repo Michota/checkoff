@@ -10,7 +10,9 @@
   }
 }
 
-.fc-button-group > button {
+.fc .fc-button-primary {
+  border: none;
+  background-color: var(--theme-black-300);
 }
 
 .todayBtn {
