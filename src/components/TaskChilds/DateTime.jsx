@@ -10,6 +10,7 @@ import { useTaskContext } from "../Task";
 import "../../styles/DateTimePickerCalendar.css";
 import "../../styles/DateTimeRangePicker.css";
 import "../../styles/DateTimePicker.css";
+import { useLocaleContext } from "../../contexts/LocaleContext";
 
 const StyledDate = styled.span`
   font-size: 1.2rem;
@@ -36,6 +37,8 @@ const StyledDTPContainer = styled.span`
 `;
 
 export function DateTime({ customRenderType }) {
+  const { locale } = useLocaleContext();
+
   const {
     startDate,
     endDate,
@@ -86,7 +89,7 @@ export function DateTime({ customRenderType }) {
         <StyledDTPContainer>
           <StyledDateTimePicker
             autoFocus={false}
-            locale="en"
+            locale={locale}
             calendarIcon={<MdDateRange color="var(--theme-white-100)" />}
             defaultValue={null}
             value={startDate}
@@ -111,7 +114,7 @@ export function DateTime({ customRenderType }) {
       <>
         <StyledDateTimeRangePicker
           autoFocus={false}
-          locale="en"
+          locale={locale}
           calendarIcon={<MdDateRange color="var(--theme-white-100)" />}
           defaultValue={null}
           value={[startDate, endDate]}

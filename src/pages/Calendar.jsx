@@ -1,11 +1,17 @@
 import { useState } from "react";
+
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import styled from "styled-components";
+import allLocales from "@fullcalendar/core/locales-all";
 
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
+import useCreateNewTask from "../features/tasks/useCreateNewTask";
+import { useLocaleContext } from "../contexts/LocaleContext";
+
+import styled from "styled-components";
+
 import getUNIX from "../utils/getUNIX";
 
 import CallendarEvent from "../components/CallendarEvent";
@@ -14,8 +20,6 @@ import DraggableWindow from "../components/DraggableWindow";
 
 import "../styles/FullCalendar.css";
 import "../styles/FullCalendarCustom.css";
-import useCreateNewTask from "../features/tasks/useCreateNewTask";
-
 // Styling Components
 
 const CalendarContainer = styled.div`
@@ -71,6 +75,7 @@ function Calendar() {
   const [calendarView, setCalendarView] = useState("timeGridWeek");
   const { tasks, saveAndUpdateTask, selectedTaskId, setSelectedTaskId } =
     useGeneralTasksProvider();
+  const { locale } = useLocaleContext();
   const { createTask } = useCreateNewTask();
 
   // Handle Change View
@@ -108,7 +113,8 @@ function Calendar() {
       <CalendarContainer>
         <FullCalendar
           timeZone="local"
-          locale="local"
+          locale={locale}
+          locales={allLocales}
           views={views}
           headerToolbar={headerToolbar}
           editable={true}
