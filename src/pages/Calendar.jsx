@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -20,6 +20,7 @@ import DraggableWindow from "../components/DraggableWindow";
 
 import "../styles/FullCalendar.css";
 import "../styles/FullCalendarCustom.css";
+
 // Styling Components
 
 const CalendarContainer = styled.div`
@@ -94,6 +95,83 @@ const CalendarContainer = styled.div`
   }
 `;
 
+// Variables used by main calendar component
+
+function customButtons(fullCalendar) {
+  const api = fullCalendar?.getApi();
+  // console.log(api);
+
+  if (api)
+    return {
+      todayBtn: {
+        text: "Today",
+        // icon: "customButton todayBtn",
+        click: () => api.today(),
+      },
+      dayBtn: {
+        icon: "customButton dayBtn",
+        click: () => api.changeView("timeGridDay"),
+      },
+      weekBtn: {
+        icon: "customButton weekBtn",
+
+        click: () => api.changeView("timeGridWeek"),
+      },
+      monthBtn: {
+        icon: "customButton monthBtn",
+
+        click: () => api.changeView("dayGridMonth"),
+      },
+      yearBtn: {
+        icon: "customButton yearBtn",
+
+        click: () => api.changeView("dayGridYear"),
+      },
+      prevBtn: {
+        icon: "customButton prevBtn",
+
+        click: () => api.prev(),
+      },
+      nextBtn: {
+        icon: "customButton nextBtn",
+
+        click: () => api.next(),
+      },
+      prevYearBtn: {
+        icon: "customButton prevYearBtn",
+
+        click: () => api.next(),
+      },
+      nextYearBtn: {
+        icon: "customButton nextYearBtn",
+
+        click: () => api.next(),
+      },
+    };
+}
+
+const views = {
+  week: {
+    titleFormat: { meridiem: false },
+  },
+  timeGrid: {
+    titleFormat: { meridiem: false },
+  },
+  day: {
+    titleFormat: { hour: "numeric", minute: "2-digit", meridiem: false },
+  },
+  year: {
+    titleFormat: { hour: "numeric" },
+  },
+};
+
+// HTML elements appearing in Header of Calendar
+const headerToolbar = {
+  start: "todayBtn dayBtn,weekBtn,monthBtn,yearBtn",
+  // start: "timeGridDay,timeGridWeek,dayGridMonth", // will normally be on the left. if RTL, will be on the right
+  center: "prevYearBtn,title,nextYearBtn",
+  end: "prevBtn,nextBtn", // will normally be on the right. if RTL, will be on the left
+};
 
 // Parse Task Data to Event compatible data
 
@@ -118,40 +196,12 @@ function eventContent(renderObject, data) {
   return <CallendarEvent renderObject={renderObject} data={data} />;
 }
 
-const views = {
-  week: {
-    titleFormat: { meridiem: false },
-  },
-  timeGrid: {
-    titleFormat: { meridiem: false },
-  },
-  day: {
-    titleFormat: { hour: "numeric", minute: "2-digit", meridiem: false },
-  },
-};
-
-// HTML elements appearing in Header of Calendar
-const headerToolbar = {
-  start: "timeGridDay,timeGridWeek,dayGridMonth", // will normally be on the left. if RTL, will be on the right
-  center: "prevYear,title,nextYear",
-  end: "prev,next", // will normally be on the right. if RTL, will be on the left
-};
-
 // Main component of Calendar
 function Calendar() {
-  const [calendarView, setCalendarView] = useState("timeGridWeek");
   const { tasks, saveAndUpdateTask, selectedTaskId, setSelectedTaskId } =
     useGeneralTasksProvider();
   const { locale } = useLocaleContext();
   const { createTask } = useCreateNewTask();
-
-  // Handle Change View
-  function handleChangeView(calendarObj) {
-    const newView =
-      calendarView === "dayGridMonth" ? "timeGridWeek" : "dayGridMonth";
-    setCalendarView(newView);
-    calendarObj.changeView(newView);
-  }
 
   function handleEventUpdate(e) {
     // Data from event. OldEvent is data from before the changes
@@ -175,18 +225,25 @@ function Calendar() {
     }
   }
 
+  const calendarRef = useRef();
+
   return (
     <>
       <CalendarContainer>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
         <FullCalendar
+          ref={calendarRef}
           timeZone="local"
           locale={locale}
           locales={allLocales}
           views={views}
-          headerToolbar={headerToolbar}
           editable={true}
+          headerToolbar={headerToolbar}
           buttonIcons={false}
-          initialView={calendarView}
+          customButtons={customButtons(calendarRef.current)}
           height={"100%"}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           dateClick={(e) => {
