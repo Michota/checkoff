@@ -1,3 +1,13 @@
 .fc-v-event {
   background-color: transparent;
 }
+
+.fc-toolbar-chunk:nth-child(2) > div {
+  display: flex;
+  gap: 1rem;
+}
+
+.fc .fc-cell-shaded,
+.fc .fc-day-disabled {
+  background: var(--theme-black-200);
+}
