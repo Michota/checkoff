@@ -12,6 +12,7 @@ const StyledInput = styled.input`
 
   &::placeholder {
     color: var(--theme-black-300);
+    opacity: 0.7;
   }
 
   &:active,

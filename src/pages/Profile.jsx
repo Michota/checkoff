@@ -131,9 +131,9 @@ function Profile() {
           <header>
             <h2>Change Credentials</h2>
             <p>Change the password or email address you use to log in.</p>
-            <p>
+            <small>
               You can update your password and email address at the same time.
-            </p>
+            </small>
           </header>
           <form
             onSubmit={
@@ -164,6 +164,7 @@ function Profile() {
                   <h3>Update Password</h3>
 
                   <LabeledInput
+                    placeholder="••••••••"
                     type="password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
