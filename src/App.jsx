@@ -17,6 +17,7 @@ import { IconContext } from "react-icons";
 import Calendar from "./pages/Calendar";
 import Authentication from "./pages/Authentication";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -54,6 +55,13 @@ const router = createBrowserRouter([
           {
             path: "calendar",
             element: <Calendar />,
+          },
+          {
+            path: "profile",
+            element: <Profile />,
+          },
+          {
+            path: "settings",
           },
         ],
       },
