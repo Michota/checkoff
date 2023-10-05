@@ -172,6 +172,7 @@ function Calendar() {
             interactionPlugin,
           ]}
           dateClick={(e) => {
+            if (e.jsEvent.detail !== 2) return;
             setSelectedTaskId(createTask({ startDate: e.dateStr }));
           }}
           events={parseTaskToEvents([tasks] ?? null)}
