@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Input from "../ui/Input";
 import LabeledInput from "../ui/LabeledInput";
 import { useState } from "react";
+import { useSettingsContext } from "../contexts/SettingsContext";
 
 const StyledSettings = styled.div`
   width: 100%;
@@ -46,7 +47,7 @@ const Options = styled.div`
 `;
 
 function Settings() {
-  const [themeMode, setThemeMode] = useState("dark");
+  const { theme, setTheme } = useSettingsContext();
 
   return (
     <StyledSettings>
@@ -65,8 +66,8 @@ function Settings() {
                   type="radio"
                   name="appearance-theme"
                   value="dark"
-                  checked={"dark" === themeMode}
-                  onChange={(e) => setThemeMode(e.target.value)}
+                  checked={"dark" === theme}
+                  onChange={(e) => setTheme(e.target.value)}
                 >
                   Dark Mode
                 </LabeledInput>
@@ -77,8 +78,8 @@ function Settings() {
                   type="radio"
                   name="appearance-theme"
                   value="light"
-                  checked={"light" === themeMode}
-                  onChange={(e) => setThemeMode(e.target.value)}
+                  checked={"light" === theme}
+                  onChange={(e) => setTheme(e.target.value)}
                 >
                   Light Mode
                 </LabeledInput>

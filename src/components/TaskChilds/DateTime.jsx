@@ -10,7 +10,7 @@ import { useTaskContext } from "../Task";
 import "../../styles/DateTimePickerCalendar.css";
 import "../../styles/DateTimeRangePicker.css";
 import "../../styles/DateTimePicker.css";
-import { useLocaleContext } from "../../contexts/LocaleContext";
+import { useSettingsContext } from "../../contexts/SettingsContext";
 
 const StyledDate = styled.span`
   font-size: 1.2rem;
@@ -37,7 +37,7 @@ const StyledDTPContainer = styled.span`
 `;
 
 export function DateTime({ customRenderType }) {
-  const { locale } = useLocaleContext();
+  const { locale } = useSettingsContext();
 
   const {
     startDate,

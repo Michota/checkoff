@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { styled } from "styled-components";
 import Sidebar from "../components/Sidebar";
 import GeneralTasksProvider from "../contexts/GeneralTasksContext";
-import { LocaleProvider } from "../contexts/LocaleContext";
+import { SettingsProvider } from "../contexts/SettingsContext";
 
 const StyledRoot = styled.div`
   display: grid;
@@ -23,13 +23,13 @@ function Root() {
   return (
     <StyledRoot>
       <Sidebar />
-      <LocaleProvider>
+      <SettingsProvider>
         <GeneralTasksProvider>
           <Main>
             <Outlet />
           </Main>
         </GeneralTasksProvider>
-      </LocaleProvider>
+      </SettingsProvider>
     </StyledRoot>
   );
 }

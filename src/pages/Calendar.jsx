@@ -9,7 +9,7 @@ import allLocales from "@fullcalendar/core/locales-all";
 
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 import useCreateNewTask from "../features/tasks/useCreateNewTask";
-import { useLocaleContext } from "../contexts/LocaleContext";
+import { useSettingsContext } from "../contexts/SettingsContext";
 
 import styled from "styled-components";
 
@@ -81,7 +81,7 @@ function eventContent(renderObject, data) {
 function Calendar() {
   const { tasks, saveAndUpdateTask, selectedTaskId, setSelectedTaskId } =
     useGeneralTasksProvider();
-  const { locale } = useLocaleContext();
+  const { locale } = useSettingsContext();
   const { createTask } = useCreateNewTask();
 
   function handleEventUpdate(e) {
