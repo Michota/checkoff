@@ -11,6 +11,7 @@ const StyledSlider = styled.input.attrs({ type: "range", max: 3 })`
   border-radius: 1.5rem;
   height: 0.6rem;
   background: var(--theme-white-400);
+  z-index: 1;
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -91,7 +92,7 @@ function Priority({ sliderOnly }) {
         style={{
           fontSize: "0.9em",
           position: "relative",
-          bottom: 15,
+          bottom: 5,
           cursor: "pointer",
         }}
       >

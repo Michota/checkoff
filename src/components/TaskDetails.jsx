@@ -10,7 +10,7 @@ const StyledTaskDetails = styled(Box)`
   display: grid;
   grid-template-rows: max-content 1fr max-content;
   gap: 2rem;
-  padding: 2rem;
+  padding: 2rem 2rem 0 2rem;
   width: 100%;
   height: 100%;
   left: 0;
@@ -36,7 +36,12 @@ const TaskFooter = styled.footer`
   height: 3.2rem;
   align-items: center;
   justify-content: space-between;
+  z-index: 2; // ? above text
   gap: 5rem;
+  position: sticky;
+  bottom: 0;
+  background-color: var(--theme-black-100);
+  padding-bottom: 2rem;
 
   & > * {
     opacity: 0.4;
