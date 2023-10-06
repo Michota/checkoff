@@ -55,6 +55,10 @@ const Tile = styled.div`
   }
 `;
 
+const EmptyTitle = styled(Tile)`
+  background-color: var(--theme-black-200);
+`;
+
 const TileSection = styled.section`
   display: flex;
   flex-direction: column;
@@ -200,11 +204,11 @@ function Profile() {
             )}
           </form>
         </OutlinedTile>
-        <Tile></Tile>
-        <Tile></Tile>
-        <Tile></Tile>
-        <Tile></Tile>
-        <Tile></Tile>
+        <EmptyTitle></EmptyTitle>
+        <EmptyTitle></EmptyTitle>
+        <EmptyTitle></EmptyTitle>
+        <EmptyTitle></EmptyTitle>
+        <EmptyTitle></EmptyTitle>
       </Tiles>
     </StyledProfile>
   );
