@@ -54,6 +54,7 @@ function Input({
   autoComplete,
   id,
   name,
+  checked,
 }) {
   switch (type) {
     default:
@@ -67,6 +68,7 @@ function Input({
           autoComplete={autoComplete}
           id={id}
           name={name}
+          checked={checked}
         />
       );
     case "radio":
@@ -81,6 +83,7 @@ function Input({
             autoComplete={autoComplete}
             id={id}
             name={name}
+            checked={checked}
           />
         </>
       );
