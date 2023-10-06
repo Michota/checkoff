@@ -15,6 +15,8 @@ function LabeledInput({
   type,
   autoComplete,
   className,
+  checked,
+  name,
 }) {
   const randomId = Math.random();
   return (
@@ -23,6 +25,8 @@ function LabeledInput({
         {children}
       </StyledLabel>
       <Input
+        name={name}
+        checked={checked}
         id={id ? id : randomId}
         onChange={onChange}
         value={value}
