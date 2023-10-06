@@ -99,6 +99,9 @@ const LogoutLink = styled.span`
 
 const LogoContainer = styled.div`
   height: 4em;
+  .light-mode & {
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5));
+  }
 `;
 
 // ==== end of styling ====

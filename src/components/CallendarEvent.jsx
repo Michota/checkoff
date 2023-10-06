@@ -5,6 +5,7 @@ import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 
 const StyledEvent = styled(Box)`
   background-color: var(--theme-black-250);
+  color: var(--theme-white-100);
   width: 100%;
   /* height: min-content; */
   height: 100%;
@@ -24,16 +25,21 @@ const StyledEvent = styled(Box)`
           background-color: var(--theme-black-200);
         `
       : css`
-          color: var(--theme-white-100);
-          background-color: var(--theme-black-250);
+          /* color: var(--theme-white-100);
+          background-color: var(--theme-black-250); */
         `};
 
   ${(props) =>
     props.$inTrash === true &&
     css`
-      border-bottom: var(--theme-darkred-250) 2px solid;
+      border-bottom: var(--theme-red) 2px solid;
       color: var(--theme-red);
       opacity: 0.5;
+
+      .light-mode & {
+        color: #7a1a1a;
+        border-bottom: #7a1a1a 2px solid;
+      }
     `}
 `;
 

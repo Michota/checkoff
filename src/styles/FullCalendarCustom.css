@@ -44,18 +44,39 @@
   }
 }
 
+.fc .fc-button:focus {
+  border: none;
+}
+
 .fc .fc-button-primary {
+  font-weight: bold;
   border: none;
   background-color: var(--theme-black-300);
+  .light-mode & {
+    background-color: var(--theme-black-200);
+    color: var(--theme-white-100);
+  }
 }
 
 .fc .fc-button-primary:hover {
   background-color: var(--theme-black-250);
+  border: none;
+
+  .light-mode & {
+    color: var(--theme-white-200);
+  }
 }
 
 .fc .fc-button-primary:not(:disabled).fc-button-active,
 .fc .fc-button-primary:not(:disabled):active {
+  border: none;
+
   background-color: var(--theme-black-200);
+
+  .light-mode & {
+    background-color: var(--theme-black-300);
+    color: var(--theme-white-200);
+  }
 }
 
 .todayBtn {

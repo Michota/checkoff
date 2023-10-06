@@ -11,12 +11,17 @@ import styled from "styled-components";
 
 const StyledSearchBar = styled.input`
   background-color: var(--theme-black-300);
-  color: var(--theme-white-100);
+  color: var(--theme-white-400);
+  opacity: 0.8;
+
+  font-size: 1.6rem;
+  /* font-weight: bold; */
   padding: 1rem 2rem;
   min-width: 15rem;
   width: 100%;
   border-radius: var(--default-radius);
   cursor: pointer;
+  text-align: center;
 
   transition: 200ms background-color;
 
@@ -33,8 +38,7 @@ const StyledSearchBar = styled.input`
   }
 
   &::placeholder {
-    color: var(--theme-white-100);
-    opacity: 25%;
+    color: var(--theme-white-400);
     transition: 250ms all;
     scale: 80%;
     text-align: center;
@@ -44,7 +48,6 @@ const StyledSearchBar = styled.input`
   &:active::placeholder,
   &:focus::placeholder {
     scale: 100%;
-    text-align: left;
   }
 `;
 

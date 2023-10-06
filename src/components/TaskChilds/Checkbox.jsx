@@ -22,7 +22,7 @@ const StyledCheckboxHitbox = styled.label`
       display: flex;
       align-items: center;
       justify-content: center;
-      outline: 0.1rem solid var(--priority-${priority});
+      outline: 0.2rem solid var(--priority-${priority});
     `;
   }}
 `;

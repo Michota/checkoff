@@ -51,6 +51,12 @@ const SecondaryButton = styled(PrimaryButton)`
   background-color: transparent;
   color: var(--theme-primary);
   outline: 0.2rem solid var(--theme-primary);
+
+  .light-mode & {
+    color: var(--theme-white-100);
+    background-color: var(--theme-secondary);
+    outline: 0.1rem solid var(--theme-white-400);
+  }
 `;
 
 const ButtonRestore = styled(StyledButton)`

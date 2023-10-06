@@ -27,6 +27,10 @@ const ButtonCreateTask = styled(Button)`
   &:hover {
     opacity: 100;
   }
+
+  .light-mode & {
+    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.4);
+  }
 `;
 
 // Sorting function

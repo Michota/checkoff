@@ -5,6 +5,10 @@ const StyledTitle = styled.input`
   margin-left: auto;
   width: 100%;
   font-size: 1.6rem;
+
+  &::placeholder {
+    color: var(--theme-black-400);
+  }
 `;
 
 function Title({ className }) {

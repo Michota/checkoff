@@ -6,7 +6,7 @@
   --fc-page-bg-color: transparent;
   --fc-neutral-bg-color: rgba(208, 208, 208, 0.3);
   --fc-neutral-text-color: #808080;
-  --fc-border-color: rgba(255, 255, 255, 0.1);
+  --fc-border-color: var(--theme-black-300);
   /* --fc-border-color: #ddd; */
 
   --fc-button-text-color: #fff;
