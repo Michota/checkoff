@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { createContext } from "react";
 
@@ -6,7 +7,16 @@ const SettingsContext = createContext();
 
 function SettingsProvider({ children }) {
   const [locale, setLocale] = useState("en-GB");
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState();
+
+  useEffect(
+    function () {
+      if (theme === "light")
+        document.documentElement.classList.add("light-mode");
+      else document.documentElement.classList.remove("light-mode");
+    },
+    [theme]
+  );
 
   const ProviderValue = { locale, setLocale, theme, setTheme };
 
