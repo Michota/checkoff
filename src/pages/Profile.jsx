@@ -23,9 +23,16 @@ const Tiles = styled.div`
   display: grid;
   gap: 2.4rem;
   height: 100%;
+
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  row-gap: 2.4rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Tile = styled.div`
@@ -34,7 +41,8 @@ const Tile = styled.div`
   gap: 2rem;
   background-color: var(--theme-black-250);
   width: 100%;
-  height: 100%;
+  min-height: 100%;
+  height: max-content;
   padding: 2.4rem;
   border-radius: var(--default-radius);
   filter: grayscale(40%);
@@ -105,7 +113,10 @@ function Profile() {
       <h1>Hi, {user.email}!</h1>
       <Tiles>
         <OutlinedTile
-          style={{ filter: "blur(2px) grayscale(100%)", pointerEvents: "none" }}
+          style={{
+            filter: "blur(2px) grayscale(100%)",
+            pointerEvents: "none",
+          }}
         >
           <header>
             <h2>Your Profile</h2>
@@ -127,7 +138,7 @@ function Profile() {
             </header>
           </Tile>
         </NavLink>
-        <OutlinedTile style={{ gridColumn: "3", gridRow: "1 / span 2" }}>
+        <OutlinedTile style={{ gridRow: "span 2" }}>
           <header>
             <h2>Change Credentials</h2>
             <p>Change the password or email address you use to log in.</p>
