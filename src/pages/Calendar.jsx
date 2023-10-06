@@ -108,12 +108,7 @@ function Calendar() {
     }
   }
 
-  useEffect(function () {
-    console.log(calendarApi);
-  });
-
   const calendarRef = useRef();
-  const calendarApi = calendarRef.current?.getApi();
   return (
     <>
       <CalendarContainer>
@@ -132,36 +127,40 @@ function Calendar() {
             todayBtn: {
               text: "Today",
               // icon: "customButton todayBtn",
-              click: () => calendarApi.today(),
+              click: () => calendarRef.current.getApi().today(),
             },
             dayBtn: {
               icon: "customButton dayBtn",
-              click: () => calendarApi.changeView("timeGridDay"),
+              click: () =>
+                calendarRef.current.getApi().changeView("timeGridDay"),
             },
             weekBtn: {
               icon: "customButton weekBtn",
 
-              click: () => calendarApi.changeView("timeGridWeek"),
+              click: () =>
+                calendarRef.current.getApi().changeView("timeGridWeek"),
             },
             monthBtn: {
               icon: "customButton monthBtn",
 
-              click: () => calendarApi.changeView("dayGridMonth"),
+              click: () =>
+                calendarRef.current.getApi().changeView("dayGridMonth"),
             },
             yearBtn: {
               icon: "customButton yearBtn",
 
-              click: () => calendarApi.changeView("multiMonthYear"),
+              click: () =>
+                calendarRef.current.getApi().changeView("multiMonthYear"),
             },
             prevBtn: {
               icon: "customButton prevBtn",
 
-              click: () => calendarApi.prev(),
+              click: () => calendarRef.current.getApi().prev(),
             },
             nextBtn: {
               icon: "customButton nextBtn",
 
-              click: () => calendarApi.next(),
+              click: () => calendarRef.current.getApi().next(),
             },
           }}
           height={"100%"}
