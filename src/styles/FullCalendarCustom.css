@@ -11,6 +11,25 @@
 .fc .fc-day-disabled {
   background: var(--theme-black-200);
 }
+
+.fc .fc-toolbar {
+  align-items: center;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: max-content 1fr max-content;
+  margin-bottom: 2rem;
+}
+
+.fc .fc-toolbar-title {
+  top: 0;
+  right: 50%;
+  transform: translateX(50%);
+  position: absolute;
+  text-align: center;
+  text-wrap: balance;
+  font-size: 2em;
+}
+
 /* * Buttons */
 
 .fc-icon-customButton {
@@ -79,5 +98,39 @@
 .nextYearBtn {
   &::after {
     content: "keyboard_double_arrow_right";
+  }
+}
+
+/* ! Media queries */
+
+@media (max-width: 1024px) {
+  .fc .fc-toolbar-title {
+    position: relative;
+    text-align: center;
+    text-wrap: balance;
+    font-size: 2em;
+  }
+}
+
+@media (max-width: 768px) {
+  .fc .fc-toolbar-title {
+    font-size: 2.4rem;
+  }
+
+  .fc .fc-button {
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 480px) {
+  .fc .fc-toolbar {
+    margin-bottom: 0.2rem;
+  }
+  .fc .fc-toolbar-title {
+    font-size: 1rem;
+  }
+
+  .fc .fc-button {
+    font-size: 0.6em;
   }
 }
