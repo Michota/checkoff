@@ -18,6 +18,7 @@ import Calendar from "./pages/Calendar";
 import Authentication from "./pages/Authentication";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -62,6 +63,7 @@ const router = createBrowserRouter([
           },
           {
             path: "settings",
+            element: <Settings />,
           },
         ],
       },
