@@ -3,14 +3,21 @@ import { NavLink, useLocation, useParams } from "react-router-dom";
 import { useLogout } from "../features/authentication/useLogout";
 import { css, styled } from "styled-components";
 import Logo from "../ui/Logo";
+import Button from "../ui/Button";
 import {
   MdDeleteOutline,
   MdLogout,
   MdOutlineCalendarMonth,
+  MdOutlineDarkMode,
+  MdOutlineLightMode,
   MdOutlineSettings,
   MdPersonOutline,
   MdTaskAlt,
 } from "react-icons/md";
+import {
+  SettingsProvider,
+  useSettingsContext,
+} from "../contexts/SettingsContext";
 
 const StyledSidebar = styled.div`
   position: absolute;
@@ -81,7 +88,8 @@ const StyledNavLink = styled(NavLink)`
   &.active {
     background-color: var(--theme-black-300);
   }
-  &.active.trash {
+  &.active.trash,
+  &.active.theme {
     background-color: transparent !important;
   }
 `;
@@ -115,6 +123,7 @@ function Sidebar() {
   const location = useLocation();
   const [isRolled, setIsRolled] = useState(true);
   const { logout, isLoading: isLoggingOut } = useLogout();
+  const { theme, setTheme } = useSettingsContext();
 
   if (location.pathname)
     return (
@@ -167,6 +176,35 @@ function Sidebar() {
               {!isRolled && <span>Settings</span>}
             </StyledNavLink>
           </StyledUl>
+          <StyledUl>
+            <Button
+              onClick={() =>
+                setTheme((currentTheme) =>
+                  currentTheme === "dark" ? "light" : "dark"
+                )
+              }
+            >
+              {/* Light/Dark mode switch */}
+              <StyledNavLink
+                to="/tasks"
+                className="theme"
+                $isRolled={isRolled}
+                style={{ pointerEvents: "none" }}
+              >
+                {theme === "dark" ? (
+                  <MdOutlineDarkMode size="0.8em" />
+                ) : (
+                  <MdOutlineLightMode size="0.8em" />
+                )}
+                {!isRolled && (
+                  <span style={{ fontSize: "0.9em" }}>
+                    {theme.charAt(0).toUpperCase() + theme.slice(1)} mode
+                  </span>
+                )}
+              </StyledNavLink>
+            </Button>
+          </StyledUl>
+
           <LogoutLink>
             <StyledNavLink to="logout" size="0.8em" onClick={logout}>
               <MdLogout size="0.8em" />
