@@ -22,8 +22,8 @@ const Main = styled.main`
 function Root() {
   return (
     <StyledRoot>
-      <Sidebar />
       <SettingsProvider>
+        <Sidebar />
         <GeneralTasksProvider>
           <Main>
             <Outlet />
