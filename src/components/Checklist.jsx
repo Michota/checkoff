@@ -122,7 +122,7 @@ function Checklist({ dataManager, location }) {
       {!amITrashList && (
         <>
           <ButtonCreateTask onClick={() => createTask()}>
-            <MdAdd />
+            <MdAdd color="var(--theme-white-400)" />
           </ButtonCreateTask>
         </>
       )}
