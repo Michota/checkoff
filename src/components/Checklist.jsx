@@ -1,9 +1,10 @@
 import useCreateNewTask from "../features/tasks/useCreateNewTask";
 import Task from "./Task";
 import Button from "../ui/Button";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdDeleteSweep } from "react-icons/md";
 import styled from "styled-components";
 import useFilterWithParameters from "../hooks/useFilterWithParameters";
+import useRemoveDeletedTasks from "../features/tasks/useRemoveDeletedTasks";
 
 const StyledChecklist = styled.div`
   display: flex;
@@ -29,6 +30,28 @@ const ButtonCreateTask = styled(Button)`
   }
 
   .light-mode & {
+    color: var(--theme-white-400);
+    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.4);
+  }
+`;
+const ButtonDeleteAll = styled(Button)`
+  border: none;
+  background-color: var(--theme-red);
+  color: var(--theme-black-200);
+  font-size: 2rem;
+  width: 4rem;
+  height: 4rem;
+  position: sticky;
+  bottom: 2rem;
+  left: 100%;
+  opacity: 50%;
+  transition: all 200ms;
+  &:hover {
+    opacity: 100;
+  }
+
+  .light-mode & {
+    color: var(--theme-white-400);
     box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.4);
   }
 `;
@@ -82,6 +105,8 @@ const defaultSorting = "createdAt";
 
 function Checklist({ dataManager, location }) {
   const { createTask } = useCreateNewTask();
+  const { cleanTrash } = useRemoveDeletedTasks();
+
   const { tasks, isLoadingTasks } = dataManager;
   const amITrashList = location.state?.trash === true ?? false;
 
@@ -119,11 +144,17 @@ function Checklist({ dataManager, location }) {
     <StyledChecklist>
       {!isLoadingTasks && renderTasks()}
 
-      {!amITrashList && (
+      {!amITrashList ? (
         <>
           <ButtonCreateTask onClick={() => createTask()}>
-            <MdAdd color="var(--theme-white-400)" />
+            <MdAdd />
           </ButtonCreateTask>
+        </>
+      ) : (
+        <>
+          <ButtonDeleteAll backgroundColor="red" onClick={() => cleanTrash()}>
+            <MdDeleteSweep />
+          </ButtonDeleteAll>
         </>
       )}
     </StyledChecklist>
