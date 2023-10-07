@@ -33,8 +33,8 @@ const Buttons = styled.span`
 
 const ThemeChanger = styled.span`
   position: absolute;
-  top: 39%;
-  left: 37.5%;
+  top: 2%;
+  left: 2%;
 `;
 
 function AuthForm({ action }) {
