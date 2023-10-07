@@ -6,10 +6,12 @@ import { useLogin } from "./useLogin";
 import { useSignUp } from "./useSignup";
 import toast from "react-hot-toast";
 import LabeledInput from "../../ui/LabeledInput";
+import ChangeTheme from "../../components/ChangeTheme";
+import { SettingsProvider } from "../../contexts/SettingsContext";
 
 const InputContainer = styled.span`
   display: grid;
-  grid-template-columns: 10rem 1fr;
+  grid-template-columns: 10rem 35rem;
   gap: 2rem;
   align-items: center;
 `;
@@ -27,6 +29,12 @@ const Buttons = styled.span`
   grid-template-columns: 1fr max-content;
   gap: 2rem;
   width: 100%;
+`;
+
+const ThemeChanger = styled.span`
+  position: absolute;
+  top: 39%;
+  left: 37.5%;
 `;
 
 function AuthForm({ action }) {
@@ -84,47 +92,54 @@ function AuthForm({ action }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <FormContainer>
-        <InputContainer>
-          <LabeledInput
-            placeholder="john.doe@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            autoComplete={action === "login" ? "on" : "off"}
-            id="email"
-            htmlFor="email"
-          >
-            E-mail
-          </LabeledInput>
-        </InputContainer>
-        <InputContainer>
-          <LabeledInput
-            htmlFor="pass"
-            placeholder="••••••"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            autoComplete={action === "login" ? "on" : "off"}
-            id="pass"
-          >
-            Password
-          </LabeledInput>
-        </InputContainer>
-        <Buttons>
-          <Button btnType="primary" type="submit">
-            {action === "login" ? "Login!" : "Sign up!"}
-          </Button>
-          <Button
-            btnType="secondary"
-            onClick={() => navigate(action === "login" ? "?signup" : "?login")}
-          >
-            {action === "login" ? "Sign up!" : "Already singed up? Login!"}
-          </Button>
-        </Buttons>
-      </FormContainer>
-    </Form>
+    <SettingsProvider>
+      <ThemeChanger>
+        <ChangeTheme />
+      </ThemeChanger>
+      <Form onSubmit={handleSubmit}>
+        <FormContainer>
+          <InputContainer>
+            <LabeledInput
+              placeholder="john.doe@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              autoComplete={action === "login" ? "on" : "off"}
+              id="email"
+              htmlFor="email"
+            >
+              E-mail
+            </LabeledInput>
+          </InputContainer>
+          <InputContainer>
+            <LabeledInput
+              htmlFor="pass"
+              placeholder="••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              autoComplete={action === "login" ? "on" : "off"}
+              id="pass"
+            >
+              Password
+            </LabeledInput>
+          </InputContainer>
+          <Buttons>
+            <Button btnType="primary" type="submit">
+              {action === "login" ? "Login!" : "Sign up!"}
+            </Button>
+            <Button
+              btnType="secondary"
+              onClick={() =>
+                navigate(action === "login" ? "?signup" : "?login")
+              }
+            >
+              {action === "login" ? "Sign up!" : "Already singed up? Login!"}
+            </Button>
+          </Buttons>
+        </FormContainer>
+      </Form>
+    </SettingsProvider>
   );
 }
 

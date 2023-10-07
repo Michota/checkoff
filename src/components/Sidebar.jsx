@@ -18,6 +18,7 @@ import {
   SettingsProvider,
   useSettingsContext,
 } from "../contexts/SettingsContext";
+import ChangeTheme from "./ChangeTheme";
 
 const StyledSidebar = styled.div`
   position: absolute;
@@ -177,32 +178,7 @@ function Sidebar() {
             </StyledNavLink>
           </StyledUl>
           <StyledUl>
-            <Button
-              onClick={() =>
-                setTheme((currentTheme) =>
-                  currentTheme === "dark" ? "light" : "dark"
-                )
-              }
-            >
-              {/* Light/Dark mode switch */}
-              <StyledNavLink
-                to="/tasks"
-                className="theme"
-                $isRolled={isRolled}
-                style={{ pointerEvents: "none" }}
-              >
-                {theme === "dark" ? (
-                  <MdOutlineDarkMode size="0.8em" />
-                ) : (
-                  <MdOutlineLightMode size="0.8em" />
-                )}
-                {!isRolled && (
-                  <span style={{ fontSize: "0.9em" }}>
-                    {theme.charAt(0).toUpperCase() + theme.slice(1)} mode
-                  </span>
-                )}
-              </StyledNavLink>
-            </Button>
+            <ChangeTheme size="0.8em" />
           </StyledUl>
 
           <LogoutLink>
