@@ -53,9 +53,9 @@ const GlobalStyles = createGlobalStyle`
   --theme-white-400: #3D3D3D;
   
   --theme-black-000: #f2f2f2;
-  --theme-black-100: #f2f2f2;
-  --theme-black-200: #dedede;
-  --theme-black-250: #cccccc;
+  --theme-black-100: #dedede;
+  --theme-black-200: #d1d1d1;
+  --theme-black-250: #c2c2c2;
   --theme-black-300: #b3b3b3;
   --theme-black-400: #999999;
 
