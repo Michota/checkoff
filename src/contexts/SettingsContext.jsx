@@ -7,8 +7,15 @@ const SettingsContext = createContext();
 
 function SettingsProvider({ children }) {
   const [locale, setLocale] = useState("en-GB");
-  const [theme, setTheme] = useState();
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
 
+  // Save new theme settings
+  function handleThemeChange(newTheme) {
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  }
+
+  // Change Theme if theme variable was changed.
   useEffect(
     function () {
       if (theme === "light")
@@ -18,7 +25,12 @@ function SettingsProvider({ children }) {
     [theme]
   );
 
-  const ProviderValue = { locale, setLocale, theme, setTheme };
+  const ProviderValue = {
+    locale,
+    setLocale,
+    theme,
+    setTheme: handleThemeChange,
+  };
 
   return (
     <SettingsContext.Provider value={ProviderValue}>
