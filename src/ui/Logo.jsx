@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
-import fullLogo from "../assets/images/logo.png";
-import checkmark from "../assets/images/check.png";
+import fullLogo from "/src/assets/images/Logo.png";
+import checkmark from "/src/assets/images/Check.png";
 
 function Logo({ size = "250rem", full = true }) {
   const source = full ? fullLogo : checkmark;
