@@ -20,6 +20,22 @@ const StyledInput = styled.input`
     background-color: var(--theme-white-100);
     color: var(--theme-black-200);
   }
+
+  .light-mode & {
+    background-color: var(--theme-black-300);
+    color: var(--theme-black-100);
+
+    &::placeholder {
+      color: var(--theme-black-100);
+      opacity: 0.7;
+    }
+
+    &:active,
+    &:focus {
+      background-color: var(--theme-black-400);
+      color: var(--theme-black-000);
+    }
+  }
 `;
 
 const StyledRadio = styled.input`
