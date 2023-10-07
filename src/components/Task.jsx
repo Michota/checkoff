@@ -45,6 +45,21 @@ const StyledTask = styled(Box)`
           color: var(--theme-white-100);
           background-color: var(--theme-black-250);
         `};
+
+  ${(props) =>
+    props.$isCompleted === true
+      ? css`
+          .light-mode & {
+            color: var(--theme-white-300);
+            background-color: var(--theme-black-300);
+          }
+        `
+      : css`
+          .light-mode & {
+            color: var(--theme-white-100);
+            background-color: var(--theme-black-200);
+          }
+        `};
   ${(props) =>
     props.$inTrash === true &&
     css`
