@@ -83,14 +83,13 @@ function Button({
   onClick,
   color,
   backgroundColor,
-  // Dont use it to often.
-  size,
+  size, // Dont use it to often.
   tip,
 }) {
-  switch (btnType) {
-    case "default":
-      return (
-        <Tooltip content={tip}>
+  function createButton() {
+    switch (btnType) {
+      case "default":
+        return (
           <StyledButton
             className={className}
             onClick={onClick}
@@ -100,11 +99,9 @@ function Button({
           >
             {children}
           </StyledButton>
-        </Tooltip>
-      );
-    case "primary":
-      return (
-        <Tooltip content={tip}>
+        );
+      case "primary":
+        return (
           <PrimaryButton
             className={className}
             onClick={onClick}
@@ -114,11 +111,9 @@ function Button({
           >
             {children}
           </PrimaryButton>
-        </Tooltip>
-      );
-    case "secondary":
-      return (
-        <Tooltip content={tip}>
+        );
+      case "secondary":
+        return (
           <SecondaryButton
             className={className}
             onClick={onClick}
@@ -128,11 +123,9 @@ function Button({
           >
             {children}
           </SecondaryButton>
-        </Tooltip>
-      );
-    case "delete":
-      return (
-        <Tooltip content={tip}>
+        );
+      case "delete":
+        return (
           <ButtonDelete
             className={className}
             onClick={onClick}
@@ -142,11 +135,9 @@ function Button({
           >
             {children}
           </ButtonDelete>
-        </Tooltip>
-      );
-    case "restore":
-      return (
-        <Tooltip content={tip}>
+        );
+      case "restore":
+        return (
           <ButtonRestore
             className={className}
             onClick={onClick}
@@ -156,8 +147,13 @@ function Button({
           >
             {children}
           </ButtonRestore>
-        </Tooltip>
-      );
+        );
+    }
+  }
+  if (tip) {
+    return <Tooltip content={tip}>{createButton()}</Tooltip>;
+  } else {
+    return createButton();
   }
 }
 

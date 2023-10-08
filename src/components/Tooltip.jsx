@@ -95,9 +95,11 @@ const StyledTippy = styled(Tippy)`
   }
 `;
 
-export function Tooltip({ className, children, content }) {
+export function Tooltip({ arrow = false, className, children, content }) {
   return (
     <StyledTippy
+      ref={children}
+      arrow={arrow}
       duration={[200, 500]}
       className={className}
       content={<span>{content}</span>}
