@@ -101,12 +101,13 @@ export function Tooltip({
   children,
   content,
   noSpan = false,
+  duration = [200, 500],
 }) {
   return (
     <StyledTippy
       ref={children}
       arrow={arrow}
-      duration={[200, 500]}
+      duration={duration}
       className={className}
       content={<span>{content}</span>}
     >
