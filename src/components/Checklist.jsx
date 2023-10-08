@@ -12,22 +12,30 @@ const StyledChecklist = styled.div`
   align-items: center;
   gap: 2rem;
   min-width: 32rem;
+  position: relative;
 `;
 
 const ButtonCreateTask = styled(Button)`
   border: none;
   background-color: var(--theme-green);
   color: var(--theme-black-200);
-  font-size: 2rem;
+  position: fixed;
+  bottom: 0;
   width: 4rem;
   height: 4rem;
-  position: sticky;
-  bottom: 2rem;
-  left: 100%;
+  font-size: 2rem;
   opacity: 50%;
-  transition: all 200ms;
+
+  transform: translate(10rem, -100%);
+
+  /* Overwrite Button deafult translate parameters */
   &:hover {
-    opacity: 100;
+    transform: translate(10rem, -100%);
+    opacity: 100%;
+  }
+
+  &:active {
+    transform: translate(10rem, -100%);
   }
 
   .light-mode & {
@@ -35,21 +43,8 @@ const ButtonCreateTask = styled(Button)`
     box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.4);
   }
 `;
-const ButtonDeleteAll = styled(Button)`
-  border: none;
+const ButtonDeleteAll = styled(ButtonCreateTask)`
   background-color: var(--theme-red);
-  color: var(--theme-black-200);
-  font-size: 2rem;
-  width: 4rem;
-  height: 4rem;
-  position: sticky;
-  bottom: 2rem;
-  left: 100%;
-  opacity: 50%;
-  transition: all 200ms;
-  &:hover {
-    opacity: 100;
-  }
 
   .light-mode & {
     color: var(--theme-white-400);
