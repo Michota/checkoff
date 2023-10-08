@@ -1,6 +1,5 @@
 import React from "react";
 import Tippy from "@tippyjs/react";
-// import "../styles/Tippy.css"; // optional
 import styled from "styled-components";
 
 const StyledTippy = styled(Tippy)`
@@ -98,7 +97,11 @@ const StyledTippy = styled(Tippy)`
 
 export function Tooltip({ className, children, content }) {
   return (
-    <StyledTippy className={className} content={<span>{content}</span>}>
+    <StyledTippy
+      duration={[200, 500]}
+      className={className}
+      content={<span>{content}</span>}
+    >
       {<span>{children}</span>}
     </StyledTippy>
   );
