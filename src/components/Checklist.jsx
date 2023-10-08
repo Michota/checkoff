@@ -11,6 +11,7 @@ const StyledChecklist = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  min-width: 32rem;
 `;
 
 const ButtonCreateTask = styled(Button)`
