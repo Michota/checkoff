@@ -1,33 +1,32 @@
-import { MdDone } from "react-icons/md";
+import { MdCheckBox, MdOutlineSquare } from "react-icons/md";
 import styled, { css } from "styled-components";
 import { useTaskContext } from "../Task";
 
 const StyledCheckboxHitbox = styled.label`
-  aspect-ratio: 1/1;
-  width: 2rem;
-  height: 2rem;
+  aspect-ratio: 1 / 1;
+  width: fit-content;
+  height: fit-content;
+  display: flex;
   cursor: pointer;
-  line-height: 0;
-  font-size: 1.6rem;
+  font-size: 2.2rem;
 
+  transition-property: transform, opacity;
+  transition-duration: 100ms;
   &:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(95%);
+    opacity: 0.8;
   }
-
-  border-radius: 0.4rem;
 
   ${(props) => {
     const priority = props.$priority ?? 0;
     return css`
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      outline: 0.2rem solid var(--priority-${priority});
+      color: var(--priority-${priority});
     `;
   }}
 `;
 
 const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
+  opacity: 0;
   border: 0;
   clip: rect(0 0 0 0 0);
   clip-path: inset(50%);
@@ -50,7 +49,7 @@ function Checkbox({ className }) {
       $isCompleted={isCompleted}
       onClick={(e) => e.stopPropagation()}
     >
-      {isCompleted && <MdDone />}
+      {isCompleted ? <MdCheckBox /> : <MdOutlineSquare />}
       <HiddenCheckbox
         aria-checked={isCompleted}
         onClick={(e) => {
