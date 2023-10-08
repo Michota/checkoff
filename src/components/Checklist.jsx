@@ -5,6 +5,8 @@ import { MdAdd, MdDeleteSweep } from "react-icons/md";
 import styled from "styled-components";
 import useFilterWithParameters from "../hooks/useFilterWithParameters";
 import useRemoveDeletedTasks from "../features/tasks/useRemoveDeletedTasks";
+import { Tooltip } from "./Tooltip";
+import Tippy from "@tippyjs/react";
 
 const StyledChecklist = styled.div`
   display: flex;
@@ -143,13 +145,19 @@ function Checklist({ dataManager, location }) {
       {!amITrashList ? (
         <>
           <ButtonCreateTask onClick={() => createTask()}>
-            <MdAdd />
+            {/* Use Tooltip instead of tip-prop to fix positioning bug */}
+            <Tooltip content={"Create new task"}>
+              <MdAdd />
+            </Tooltip>
           </ButtonCreateTask>
         </>
       ) : (
         <>
           <ButtonDeleteAll backgroundColor="red" onClick={() => cleanTrash()}>
-            <MdDeleteSweep />
+            {/* Use Tooltip instead of tip-prop to fix positioning bug */}
+            <Tooltip content={"Empty the trash!"}>
+              <MdDeleteSweep />
+            </Tooltip>
           </ButtonDeleteAll>
         </>
       )}

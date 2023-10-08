@@ -9,23 +9,22 @@ function DeleteButton() {
   const { setSelectedTaskId } = useGeneralTasksProvider();
 
   return (
-    <Tooltip content="Move task to trash">
-      <Button
-        btnType="delete"
-        onClick={(e) => {
-          setSelectedTaskId(null);
-          if (inTrash) {
-            e.stopPropagation();
-            deleteTask(id);
-          } else {
-            e.stopPropagation();
-            updateState("inTrash", true);
-          }
-        }}
-      >
-        {inTrash ? <MdDeleteForever /> : <MdDelete />}
-      </Button>
-    </Tooltip>
+    <Button
+      tip={inTrash ? "Delete forever!" : "Move to trash"}
+      btnType="delete"
+      onClick={(e) => {
+        setSelectedTaskId(null);
+        if (inTrash) {
+          e.stopPropagation();
+          deleteTask(id);
+        } else {
+          e.stopPropagation();
+          updateState("inTrash", true);
+        }
+      }}
+    >
+      {inTrash ? <MdDeleteForever /> : <MdDelete />}
+    </Button>
   );
 }
 

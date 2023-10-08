@@ -13,6 +13,7 @@ import RestoreButton from "./TaskChilds/RestoreButton";
 import Priority from "./TaskChilds/Priority";
 import EditorComponent from "./EditorComponent";
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
+import { Tooltip } from "./Tooltip";
 
 // Styling components with StyledComponents
 

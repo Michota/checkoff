@@ -178,7 +178,7 @@ function Sidebar() {
             </StyledNavLink>
           </StyledUl>
           <StyledUl>
-            <ChangeTheme size="0.8em" />
+            <ChangeTheme size="0.8em" />{" "}
           </StyledUl>
 
           <LogoutLink>
