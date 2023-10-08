@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -128,36 +128,35 @@ function Calendar() {
               click: () => calendarRef.current.getApi().today(),
             },
             dayBtn: {
+              hint: "Day view.",
               icon: "customButton dayBtn",
               click: () =>
                 calendarRef.current.getApi().changeView("timeGridDay"),
             },
             weekBtn: {
               icon: "customButton weekBtn",
-
+              hint: "Week view.",
               click: () =>
                 calendarRef.current.getApi().changeView("timeGridWeek"),
             },
             monthBtn: {
+              hint: "Month view.",
               icon: "customButton monthBtn",
-
               click: () =>
                 calendarRef.current.getApi().changeView("dayGridMonth"),
             },
             yearBtn: {
+              hint: "Year view.",
               icon: "customButton yearBtn",
-
               click: () =>
                 calendarRef.current.getApi().changeView("multiMonthYear"),
             },
             prevBtn: {
               icon: "customButton prevBtn",
-
               click: () => calendarRef.current.getApi().prev(),
             },
             nextBtn: {
               icon: "customButton nextBtn",
-
               click: () => calendarRef.current.getApi().next(),
             },
           }}
