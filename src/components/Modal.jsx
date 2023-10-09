@@ -2,8 +2,8 @@ import { cloneElement, createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 import { useClickOutside } from "../hooks/useClickOutside";
-import Box from "../ui/Box";
-import Button from "../ui/Button";
+import Box from "./Box";
+import Button from "./ui/Button";
 import { MdClose } from "react-icons/md";
 
 const StyledModal = styled(Box)`

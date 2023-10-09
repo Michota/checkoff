@@ -2,7 +2,7 @@ import { createContext, useContext } from "react";
 import { styled, css } from "styled-components";
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 import useTaskDelete from "../features/tasks/useTaskDelete";
-import Box from "../ui/Box";
+import Box from "./Box";
 import DeleteButton from "./TaskChilds/DeleteButton";
 import Checkbox from "./TaskChilds/Checkbox";
 import Title from "./TaskChilds/Title";

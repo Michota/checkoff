@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useLogout } from "../features/authentication/useLogout";
 import { css, styled } from "styled-components";
-import Logo from "../ui/Logo";
+import Logo from "./ui/Logo";
 import {
   MdDeleteOutline,
   MdLogout,

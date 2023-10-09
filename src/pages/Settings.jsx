@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Input from "../ui/Input";
-import LabeledInput from "../ui/LabeledInput";
+import Input from "../components/ui/Input";
+import LabeledInput from "../components/ui/LabeledInput";
 import { useState } from "react";
 import { useSettingsContext } from "../contexts/SettingsContext";
 

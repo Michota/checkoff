@@ -1,6 +1,6 @@
 import useCreateNewTask from "../features/tasks/useCreateNewTask";
 import Task from "./Task";
-import Button from "../ui/Button";
+import Button from "./ui/Button";
 import { MdAdd, MdDeleteSweep } from "react-icons/md";
 import styled from "styled-components";
 import useFilterWithParameters from "../hooks/useFilterWithParameters";

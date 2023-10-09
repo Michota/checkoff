@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 import { useUser } from "../features/authentication/useUser";
 import { useEffect } from "react";
 

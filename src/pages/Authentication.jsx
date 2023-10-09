@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Logo from "../ui/Logo";
+import Logo from "../components/ui/Logo";
 import { useUser } from "../features/authentication/useUser";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";

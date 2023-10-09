@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useUser } from "../features/authentication/useUser";
-import Button from "../ui/Button";
-import LabeledInput from "../ui/LabeledInput";
+import Button from "../components/ui/Button";
+import LabeledInput from "../components/ui/LabeledInput";
 import { useState } from "react";
 import {
   useReauthenticate,

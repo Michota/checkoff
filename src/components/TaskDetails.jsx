@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
-import Box from "../ui/Box";
+import Box from "./Box";
 import Task from "./Task";
-import Button from "../ui/Button";
+import Button from "./ui/Button";
 import { MdClose } from "react-icons/md";
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 

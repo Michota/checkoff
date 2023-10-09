@@ -1,11 +1,11 @@
 import { Form, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Button from "../../ui/Button";
+import Button from "../../components/ui/Button";
 import { useState } from "react";
 import { useLogin } from "../authentication/useLogin";
 import { useSignUp } from "../authentication/useSignUp";
 import toast from "react-hot-toast";
-import LabeledInput from "../../ui/LabeledInput";
+import LabeledInput from "../../components/ui/LabeledInput";
 import ChangeTheme from "../../components/ChangeTheme";
 import { SettingsProvider } from "../../contexts/SettingsContext";
 

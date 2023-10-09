@@ -16,7 +16,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { IconContext } from "react-icons";
 import Calendar from "./pages/Calendar";
 import Authentication from "./pages/Authentication";
-import ProtectedRoute from "./ui/ProtectedRoute";
+import ProtectedRoute from "./routes/ProtectedRoute";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Dashboard from "./pages/Dashboard";

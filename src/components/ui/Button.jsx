@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Tooltip } from "../components/Tooltip";
+import { Tooltip } from "../Tooltip";
 
 const StyledButton = styled.button`
   position: relative;

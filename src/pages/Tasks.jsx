@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import TaskDetails from "../components/TaskDetails";
 import Checklist from "../components/Checklist";
 import { useLocation } from "react-router-dom";
-import LoadingSpinner from "../ui/LoadingSpinner";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 import SearchBar from "../components/SearchBar";
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 import SortingOptions from "../components/SortingOptions";

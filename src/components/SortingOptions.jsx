@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "../ui/Button";
+import Button from "./ui/Button";
 import { useLocation, useNavigate } from "react-router";
 import useLocationState from "../features/URL/useLocationState";
 import { useState } from "react";
