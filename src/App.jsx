@@ -19,6 +19,7 @@ import Authentication from "./pages/Authentication";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
+import Dashboard from "./pages/Dashboard";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <Root />,
         children: [
+          {
+            path: "/",
+            element: <Dashboard />,
+          },
           {
             path: "tasks",
             element: <Tasks />,
