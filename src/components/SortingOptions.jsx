@@ -59,12 +59,12 @@ function SortingOptions() {
 
   function handleSortingOption(option) {
     let newState;
-    // 1. option, asc
+    // 1. Option selected, ascending order
     if (selectedOption?.option !== option) {
       newState = { option, ascending: true };
       setOrderIndicator(1);
     }
-    // 2. option, desc
+    // 2. Option selected, descending order
     if (
       selectedOption?.option === option &&
       selectedOption?.ascending === true
@@ -81,12 +81,15 @@ function SortingOptions() {
       setOrderIndicator(0);
     }
 
+    // Preserve pathname and search parameters, modify state.
     navigate(`${location.pathname}${location.search}`, {
       state: addURLState("sortingOption", {
         ...newState,
       }),
     });
   }
+
+  // ! Bad code... but it works! Needs to be refactored.
   let icon;
 
   if (orderIndicator === 0) icon = "";
