@@ -1,7 +1,7 @@
 /* ! MY STYLES */
 
-.tippy-box {
-  background-color: transparent;
+.ProseMirror > .tippy-box {
+  background-color: red;
   color: transparent;
   border: none;
   border-radius: 0;
