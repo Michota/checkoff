@@ -36,6 +36,11 @@ const Options = styled.div`
   font-size: 2.4rem;
   gap: 2rem;
 
+  input {
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
   div {
     display: flex;
     flex-direction: row-reverse;
