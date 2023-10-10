@@ -9,7 +9,7 @@ const StyledTippy = styled(Tippy)`
       width: 16px;
       height: 16px;
       color: var(--theme-black-300);
-      .light-mode & {
+      .light-theme & {
         color: var(--theme-black-000);
       }
     }
@@ -46,7 +46,7 @@ const StyledTippy = styled(Tippy)`
     outline: 0;
     transition-property: transform, visibility, opacity;
 
-    .light-mode & {
+    .light-theme & {
       background-color: var(--theme-black-000);
       color: var(--theme-white-100);
     }

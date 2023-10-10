@@ -19,8 +19,8 @@ function SettingsProvider({ children }) {
   useEffect(
     function () {
       if (theme === "light")
-        document.documentElement.classList.add("light-mode");
-      else document.documentElement.classList.remove("light-mode");
+        document.documentElement.classList.add("light-theme");
+      else document.documentElement.classList.remove("light-theme");
     },
     [theme]
   );

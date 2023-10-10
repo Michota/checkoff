@@ -42,7 +42,7 @@ const GlobalStyles = createGlobalStyle`
 
   }
 
-  &.light-mode {
+  &.light-theme {
   --theme-primary: #ffbd2d;
   --theme-primary-rgba: 255,189,45;
   --theme-secondary: #ffd270;

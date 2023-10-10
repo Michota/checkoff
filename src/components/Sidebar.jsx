@@ -108,7 +108,7 @@ const LogoutLink = styled.span`
 
 const LogoContainer = styled.div`
   height: 4em;
-  .light-mode & {
+  .light-theme & {
     filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5));
   }
 `;

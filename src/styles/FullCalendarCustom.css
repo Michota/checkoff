@@ -52,7 +52,7 @@
   font-weight: bold;
   border: none;
   background-color: var(--theme-black-300);
-  .light-mode & {
+  .light-theme & {
     background-color: var(--theme-black-200);
     color: var(--theme-white-100);
   }
@@ -62,7 +62,7 @@
   background-color: var(--theme-black-250);
   border: none;
 
-  .light-mode & {
+  .light-theme & {
     color: var(--theme-white-200);
   }
 }
@@ -73,7 +73,7 @@
 
   background-color: var(--theme-black-200);
 
-  .light-mode & {
+  .light-theme & {
     background-color: var(--theme-black-300);
     color: var(--theme-white-200);
   }

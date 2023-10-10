@@ -40,7 +40,7 @@ const ButtonCreateTask = styled(Button)`
     transform: translate(10rem, -100%);
   }
 
-  .light-mode & {
+  .light-theme & {
     color: var(--theme-white-400);
     box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.4);
   }
@@ -48,7 +48,7 @@ const ButtonCreateTask = styled(Button)`
 const ButtonDeleteAll = styled(ButtonCreateTask)`
   background-color: var(--theme-red);
 
-  .light-mode & {
+  .light-theme & {
     color: var(--theme-white-400);
     box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.4);
   }

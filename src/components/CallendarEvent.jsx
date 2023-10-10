@@ -36,7 +36,7 @@ const StyledEvent = styled(Box)`
       color: var(--theme-red);
       opacity: 0.5;
 
-      .light-mode & {
+      .light-theme & {
         color: #7a1a1a;
         border-bottom: #7a1a1a 2px solid;
       }

@@ -69,7 +69,7 @@ function Settings() {
                   checked={"dark" === theme}
                   onChange={(e) => setTheme(e.target.value)}
                 >
-                  Dark Mode
+                  Dark Theme
                 </LabeledInput>
               </div>
               <div>
@@ -81,7 +81,7 @@ function Settings() {
                   checked={"light" === theme}
                   onChange={(e) => setTheme(e.target.value)}
                 >
-                  Light Mode
+                  Light Theme
                 </LabeledInput>
               </div>
             </Options>

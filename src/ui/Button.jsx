@@ -47,7 +47,7 @@ const PrimaryButton = styled(StyledButton)`
   padding: 1rem 2rem;
   width: 100%;
 
-  .light-mode & {
+  .light-theme & {
     background-color: var(--theme-primary);
     color: var(--theme-white-200);
   }
@@ -58,7 +58,7 @@ const SecondaryButton = styled(PrimaryButton)`
   color: var(--theme-primary);
   outline: 0.2rem solid var(--theme-primary);
 
-  .light-mode & {
+  .light-theme & {
     color: var(--theme-white-000);
     background-color: transparent;
     outline: 0.1rem solid var(--theme-white-400);

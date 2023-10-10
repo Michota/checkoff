@@ -21,7 +21,7 @@ const StyledInput = styled.input`
     color: var(--theme-black-200);
   }
 
-  .light-mode & {
+  .light-theme & {
     background-color: var(--theme-black-300);
     color: var(--theme-black-100);
 

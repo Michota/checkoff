@@ -50,13 +50,13 @@ const StyledTask = styled(Box)`
   ${(props) =>
     props.$isCompleted === true
       ? css`
-          .light-mode & {
+          .light-theme & {
             color: var(--theme-white-300);
             background-color: var(--theme-black-300);
           }
         `
       : css`
-          .light-mode & {
+          .light-theme & {
             color: var(--theme-white-100);
             background-color: var(--theme-black-200);
           }
