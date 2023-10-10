@@ -18,9 +18,13 @@ function SettingsProvider({ children }) {
   // Change Theme if theme variable was changed.
   useEffect(
     function () {
-      if (theme === "light")
+      if (theme === "light") {
         document.documentElement.classList.add("light-theme");
-      else document.documentElement.classList.remove("light-theme");
+        document.documentElement.classList.remove("dark-theme");
+      } else {
+        document.documentElement.classList.remove("light-theme");
+        document.documentElement.classList.add("dark-theme");
+      }
     },
     [theme]
   );
