@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateTaskData } from "../../services/tasksAPI";
+import { updateAllTasksData, updateTaskData } from "../../services/tasksAPI";
 import { toast } from "react-hot-toast";
 
 function useUpdateTask() {
@@ -7,11 +7,11 @@ function useUpdateTask() {
 
   const { isLoading: isUpdating, mutate: updateTask } = useMutation({
     mutationKey: ["tasks"],
-    mutationFn: (task) => {
-      return toast.promise(updateTaskData(task), {
-        loading: "Updating task...",
-        success: "Task was sucesfully updated!",
-        error: "There was an error! Task was not updated.",
+    mutationFn: (tasks) => {
+      return toast.promise(updateAllTasksData(tasks), {
+        loading: "Updating tasks...",
+        success: "Tasks were sucesfully updated!",
+        error: "There was an error! Tasks were not updated.",
       });
     },
     onSuccess: () => {

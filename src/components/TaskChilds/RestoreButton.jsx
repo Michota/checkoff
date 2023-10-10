@@ -7,6 +7,7 @@ function RestoreButton() {
   if (inTrash)
     return (
       <Button
+        tip={"Restore from trash."}
         btnType="restore"
         color="var(--theme-green)"
         onClick={(e) => {

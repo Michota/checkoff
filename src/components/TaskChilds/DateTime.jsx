@@ -1,11 +1,16 @@
-import styled from "styled-components";
-import { MdCalendarToday, MdDateRange } from "react-icons/md";
+import DateTimeRangePicker from "@wojtekmaj/react-datetimerange-picker";
 import DateTimePicker from "react-datetime-picker";
+import styled from "styled-components";
+import { MdAdd, MdCalendarToday, MdDateRange } from "react-icons/md";
 import Button from "../../ui/Button";
+
 import { useTaskContext } from "../Task";
 
+// CSS import
+import "../../styles/DateTimePickerCalendar.css";
+import "../../styles/DateTimeRangePicker.css";
 import "../../styles/DateTimePicker.css";
-import "../../styles/Callendar.css";
+import { useSettingsContext } from "../../contexts/SettingsContext";
 
 const StyledDate = styled.span`
   font-size: 1.2rem;
@@ -16,11 +21,35 @@ const StyledDate = styled.span`
   width: max-content;
 `;
 
-export function DateTime() {
-  const { startDate, endDate, updateState, renderType } = useTaskContext();
+const StyledDateTimeRangePicker = styled(DateTimeRangePicker)`
+  min-width: fit-content;
+`;
+
+const StyledDateTimePicker = styled(DateTimePicker)`
+  min-width: fit-content;
+`;
+
+const StyledDTPContainer = styled.span`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: max-content;
+`;
+
+export function DateTime({ customRenderType }) {
+  const { locale } = useSettingsContext();
+
+  const {
+    startDate,
+    endDate,
+    updateState,
+    renderType: taskRenderType,
+  } = useTaskContext();
 
   const dateDisabled =
     new Date(startDate).toISOString() === new Date(null).toISOString();
+
+  const renderType = customRenderType ? customRenderType : taskRenderType;
 
   if (renderType === "tab" && dateDisabled) return null;
   if (renderType === "tab") {
@@ -46,21 +75,59 @@ export function DateTime() {
             updateState("startDate", dateValue);
           }}
         >
-          <MdDateRange size={"2em"} />
+          <MdDateRange size={"1.4em"} />
         </Button>
       </>
     );
 
-  // * If there is date and its not tab-task (its tasks details)
-  return (
-    <DateTimePicker
-      calendarIcon={<MdDateRange color="var(--theme-white-100)" />}
-      defaultValue={null}
-      value={startDate}
-      onChange={(value) => {
-        const dateValue = value ? new Date(value).toISOString() : null;
-        updateState("startDate", dateValue);
-      }}
-    />
-  );
+  // ?  == If there is date and its not tab-task (its tasks details) ? ==
+
+  // * If there is startDate only / if didnt choose to use EndDate
+  if (!endDate)
+    return (
+      <>
+        <StyledDTPContainer>
+          <StyledDateTimePicker
+            autoFocus={false}
+            locale={locale}
+            calendarIcon={<MdDateRange color="var(--theme-white-100)" />}
+            defaultValue={null}
+            value={startDate}
+            onChange={(value) => {
+              const dateValue = value ? new Date(value).toISOString() : null;
+              updateState("startDate", dateValue);
+            }}
+          />
+
+          <Button
+            onClick={(e) => updateState("endDate", new Date().toISOString())}
+          >
+            <MdAdd size={"1.5em"} />
+          </Button>
+        </StyledDTPContainer>
+      </>
+    );
+
+  // * If user wants to use endDate
+  if (endDate)
+    return (
+      <>
+        <StyledDateTimeRangePicker
+          autoFocus={false}
+          locale={locale}
+          calendarIcon={<MdDateRange color="var(--theme-white-100)" />}
+          defaultValue={null}
+          value={[startDate, endDate]}
+          onChange={(value) => {
+            if (value !== null) {
+              const start = value[0] ? new Date(value[0]).toISOString() : null;
+              const end = value[1] ? new Date(value[1]).toISOString() : null;
+              updateState("bothDate", [start, end]);
+            } else {
+              updateState("bothDate", [null, null]);
+            }
+          }}
+        />
+      </>
+    );
 }

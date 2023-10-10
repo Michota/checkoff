@@ -15,9 +15,10 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster, toast } from "react-hot-toast";
 import { IconContext } from "react-icons";
 import Calendar from "./pages/Calendar";
-import Login from "./pages/Login";
+import Authentication from "./pages/Authentication";
 import ProtectedRoute from "./ui/ProtectedRoute";
-import SingUp from "./pages/SingUp";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,13 +35,8 @@ const queryClient = new QueryClient({
 
 const router = createBrowserRouter([
   {
-    path: "login",
-    element: <Login />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "signup",
-    element: <SingUp />,
+    path: "Authentication",
+    element: <Authentication />,
     errorElement: <ErrorPage />,
   },
   {
@@ -61,6 +57,14 @@ const router = createBrowserRouter([
             path: "calendar",
             element: <Calendar />,
           },
+          {
+            path: "profile",
+            element: <Profile />,
+          },
+          {
+            path: "settings",
+            element: <Settings />,
+          },
         ],
       },
     ],
@@ -71,17 +75,33 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <IconContext.Provider value={{ size: "1.3em" }}>
+      <IconContext.Provider value={{ size: "1.3em", className: "react-icons" }}>
         <Toaster
           toastOptions={{
             style: {
               backgroundColor: "var(--theme-black-200)",
               color: "var(--theme-white-100)",
+              iconTheme: {
+                primary: "var(--theme-primary)",
+                secondary: "var(--theme-black-200)",
+              },
             },
             error: {
               style: {
-                backgroundColor: "var(--theme-red)",
-                color: "var(--theme-black-100)",
+                borderBottom: "0.2rem solid var(--theme-red)",
+              },
+              iconTheme: {
+                primary: "var(--theme-red)",
+                secondary: "var(--theme-black-200)",
+              },
+            },
+            success: {
+              style: {
+                borderBottom: "0.2rem solid var(--theme-primary)",
+              },
+              iconTheme: {
+                primary: "var(--theme-primary)",
+                secondary: "var(--theme-black-200)",
               },
             },
           }}

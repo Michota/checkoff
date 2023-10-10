@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { Tooltip } from "../components/Tooltip";
 
 const StyledButton = styled.button`
   position: relative;
@@ -7,18 +8,25 @@ const StyledButton = styled.button`
   justify-content: center;
   align-items: center;
   border: none;
-  border-radius: var(--deafult-radius);
+  border-radius: var(--default-radius);
   opacity: 0.8;
   color: ${(props) => props.$textColor || "var(--theme-white-200)"};
   background-color: ${(props) => props.$backgroundColor || "transparent"};
   width: ${(props) => props.$size || "initial"};
   height: ${(props) => props.$size || "initial"};
+  font-size: 1em;
+
+  transition-property: transform, opacity;
+  transition-duration: 200ms;
 
   &:hover {
-    transform: scale(105%);
+    transform: scale(102%);
     opacity: 1;
   }
-  transition: opacity transform 100ms;
+
+  &:active {
+    transform: scale(99%);
+  }
 `;
 
 const ButtonDelete = styled(StyledButton)`
@@ -30,6 +38,30 @@ const ButtonDelete = styled(StyledButton)`
   &:hover {
     color: var(--theme-red);
     opacity: 1;
+  }
+`;
+
+const PrimaryButton = styled(StyledButton)`
+  background-color: var(--theme-primary);
+  color: var(--theme-black-200);
+  padding: 1rem 2rem;
+  width: 100%;
+
+  .light-mode & {
+    background-color: var(--theme-primary);
+    color: var(--theme-white-200);
+  }
+`;
+
+const SecondaryButton = styled(PrimaryButton)`
+  background-color: transparent;
+  color: var(--theme-primary);
+  outline: 0.2rem solid var(--theme-primary);
+
+  .light-mode & {
+    color: var(--theme-white-000);
+    background-color: transparent;
+    outline: 0.1rem solid var(--theme-white-400);
   }
 `;
 
@@ -51,46 +83,77 @@ function Button({
   onClick,
   color,
   backgroundColor,
-  // Dont use it to often.
-  size,
+  size, // Dont use it to often.
+  tip,
 }) {
-  switch (btnType) {
-    case "default":
-      return (
-        <StyledButton
-          className={className}
-          onClick={onClick}
-          $size={size}
-          $textColor={color}
-          $backgroundColor={backgroundColor}
-        >
-          {children}
-        </StyledButton>
-      );
-    case "delete":
-      return (
-        <ButtonDelete
-          className={className}
-          onClick={onClick}
-          $size={size}
-          $textColor={color}
-          $backgroundColor={backgroundColor}
-        >
-          {children}
-        </ButtonDelete>
-      );
-    case "restore":
-      return (
-        <ButtonRestore
-          className={className}
-          onClick={onClick}
-          $size={size}
-          $textColor={color}
-          $backgroundColor={backgroundColor}
-        >
-          {children}
-        </ButtonRestore>
-      );
+  function createButton() {
+    switch (btnType) {
+      case "default":
+        return (
+          <StyledButton
+            className={className}
+            onClick={onClick}
+            $size={size}
+            $textColor={color}
+            $backgroundColor={backgroundColor}
+          >
+            {children}
+          </StyledButton>
+        );
+      case "primary":
+        return (
+          <PrimaryButton
+            className={className}
+            onClick={onClick}
+            $size={size}
+            $textColor={color}
+            $backgroundColor={backgroundColor}
+          >
+            {children}
+          </PrimaryButton>
+        );
+      case "secondary":
+        return (
+          <SecondaryButton
+            className={className}
+            onClick={onClick}
+            $size={size}
+            $textColor={color}
+            $backgroundColor={backgroundColor}
+          >
+            {children}
+          </SecondaryButton>
+        );
+      case "delete":
+        return (
+          <ButtonDelete
+            className={className}
+            onClick={onClick}
+            $size={size}
+            $textColor={color}
+            $backgroundColor={backgroundColor}
+          >
+            {children}
+          </ButtonDelete>
+        );
+      case "restore":
+        return (
+          <ButtonRestore
+            className={className}
+            onClick={onClick}
+            $size={size}
+            $textColor={color}
+            $backgroundColor={backgroundColor}
+          >
+            {children}
+          </ButtonRestore>
+        );
+    }
+  }
+  if (tip) {
+    return <Tooltip content={tip}>{createButton()}</Tooltip>;
+  } else {
+    return createButton();
   }
 }
 

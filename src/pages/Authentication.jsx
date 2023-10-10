@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import LoginForm from "../features/authentication/LoginForm";
 import Logo from "../ui/Logo";
 import { useUser } from "../features/authentication/useUser";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
-import Button from "../ui/Button";
+import AuthForm from "../features/authentication/AuthForm";
+import { useSearchParams } from "react-router-dom";
 
-const StyledLogin = styled.div`
+const StyledAuthentication = styled.div`
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -16,11 +16,12 @@ const StyledLogin = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 4.8rem;
+  gap: 2rem;
 `;
 
-function Login() {
+function Authentication() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { isAuthenticated } = useUser();
 
   useEffect(
@@ -31,12 +32,11 @@ function Login() {
   );
 
   return (
-    <StyledLogin>
-      <Logo size="40rem" />
-      <LoginForm />
-      <Button onClick={() => navigate("/signup")}>Sign up new user!</Button>
-    </StyledLogin>
+    <StyledAuthentication>
+      <Logo />
+      <AuthForm action={searchParams.has("signup") ? "signup" : "login"} />
+    </StyledAuthentication>
   );
 }
 
-export default Login;
+export default Authentication;

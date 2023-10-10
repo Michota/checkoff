@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
 import { styled, css } from "styled-components";
 import useTaskDelete from "../features/tasks/useTaskDelete";
 
@@ -12,8 +12,16 @@ import { DateTime } from "./TaskChilds/DateTime";
 import RestoreButton from "./TaskChilds/RestoreButton";
 import Priority from "./TaskChilds/Priority";
 import EditorComponent from "./EditorComponent";
+import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
+import { Tooltip } from "./Tooltip";
 
 // Styling components with StyledComponents
+
+const TaskFlexContainer = styled.div`
+  align-items: center;
+  display: flex;
+  padding: 0.2rem;
+`;
 
 const StyledTask = styled(Box)`
   overflow-y: hidden;
@@ -38,17 +46,26 @@ const StyledTask = styled(Box)`
           color: var(--theme-white-100);
           background-color: var(--theme-black-250);
         `};
+
+  ${(props) =>
+    props.$isCompleted === true
+      ? css`
+          .light-mode & {
+            color: var(--theme-white-300);
+            background-color: var(--theme-black-300);
+          }
+        `
+      : css`
+          .light-mode & {
+            color: var(--theme-white-100);
+            background-color: var(--theme-black-200);
+          }
+        `};
   ${(props) =>
     props.$inTrash === true &&
     css`
       border-bottom: var(--theme-darkred-250) 2px solid;
     `}
-`;
-
-const TaskFlexContainer = styled.div`
-  align-items: center;
-  display: flex;
-  padding: 0.2rem;
 `;
 
 const StyledDetails = styled.span`
@@ -71,27 +88,30 @@ function useTaskContext() {
 }
 
 // * Main Component
-function Task({
-  children,
-  data,
-  setSelectedTaskId,
-  setState,
-  renderType = "tab",
-}) {
-  const amICompound = renderType === "compound";
-
+function Task({ children, data, renderType = "tab" }) {
+  const { saveAndUpdateTask } = useGeneralTasksProvider();
   // * Managing data
   const { deleteTask } = useTaskDelete();
   function updateState(columnName, newData) {
-    setState({ ...data, [columnName]: newData });
+    if (columnName !== "bothDate")
+      saveAndUpdateTask({ ...data, [columnName]: newData });
+    // update startDate and endDate
+    else
+      saveAndUpdateTask({
+        ...data,
+        startDate: newData[0],
+        endDate: newData[1],
+      });
   }
 
   // * Data (value atr.) for TaskContext.Provider
   const valueProvider = { ...data, updateState, renderType, deleteTask };
 
+  const { taskId, setSelectedTaskId } = useGeneralTasksProvider();
+
   return (
     <TaskContext.Provider value={valueProvider}>
-      {!amICompound && (
+      {renderType !== "compound" && (
         <StyledTask
           $inTrash={data.inTrash}
           $isCompleted={data.isCompleted}
@@ -124,7 +144,7 @@ function Task({
         </StyledTask>
       )}
       {/* Render task as compound component */}
-      {amICompound && <>{children}</>}
+      {renderType === "compound" && <>{children}</>}
     </TaskContext.Provider>
   );
 }

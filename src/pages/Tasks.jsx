@@ -1,12 +1,12 @@
 import { styled } from "styled-components";
-import { useState } from "react";
 
 import TaskDetails from "../components/TaskDetails";
-import { useManageTaskData } from "../features/tasks/useManageTaskData";
 import Checklist from "../components/Checklist";
-import { useParams } from "react-router";
-import { useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import LoadingSpinner from "../ui/LoadingSpinner";
+import SearchBar from "../components/SearchBar";
+import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
+import SortingOptions from "../components/SortingOptions";
 
 const StyledTasksPanel = styled.div`
   display: grid;
@@ -31,48 +31,44 @@ const MainSpace = styled.div`
 const SecondarySpace = styled.div`
   position: relative;
   margin: 2rem;
+  & .TaskDetails {
+    box-shadow: var(--drop-shadow);
+  }
 `;
 
 // const x = resolvePath("xyz", "tasks");
 // console.log(x);
 
 function Tasks() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { taskIdURL } = useParams();
-  const areWeInTrash = searchParams.has("trash");
-  const [selectedTaskId, setSelectedTaskId] = useState(null);
-  const { tasks, isLoadingTasks, saveAndUpdateTask } = useManageTaskData();
+  const location = useLocation();
+  // Decide whether to render Tasks or deleted tasks.
+
+  const { selectedTaskId, tasks, isLoadingTasks } = useGeneralTasksProvider();
 
   return (
     <StyledTasksPanel>
       <MainSpace>
+        <SearchBar mode="url" searchParameters={["title"]} />
+        <SortingOptions />
         {isLoadingTasks ? (
           <LoadingSpinner type="full" />
         ) : (
           <>
-            <h2>{areWeInTrash ? "Trash" : "Checklist"}</h2>
+            <h2>
+              {location.state?.trash === true ?? false ? "Trash" : "Checklist"}
+            </h2>
             <Checklist
+              // key={}
               dataManager={{
                 tasks,
                 isLoadingTasks,
-                saveAndUpdateTask,
-                selectedTaskId,
-                setSelectedTaskId,
               }}
-              amITrash={areWeInTrash}
+              location={location}
             />
           </>
         )}
       </MainSpace>
-      <SecondarySpace>
-        {selectedTaskId !== null && (
-          <TaskDetails
-            setState={saveAndUpdateTask}
-            data={tasks.find((task) => task.id === selectedTaskId)}
-            setSelectedTaskId={setSelectedTaskId}
-          />
-        )}
-      </SecondarySpace>
+      <SecondarySpace>{selectedTaskId && <TaskDetails />}</SecondarySpace>
     </StyledTasksPanel>
   );
 }

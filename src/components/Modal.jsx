@@ -51,6 +51,8 @@ function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
   const ref = useClickOutside(close);
 
+  if (name !== openName) return null;
+
   return createPortal(
     <BackgroundBlur>
       <StyledModal ref={ref}>

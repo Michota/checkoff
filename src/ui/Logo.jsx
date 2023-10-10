@@ -1,10 +1,12 @@
 import { NavLink } from "react-router-dom";
-import { styled } from "styled-components";
+import fullLogo from "/src/assets/images/Logo.png";
+import checkmark from "/src/assets/images/Check.png";
 
-function Logo({ size = "100%" }) {
+function Logo({ size = "250rem", full = true }) {
+  const source = full ? fullLogo : checkmark;
   return (
     <NavLink to="/">
-      <img width={size} alt="ChecOff Logo" src="\src\assets\logo.png"></img>
+      <img width={size} alt="CheckOff Logo" src={source}></img>
     </NavLink>
   );
 }
