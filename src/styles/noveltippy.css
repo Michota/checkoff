@@ -1,7 +1,7 @@
 /* ! MY STYLES */
 
-.ProseMirror > .tippy-box {
-  background-color: red;
+.tippy-box {
+  background-color: transparent;
   color: transparent;
   border: none;
   border-radius: 0;
@@ -36,7 +36,7 @@
   display: none;
 }
 
-#slash-command > * .text-xs {
+#slash-command > * .novel-text-xs {
   font-size: 0.7em;
 }
 
