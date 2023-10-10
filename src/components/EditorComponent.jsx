@@ -1,7 +1,6 @@
 import { Editor } from "novel";
 import styled from "styled-components";
 import { useTaskContext } from "./Task";
-import Placeholder from "@tiptap/extension-placeholder";
 import "../styles/noveltippy.css";
 
 const StyledEditorDiv = styled(Editor)`
@@ -9,18 +8,13 @@ const StyledEditorDiv = styled(Editor)`
   min-width: 50rem;
   height: 100%;
   position: relative;
-  background-color: var(--theme-black-200);
   border: none;
 
-  .prose-lg {
-    font-size: 2rem;
+  .novel-prose-lg {
+    font-size: 1.6rem;
   }
   .drag-handle {
     background-color: var(--theme-black-400);
-  }
-
-  data-tippy-root {
-    background-color: red !important;
   }
 `;
 
@@ -29,12 +23,11 @@ function EditorComponent() {
   return (
     <StyledEditorDiv
       extensions={[]}
-      disableStorage={true}
+      disableLocalStorage={true}
       defaultValue={JSON.parse(descjson)}
       className="novelEditor"
       onUpdate={(e) => {
         // Save content
-        console.log(e);
         updateState("descjson", JSON.stringify(e.getJSON().content));
       }}
     >
