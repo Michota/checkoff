@@ -9,6 +9,8 @@ import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 import SortingOptions from "../components/SortingOptions";
 import { ImageInBackground } from "../components/ui/ImageInBackground";
 import taskImg from "../assets/images/unDraw/tasks.svg";
+import addTasks from "../assets/images/unDraw/add_Tasks.svg";
+import { ButtonCreateTask } from "../components/ButtonCreateTask";
 
 const StyledTasksPanel = styled.div`
   display: grid;
@@ -44,42 +46,67 @@ const SecondarySpace = styled.div`
 
 function Tasks() {
   const location = useLocation();
-  // Decide whether to render Tasks or deleted tasks.
 
   const { selectedTaskId, tasks, isLoadingTasks } = useGeneralTasksProvider();
 
-  return (
-    <StyledTasksPanel>
-      <MainSpace>
-        <SearchBar mode="url" searchParameters={["title"]} />
-        <SortingOptions />
-        {isLoadingTasks ? (
-          <LoadingSpinner type="full" />
-        ) : (
-          <>
-            <h2>
-              {location.state?.trash === true ?? false ? "Trash" : "Checklist"}
-            </h2>
-            <Checklist
-              // key={}
-              dataManager={{
-                tasks,
-                isLoadingTasks,
-              }}
-              location={location}
-            />
-          </>
-        )}
-      </MainSpace>
-      <SecondarySpace>
-        {selectedTaskId && <TaskDetails />}
+  // Display image if there are no tasks AND you are not in Trash
+  const displayNoTasksBackground =
+    tasks?.filter((task) => !task.inTrash).length <= 0 &&
+    location?.state?.trash !== true;
+
+  if (!displayNoTasksBackground)
+    return (
+      <StyledTasksPanel>
+        <MainSpace>
+          <SearchBar mode="url" searchParameters={["title"]} />
+          <SortingOptions />
+          {isLoadingTasks ? (
+            <LoadingSpinner type="full" />
+          ) : (
+            <>
+              <h2>
+                {location.state?.trash === true ?? false
+                  ? "Trash"
+                  : "Checklist"}
+              </h2>
+              <Checklist
+                // key={}
+                dataManager={{
+                  tasks,
+                  isLoadingTasks,
+                }}
+                location={location}
+              />
+            </>
+          )}
+        </MainSpace>
+        <SecondarySpace>
+          {selectedTaskId && <TaskDetails />}
+          <ImageInBackground
+            text="Click on any task to display its details."
+            imgURL={taskImg}
+          />
+        </SecondarySpace>
+      </StyledTasksPanel>
+    );
+
+  if (displayNoTasksBackground)
+    return (
+      <>
         <ImageInBackground
-          text="Click on any task to display its details."
-          imgURL={taskImg}
-        />
-      </SecondarySpace>
-    </StyledTasksPanel>
-  );
+          imgURL={addTasks}
+          text={
+            <p>
+              You have no tasks.
+              <br />
+              You can create one by clicking on button with <b>+</b> sign.
+            </p>
+          }
+        >
+          <ButtonCreateTask />
+        </ImageInBackground>
+      </>
+    );
 }
 
 export default Tasks;
