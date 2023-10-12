@@ -13,6 +13,15 @@ index 43b29ad..6e35160 100644
  
  // src/styles/prosemirror.css
  styleInject(`.ProseMirror {
+@@ -1183,7 +1181,7 @@ var defaultExtensions = [
+       if (node.type.name === "heading") {
+         return `Heading ${node.attrs.level}`;
+       }
+-      return "Press '/' for commands, or '++' for AI autocomplete...";
++      return "Press '/' for commands...";
+     },
+     includeChildren: true
+   }),
 @@ -1942,7 +1940,7 @@ var EditorBubbleMenu = (props) => {
    return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
      import_react7.BubbleMenu,
@@ -37,6 +46,15 @@ index 0630ce7..715ae07 100644
  
  // src/styles/prosemirror.css
  styleInject(`.ProseMirror {
+@@ -1169,7 +1167,7 @@ var defaultExtensions = [
+       if (node.type.name === "heading") {
+         return `Heading ${node.attrs.level}`;
+       }
+-      return "Press '/' for commands, or '++' for AI autocomplete...";
++      return `"Press '/' for commands..."`;
+     },
+     includeChildren: true
+   }),
 @@ -1945,7 +1943,7 @@ var EditorBubbleMenu = (props) => {
    return /* @__PURE__ */ jsxs7(
      BubbleMenu,
