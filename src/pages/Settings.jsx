@@ -2,7 +2,7 @@ import styled from "styled-components";
 import LabeledInput from "../components/ui/LabeledInput";
 import { useSettingsContext } from "../contexts/SettingsContext";
 import ImageInBackground from "../components/ui/ImageInBackground";
-import personalsettings from "/src/assets/images/unDraw/personal_settings.svg";
+import personal_settings from "/src/assets/images/unDraw/personal_settings.svg";
 
 const StyledSettings = styled.div`
   width: 100%;
@@ -95,7 +95,7 @@ function Settings() {
       </section>
       <ImageInBackground
         isFixed={true}
-        imgURL={personalsettings}
+        imgURL={personal_settings}
       ></ImageInBackground>
     </StyledSettings>
   );

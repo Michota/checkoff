@@ -9,7 +9,7 @@ import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 import SortingOptions from "../components/SortingOptions";
 import { ImageInBackground } from "../components/ui/ImageInBackground";
 import taskImg from "/src/assets/images/unDraw/tasks.svg";
-import addTasks from "/src/assets/images/unDraw/add_Tasks.svg";
+import add_tasks from "/src/assets/images/unDraw/add_tasks.svg";
 import { ButtonCreateTask } from "../components/ButtonCreateTask";
 
 const StyledTasksPanel = styled.div`
@@ -94,7 +94,7 @@ function Tasks() {
     return (
       <>
         <ImageInBackground
-          imgURL={addTasks}
+          imgURL={add_tasks}
           text={
             <p>
               You have no tasks.
