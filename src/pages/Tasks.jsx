@@ -7,6 +7,8 @@ import LoadingSpinner from "../components/ui/LoadingSpinner";
 import SearchBar from "../components/SearchBar";
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 import SortingOptions from "../components/SortingOptions";
+import { ImageInBackground } from "../components/ui/ImageInBackground";
+import taskImg from "../assets/images/unDraw/tasks.svg";
 
 const StyledTasksPanel = styled.div`
   display: grid;
@@ -30,6 +32,7 @@ const MainSpace = styled.div`
 
 const SecondarySpace = styled.div`
   position: relative;
+
   margin: 2rem;
   & .TaskDetails {
     box-shadow: var(--drop-shadow);
@@ -68,7 +71,13 @@ function Tasks() {
           </>
         )}
       </MainSpace>
-      <SecondarySpace>{selectedTaskId && <TaskDetails />}</SecondarySpace>
+      <SecondarySpace>
+        {selectedTaskId && <TaskDetails />}
+        <ImageInBackground
+          text="Click on any task to display its details."
+          imgURL={taskImg}
+        />
+      </SecondarySpace>
     </StyledTasksPanel>
   );
 }
