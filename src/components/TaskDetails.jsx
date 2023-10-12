@@ -16,6 +16,8 @@ const StyledTaskDetails = styled(Box)`
   left: 0;
   top: 0;
   box-shadow: none;
+  background-color: var(--theme-black-100);
+  z-index: 2;
 `;
 
 const Header = styled.header`
