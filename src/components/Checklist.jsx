@@ -1,12 +1,12 @@
 import useCreateNewTask from "../features/tasks/useCreateNewTask";
 import Task from "./Task";
-import Button from "../ui/Button";
+import Button from "./ui/Button";
 import { MdAdd, MdDeleteSweep } from "react-icons/md";
 import styled from "styled-components";
 import useFilterWithParameters from "../hooks/useFilterWithParameters";
 import useRemoveDeletedTasks from "../features/tasks/useRemoveDeletedTasks";
 import { Tooltip } from "./Tooltip";
-import Tippy from "@tippyjs/react";
+import { sortTasks } from "../utils/sortTasks";
 
 const StyledChecklist = styled.div`
   display: flex;
@@ -53,50 +53,6 @@ const ButtonDeleteAll = styled(ButtonCreateTask)`
     box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.4);
   }
 `;
-
-// Sorting function
-function sortTasks(tasks, sortBy, ascending = true) {
-  let method = typeof tasks?.[0][sortBy];
-  let sortedTasks;
-
-  if (sortBy === "startDate") {
-    sortedTasks = ascending
-      ? tasks?.sort(
-          (b, a) =>
-            new Date(a[sortBy]).getTime() - new Date(b[sortBy]).getTime()
-        )
-      : tasks?.sort(
-          (a, b) =>
-            new Date(a[sortBy]).getTime() - new Date(b[sortBy]).getTime()
-        );
-    return sortedTasks;
-  }
-
-  if (method === "number")
-    sortedTasks = ascending
-      ? tasks?.sort((b, a) => a[sortBy] - b[sortBy])
-      : tasks?.sort((a, b) => a[sortBy] - b[sortBy]);
-  // Sort by strings.
-  if (method === "string")
-    sortedTasks = ascending
-      ? tasks.sort((a, b) =>
-          a[sortBy].toLowerCase() < b[sortBy].toLowerCase()
-            ? -1
-            : b[sortBy].toLowerCase() > a[sortBy].toLowerCase()
-            ? 1
-            : 0
-        )
-      : tasks.sort((b, a) =>
-          a[sortBy].toLowerCase() < b[sortBy].toLowerCase()
-            ? -1
-            : b[sortBy].toLowerCase() > a[sortBy].toLowerCase()
-            ? 1
-            : 0
-        );
-
-  // if there are no sortedTasks (length === 0), return non-sorted array.
-  return sortedTasks || tasks;
-}
 
 // Default sorting setting. It must have the same name as the column in the database from which the data comes.
 const defaultSorting = "createdAt";

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import "../styles/LoadingSpinner.css";
+import "../../styles/LoadingSpinner.css";
 
 const FullScreenSpinner = styled.div`
   position: fixed;

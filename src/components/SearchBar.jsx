@@ -1,12 +1,5 @@
-import { useEffect } from "react";
 import { useState } from "react";
-import {
-  createSearchParams,
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
+import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledSearchBar = styled.input`
@@ -15,7 +8,6 @@ const StyledSearchBar = styled.input`
   opacity: 0.8;
 
   font-size: 1.6rem;
-  /* font-weight: bold; */
   padding: 1rem 2rem;
   min-width: 15rem;
   width: 100%;
@@ -51,19 +43,12 @@ const StyledSearchBar = styled.input`
   }
 `;
 
-// ? type: "search" makes user-agents style searchbar, so it's disabled.
+// ? type: "search" makes user-agents style searchbar, so it's set to default type instead..
 // StyledSearchBar.defaultProps = {
 //   type: "search",
 // };
 
-function SearchBar({
-  placeholder = "Search",
-  // * if mode is "filter" then search trough provided array
-  // * if mode is set to "url" then use URL as return point for search parameters
-  mode = "filter",
-  searchParameters = [""],
-  whereToSearch = [],
-}) {
+function SearchBar({ placeholder = "Search", searchParameters = [""] }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
@@ -83,13 +68,6 @@ function SearchBar({
       }
     );
   }
-
-  // ? To be removed in the future
-  // if (mode === "filter") {
-  //   const searchResults = whereToSearch?.filter((element) =>
-  //     element[searchParameters].includes(searchQuery)
-  //   );
-  // }
 
   return (
     <StyledSearchBar

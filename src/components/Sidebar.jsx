@@ -1,23 +1,17 @@
 import { useState } from "react";
-import { NavLink, useLocation, useParams } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useLogout } from "../features/authentication/useLogout";
 import { css, styled } from "styled-components";
-import Logo from "../ui/Logo";
-import Button from "../ui/Button";
+import Logo from "./ui/Logo";
 import {
   MdDeleteOutline,
   MdLogout,
   MdOutlineCalendarMonth,
-  MdOutlineDarkMode,
-  MdOutlineLightMode,
   MdOutlineSettings,
   MdPersonOutline,
   MdTaskAlt,
 } from "react-icons/md";
-import {
-  SettingsProvider,
-  useSettingsContext,
-} from "../contexts/SettingsContext";
+
 import ChangeTheme from "./ChangeTheme";
 
 const StyledSidebar = styled.div`
@@ -115,6 +109,7 @@ const LogoContainer = styled.div`
 
 // ==== end of styling ====
 
+// Set NavLink class based on it's state.
 NavLink.defaultProps = {
   className: ({ isActive, isPending }) =>
     isPending ? "pending" : isActive ? "active" : "",
@@ -122,9 +117,9 @@ NavLink.defaultProps = {
 
 function Sidebar() {
   const location = useLocation();
+  // "Rolled" means hidden, pushed to left, minimized, shrunken, thin
   const [isRolled, setIsRolled] = useState(true);
   const { logout, isLoading: isLoggingOut } = useLogout();
-  const { theme, setTheme } = useSettingsContext();
 
   if (location.pathname)
     return (

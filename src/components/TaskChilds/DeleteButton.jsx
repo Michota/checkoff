@@ -1,4 +1,4 @@
-import Button from "../../ui/Button";
+import Button from "../ui/Button";
 import { MdDelete, MdDeleteForever } from "react-icons/md";
 import { useTaskContext } from "../Task";
 import { useGeneralTasksProvider } from "../../contexts/GeneralTasksContext";

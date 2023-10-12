@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Draggable from "react-draggable";
 import styled from "styled-components";
 import { MdDragHandle } from "react-icons/md";
-import Box from "../ui/Box";
+import Box from "./Box";
 
 // Container for Draggable
 const StyledDraggableContainer = styled(Box)`

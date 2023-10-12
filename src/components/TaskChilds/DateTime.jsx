@@ -2,7 +2,7 @@ import DateTimeRangePicker from "@wojtekmaj/react-datetimerange-picker";
 import DateTimePicker from "react-datetime-picker";
 import styled from "styled-components";
 import { MdAdd, MdCalendarToday, MdDateRange } from "react-icons/md";
-import Button from "../../ui/Button";
+import Button from "../ui/Button";
 
 import { useTaskContext } from "../Task";
 

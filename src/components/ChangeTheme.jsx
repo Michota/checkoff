@@ -1,9 +1,6 @@
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
-import {
-  SettingsProvider,
-  useSettingsContext,
-} from "../contexts/SettingsContext";
-import Button from "../ui/Button";
+import { useSettingsContext } from "../contexts/SettingsContext";
+import Button from "./ui/Button";
 
 function ChangeTheme({ size }) {
   const { theme, setTheme } = useSettingsContext();

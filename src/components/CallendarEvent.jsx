@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import Box from "../ui/Box";
+import Box from "./Box";
 import Task from "./Task";
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 

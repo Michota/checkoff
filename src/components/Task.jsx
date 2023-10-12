@@ -1,9 +1,8 @@
 import { createContext, useContext } from "react";
 import { styled, css } from "styled-components";
+import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 import useTaskDelete from "../features/tasks/useTaskDelete";
-
-import Box from "../ui/Box";
-
+import Box from "./Box";
 import DeleteButton from "./TaskChilds/DeleteButton";
 import Checkbox from "./TaskChilds/Checkbox";
 import Title from "./TaskChilds/Title";
@@ -12,16 +11,8 @@ import { DateTime } from "./TaskChilds/DateTime";
 import RestoreButton from "./TaskChilds/RestoreButton";
 import Priority from "./TaskChilds/Priority";
 import EditorComponent from "./EditorComponent";
-import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
-import { Tooltip } from "./Tooltip";
 
 // Styling components with StyledComponents
-
-const TaskFlexContainer = styled.div`
-  align-items: center;
-  display: flex;
-  padding: 0.2rem;
-`;
 
 const StyledTask = styled(Box)`
   overflow-y: hidden;
@@ -66,6 +57,12 @@ const StyledTask = styled(Box)`
     css`
       border-bottom: var(--theme-darkred-250) 2px solid;
     `}
+`;
+
+const TaskFlexContainer = styled.div`
+  align-items: center;
+  display: flex;
+  padding: 0.2rem;
 `;
 
 const StyledDetails = styled.span`
@@ -153,7 +150,6 @@ function Task({ children, data, renderType = "tab" }) {
 Task.Checkbox = Checkbox;
 Task.Title = Title;
 // ! CHANGED FOR TESTING PURPOSES!
-// Task.Description = Description;
 Task.Description = EditorComponent;
 Task.DeleteButton = DeleteButton;
 Task.DateTime = DateTime;
