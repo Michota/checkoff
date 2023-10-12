@@ -8,8 +8,8 @@ import SearchBar from "../components/SearchBar";
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 import SortingOptions from "../components/SortingOptions";
 import { ImageInBackground } from "../components/ui/ImageInBackground";
-import taskImg from "../assets/images/unDraw/tasks.svg";
-import addTasks from "../assets/images/unDraw/add_Tasks.svg";
+import taskImg from "/src/assets/images/unDraw/tasks.svg";
+import addTasks from "/src/assets/images/unDraw/add_Tasks.svg";
 import { ButtonCreateTask } from "../components/ButtonCreateTask";
 
 const StyledTasksPanel = styled.div`

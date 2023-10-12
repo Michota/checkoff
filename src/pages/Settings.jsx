@@ -2,7 +2,7 @@ import styled from "styled-components";
 import LabeledInput from "../components/ui/LabeledInput";
 import { useSettingsContext } from "../contexts/SettingsContext";
 import ImageInBackground from "../components/ui/ImageInBackground";
-import personalsettings from "../assets/images/unDraw/personal_settings.svg";
+import personalsettings from "/src/assets/images/unDraw/personal_settings.svg";
 
 const StyledSettings = styled.div`
   width: 100%;
