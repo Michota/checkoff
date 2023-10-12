@@ -1,6 +1,16 @@
 import { css, styled } from "styled-components";
 
 const StyledImageInBackground = styled.div`
+  pointer-events: none;
+  ${(props) => {
+    if (props.$isFixed)
+      return css`
+        top: 50%;
+        transform: translateY(-50%);
+        position: fixed;
+      `;
+  }}
+
   user-select: none;
   width: 100%;
   height: 100%;
@@ -38,9 +48,9 @@ const TextOnBg = styled.p`
   }
 `;
 
-export function ImageInBackground({ children, imgURL, text }) {
+export function ImageInBackground({ children, imgURL, text, isFixed }) {
   return (
-    <StyledImageInBackground $imgURL={imgURL}>
+    <StyledImageInBackground $isFixed={isFixed} $imgURL={imgURL}>
       {children}
       <TextOnBg>{text}</TextOnBg>
     </StyledImageInBackground>
