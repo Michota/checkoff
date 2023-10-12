@@ -80,7 +80,13 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <IconContext.Provider value={{ size: "1.3em", className: "react-icons" }}>
+      <IconContext.Provider
+        value={{
+          size: "1.3em",
+          className: "react-icons",
+          style: { display: "block" },
+        }}
+      >
         <Toaster
           toastOptions={{
             style: {
