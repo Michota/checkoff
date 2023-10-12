@@ -107,10 +107,24 @@
   max-height: fit-content;
   overflow: auto;
   border: none;
-  background-color: red;
   width: max-content;
   outline: 1px var(--theme-black-400) solid;
   border-radius: var(--default-radius);
+
+  & form {
+    padding-left: 0.5rem;
+    color: var(--theme-white-200);
+    position: fixed;
+    background: var(--theme-black-200);
+    border: 1px solid var(--theme-white-200);
+    display: flex;
+    max-height: fit-content;
+    overflow: auto;
+    border: none;
+    width: max-content;
+    outline: 1px var(--theme-black-400) solid;
+    border-radius: var(--default-radius);
+  }
 
   & > div {
     outline: 1px var(--theme-black-400) solid;
