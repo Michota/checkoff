@@ -16,12 +16,14 @@ const StyledImageInBackground = styled.div`
     }}
     background-repeat: no-repeat;
     background-position: center;
+    background-size: auto;
     opacity: 0.1;
     filter: drop-shadow(0.5rem 0.5rem 1rem var(--shadow-color));
   }
 `;
 
 const TextOnBg = styled.div`
+  text-align: center;
   user-select: none;
   pointer-events: none;
   font-size: 1.8rem;
