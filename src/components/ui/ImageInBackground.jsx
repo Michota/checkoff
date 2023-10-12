@@ -22,7 +22,7 @@ const StyledImageInBackground = styled.div`
   }
 `;
 
-const TextOnBg = styled.div`
+const TextOnBg = styled.p`
   text-align: center;
   user-select: none;
   pointer-events: none;
@@ -32,8 +32,10 @@ const TextOnBg = styled.div`
   top: 50%;
   left: 50%;
   transform: translateX(-50%);
-  opacity: 0.2;
-  text-shadow: 2px 2px 2px black;
+  & * {
+    opacity: 0.5;
+    color: var(--theme-white-200);
+  }
 `;
 
 export function ImageInBackground({ children, imgURL, text }) {
