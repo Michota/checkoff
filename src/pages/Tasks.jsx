@@ -93,6 +93,8 @@ function Tasks() {
   if (displayNoTasksBackground)
     return (
       <>
+        <ButtonCreateTask />
+
         <ImageInBackground
           imgURL={add_tasks}
           text={
@@ -102,9 +104,7 @@ function Tasks() {
               You can create one by clicking on button with <b>+</b> sign.
             </p>
           }
-        >
-          <ButtonCreateTask />
-        </ImageInBackground>
+        ></ImageInBackground>
       </>
     );
 }
