@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import Input from "../components/ui/Input";
 import LabeledInput from "../components/ui/LabeledInput";
-import { useState } from "react";
 import { useSettingsContext } from "../contexts/SettingsContext";
+import ImageInBackground from "../components/ui/ImageInBackground";
+import personalsettings from "../assets/images/unDraw/personal_settings.svg";
 
 const StyledSettings = styled.div`
   width: 100%;
@@ -93,6 +93,10 @@ function Settings() {
           </div>
         </header>
       </section>
+      <ImageInBackground
+        isFixed={true}
+        imgURL={personalsettings}
+      ></ImageInBackground>
     </StyledSettings>
   );
 }
