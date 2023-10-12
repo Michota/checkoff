@@ -1,3 +1,16 @@
+/* Highlight colors */
+:root {
+  --novel-highlight-default: transparent;
+  --novel-highlight-purple: rgba(205, 144, 255, 0.6);
+  --novel-highlight-red: rgba(255, 119, 119, 0.6);
+  --novel-highlight-yellow: rgba(255, 217, 3, 0.6);
+  --novel-highlight-blue: rgba(128, 193, 255, 0.6);
+  --novel-highlight-green: rgba(97, 255, 92, 0.6);
+  --novel-highlight-orange: rgba(255, 166, 0, 0.6);
+  --novel-highlight-pink: rgba(255, 83, 169, 0.6);
+  --novel-highlight-gray: rgba(102, 102, 102, 0.6);
+}
+
 /* ! MY STYLES */
 
 .tippy-box {
@@ -47,7 +60,7 @@
   stroke: var(--theme-white-200);
 }
 
-/* ! Patch-package css-delete */
+/* * Custom slash-command */
 
 #slash-command {
   display: flex;
@@ -65,7 +78,7 @@
   width: 2.4rem;
   height: 2.4rem;
   padding: 0.2rem;
-  outline: 1px var(--theme-white-200) solid;
+  outline: 1px var(--theme-black-400) solid;
   border-radius: var(--default-radius);
   display: flex;
   justify-content: center;
@@ -83,5 +96,107 @@
   border: none;
   width: 100%;
   max-height: 8rem;
-  /* border-bottom: 0.1px solid white; */
+}
+
+/* Custom BubbleMenu */
+
+.novelBubbleMenu {
+  background: var(--theme-black-200);
+  border: 1px solid var(--theme-white-200);
+  display: flex;
+  max-height: fit-content;
+  overflow: auto;
+  border: none;
+  background-color: red;
+  width: max-content;
+  outline: 1px var(--theme-black-400) solid;
+  border-radius: var(--default-radius);
+
+  & > div {
+    outline: 1px var(--theme-black-400) solid;
+  }
+
+  & svg {
+    width: 1.2em;
+    height: 1.2em;
+    aspect-ratio: 1 / 1;
+  }
+}
+
+.novelBubbleMenu button {
+  cursor: pointer;
+  font-weight: bold;
+  color: var(--theme-white-200);
+  border: none;
+
+  gap: 1rem;
+  padding: 0.5rem;
+  width: max-content;
+  height: 3.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--theme-black-200);
+}
+
+.novelBubbleMenu button:hover {
+  background-color: var(--theme-black-250);
+}
+
+/* bold, italic, underlined, striketrought, code buttons */
+.novelBubbleMenu div.novel-flex {
+  display: flex;
+
+  & button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+div[data-radix-popper-content-wrapper] > div[data-side="bottom"] {
+  border-radius: var(--default-radius);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  outline: 1px var(--theme-black-400) solid;
+  max-height: 30rem;
+  background-color: var(--theme-black-200);
+
+  /* "Color", "Background" lables in color picker */
+  & > .novel-px-2.novel-text-sm.novel-text-stone-500 {
+    text-align: center;
+    color: var(--theme-white-400);
+
+    padding: 0.4rem;
+    font-size: 0.7em;
+    font-weight: bold;
+    cursor: default;
+  }
+
+  & button {
+    width: 100%;
+    height: max-content;
+
+    &
+      .novel-rounded-sm.novel-border.novel-border-stone-200.novel-px-1.novel-py-px.novel-font-medium {
+      padding: 0.2em;
+      outline: 1px var(--theme-black-400) solid;
+    }
+
+    & > div {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      width: 100%;
+      align-items: center;
+      font-weight: normal;
+      justify-content: flex-start;
+      font-size: 0.9em;
+
+      & svg {
+        width: 1.6em;
+      }
+    }
+  }
 }
