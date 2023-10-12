@@ -1,5 +1,5 @@
 diff --git a/node_modules/novel/dist/index.js b/node_modules/novel/dist/index.js
-index 43b29ad..6e35160 100644
+index 43b29ad..c0d5b74 100644
 --- a/node_modules/novel/dist/index.js
 +++ b/node_modules/novel/dist/index.js
 @@ -96,10 +96,8 @@ function styleInject(css2, { insertAt } = {}) {
@@ -13,6 +13,15 @@ index 43b29ad..6e35160 100644
  
  // src/styles/prosemirror.css
  styleInject(`.ProseMirror {
+@@ -1183,7 +1181,7 @@ var defaultExtensions = [
+       if (node.type.name === "heading") {
+         return `Heading ${node.attrs.level}`;
+       }
+-      return "Press '/' for commands, or '++' for AI autocomplete...";
++      return "Press '/' for commands...";
+     },
+     includeChildren: true
+   }),
 @@ -1942,7 +1940,7 @@ var EditorBubbleMenu = (props) => {
    return /* @__PURE__ */ (0, import_jsx_runtime7.jsxs)(
      import_react7.BubbleMenu,
@@ -23,7 +32,7 @@ index 43b29ad..6e35160 100644
          /* @__PURE__ */ (0, import_jsx_runtime7.jsx)(
            NodeSelector,
 diff --git a/node_modules/novel/dist/index.mjs b/node_modules/novel/dist/index.mjs
-index 0630ce7..715ae07 100644
+index 0630ce7..64848ac 100644
 --- a/node_modules/novel/dist/index.mjs
 +++ b/node_modules/novel/dist/index.mjs
 @@ -63,10 +63,8 @@ function styleInject(css2, { insertAt } = {}) {
@@ -37,6 +46,15 @@ index 0630ce7..715ae07 100644
  
  // src/styles/prosemirror.css
  styleInject(`.ProseMirror {
+@@ -1169,7 +1167,7 @@ var defaultExtensions = [
+       if (node.type.name === "heading") {
+         return `Heading ${node.attrs.level}`;
+       }
+-      return "Press '/' for commands, or '++' for AI autocomplete...";
++      return "Press '/' for commands...";
+     },
+     includeChildren: true
+   }),
 @@ -1945,7 +1943,7 @@ var EditorBubbleMenu = (props) => {
    return /* @__PURE__ */ jsxs7(
      BubbleMenu,
