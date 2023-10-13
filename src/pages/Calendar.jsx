@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 import styled from "styled-components";
 import TaskDetails from "../components/TaskDetails";
@@ -15,10 +14,9 @@ const CalendarContainer = styled.div`
 `;
 
 // Main component of Calendar Page
+// Main component of Calendar Page
 function Calendar() {
   const { selectedTaskId } = useGeneralTasksProvider();
-  const [view, setView] = useState("dayGridMonth");
-  const [api, setApi] = useState(); // calendarRef.current.getApi()
 
   return (
     <>
