@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -5,19 +6,39 @@ import interactionPlugin from "@fullcalendar/interaction";
 import multiMonthPlugin from "@fullcalendar/multimonth";
 import allLocales from "@fullcalendar/core/locales-all";
 import CallendarEvent from "../components/CallendarEvent";
+import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 import { useSettingsContext } from "../contexts/SettingsContext";
 import useCreateNewTask from "../features/tasks/useCreateNewTask";
 import getUNIX from "../utils/getUNIX";
-import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
-import { useEffect, useRef } from "react";
 
-const headerToolbar = {
-  start: "todayBtn dayBtn,weekBtn,monthBtn,yearBtn",
-  // start: "timeGridDay,timeGridWeek,dayGridMonth", // will normally be on the left. if RTL, will be on the right
-  center: "title",
-  end: "prevBtn,nextBtn", // will normally be on the right. if RTL, will be on the left
+// Views option
+const views = {
+  week: {
+    titleFormat: { meridiem: false },
+  },
+  timeGrid: {
+    titleFormat: { meridiem: false },
+  },
+  day: {
+    titleFormat: {
+      hour: "numeric",
+      minute: "2-digit",
+      meridiem: false,
+    },
+  },
+  year: {
+    titleFormat: { year: "numeric" },
+  },
 };
 
+// HTML elements appearing in Header of Calendar
+const headerToolbar = {
+  start: "todayBtn dayBtn,weekBtn,monthBtn,yearBtn",
+  center: "title",
+  end: "prevBtn,nextBtn",
+};
+
+// Parse Task data to Event compatible data
 function parseTaskToEvents([tasks]) {
   if (!tasks) return;
   const events = tasks.map((task) => {
@@ -34,41 +55,60 @@ function parseTaskToEvents([tasks]) {
   return events;
 }
 
-// Render Event
+// Event renderer
 function eventContent(renderObject, data) {
   return <CallendarEvent renderObject={renderObject} data={data} />;
 }
 
-// !!!!!
-
-function WrappedFullCalendar({ views, customButtons, setApi, view, setView }) {
-  const { tasks, saveAndUpdateTask, selectedTaskId, setSelectedTaskId } =
+function WrappedFullCalendar() {
+  const [view, setView] = useState("dayGridMonth");
+  const { locale } = useSettingsContext();
+  const { createTask } = useCreateNewTask();
+  const { tasks, saveAndUpdateTask, setSelectedTaskId } =
     useGeneralTasksProvider();
 
   const calendarRef = useRef();
-
-  useEffect(function () {
-    console.log("render");
-  }, []);
-
   const { current: calendarDom } = calendarRef;
+  const api = calendarDom?.getApi();
 
-  useEffect(
-    function () {
-      if (setApi) setApi(calendarDom ? calendarDom.getApi() : null);
+  // Buttons at header (top-side) part of page
+  const customButtons = {
+    // Today button
+    todayBtn: {
+      text: "Today",
+      click: () => api.today(),
     },
-    [calendarDom, setApi]
-  );
-
-  useEffect(
-    function () {
-      calendarDom?.getApi().changeView(view);
+    // Arrow (< & >) buttons
+    prevBtn: {
+      icon: "customButton prevBtn",
+      click: () => api.prev(),
     },
-    [view, calendarDom]
-  );
-
-  const { locale } = useSettingsContext();
-  const { createTask } = useCreateNewTask();
+    nextBtn: {
+      icon: "customButton nextBtn",
+      click: () => api.next(),
+    },
+    // Views buttons
+    dayBtn: {
+      hint: "Day view.",
+      icon: "customButton dayBtn",
+      click: () => setView("timeGridDay"),
+    },
+    weekBtn: {
+      icon: "customButton weekBtn",
+      hint: "Week view.",
+      click: () => setView("timeGridWeek"),
+    },
+    monthBtn: {
+      hint: "Month view.",
+      icon: "customButton monthBtn",
+      click: () => setView("dayGridMonth"),
+    },
+    yearBtn: {
+      hint: "Year view.",
+      icon: "customButton yearBtn",
+      click: () => setView("multiMonthYear"),
+    },
+  };
 
   function handleEventUpdate(e) {
     // Data from event. OldEvent is data from before the changes
@@ -92,44 +132,43 @@ function WrappedFullCalendar({ views, customButtons, setApi, view, setView }) {
     }
   }
 
-  console.log(calendarDom);
-  if (view)
-    return (
-      <FullCalendar
-        ref={calendarRef}
-        timeZone="local"
-        locale={locale}
-        locales={allLocales}
-        views={views}
-        editable={true}
-        headerToolbar={headerToolbar}
-        buttonIcons={false}
-        dayMaxEventRows={2}
-        initialView={view}
-        multiMonthMaxColumns={2}
-        customButtons={customButtons}
-        height={"100%"}
-        plugins={[
-          dayGridPlugin,
-          timeGridPlugin,
-          multiMonthPlugin,
-          interactionPlugin,
-        ]}
-        dateClick={(e) => {
-          if (e.jsEvent.detail !== 2) return;
-          setSelectedTaskId(createTask({ startDate: e.dateStr }));
-        }}
-        events={parseTaskToEvents([tasks] ?? null)}
-        eventClick={function (info) {
-          info.jsEvent.preventDefault();
-        }}
-        eventContent={(arg) => {
-          const task = tasks.find((t) => Number(arg.event.id) === t.id);
-          return eventContent(arg, task);
-        }}
-        eventChange={(e) => handleEventUpdate(e)}
-      />
-    );
+  return (
+    <FullCalendar
+      key={view}
+      ref={calendarRef}
+      timeZone="local"
+      locale={locale}
+      locales={allLocales}
+      views={views}
+      editable={true}
+      headerToolbar={headerToolbar}
+      buttonIcons={false}
+      dayMaxEventRows={2}
+      initialView={view} // actually its like "changeView", becasue this component has to be re-rendered with key prop.
+      multiMonthMaxColumns={3}
+      customButtons={customButtons}
+      height={"100%"}
+      plugins={[
+        dayGridPlugin,
+        timeGridPlugin,
+        multiMonthPlugin,
+        interactionPlugin,
+      ]}
+      dateClick={(e) => {
+        if (e.jsEvent.detail !== 2) return;
+        setSelectedTaskId(createTask({ startDate: e.dateStr }));
+      }}
+      events={parseTaskToEvents([tasks] ?? null)}
+      eventClick={function (info) {
+        info.jsEvent.preventDefault();
+      }}
+      eventContent={(arg) => {
+        const task = tasks.find((t) => Number(arg.event.id) === t.id);
+        return eventContent(arg, task);
+      }}
+      eventChange={(e) => handleEventUpdate(e)}
+    />
+  );
 }
 
 export default WrappedFullCalendar;
