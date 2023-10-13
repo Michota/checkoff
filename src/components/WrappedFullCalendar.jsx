@@ -135,8 +135,48 @@ function WrappedFullCalendar() {
     }
   }
 
+  // Create Headers containing days of week with day numbers
+  function createHeaders(data) {
+    return (
+      <span
+        className={
+          data.date.getDate() === new Date().getDate()
+            ? "fullCalendar-today-header"
+            : ""
+        }
+      >
+        {/*  Day or Week view */}
+
+        {(view === "timeGridDay" || view === "timeGridWeek") && (
+          <>
+            <span className="dayNumber">{data.date.getDate()}</span>
+            <span className="dayName">
+              {data.date.toLocaleDateString(locale, {
+                weekday: "long",
+              })}
+            </span>
+          </>
+        )}
+        {/*  Month or MultiMonth (year) view */}
+        {(view === "dayGridMonth" || view === "multiMonthYear") && (
+          <>
+            <span className="weekName">
+              {data.date.toLocaleDateString(locale, {
+                weekday: "short",
+              })}
+            </span>
+          </>
+        )}
+      </span>
+    );
+
+    // if (view === "dayGridMonth" || view === "multiMonthYear")
+  }
+
   return (
     <FullCalendar
+      dayHeaderClassNames="fullCalendar-day-header"
+      dayHeaderContent={(dayHeaderData) => createHeaders(dayHeaderData)}
       key={`${view}${api}`}
       ref={calendarRef}
       timeZone="local"

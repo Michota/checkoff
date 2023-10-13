@@ -7,17 +7,15 @@ const StyledEvent = styled(Box)`
   background-color: var(--theme-black-250);
   color: var(--theme-white-100);
   width: 100%;
-  /* height: min-content; */
-  height: 100%;
-  font-size: 1.2rem;
-  padding: 0.6em;
+  height: max-content;
+  font-size: 0.9em;
+  padding: 0.4em;
   /* // ? Temporary fix for calendar nested event */
   z-index: 5;
   display: flex;
   gap: 1rem;
   cursor: pointer;
   overflow: hidden;
-  font-weight: bold;
 
   ${(props) =>
     props.$isCompleted === true
@@ -45,7 +43,7 @@ const StyledEvent = styled(Box)`
 `;
 
 const Title = styled.span`
-  font-size: 1.6rem;
+  font-size: 1.2em;
 
   &:empty::after {
     content: "No title...";
@@ -54,6 +52,9 @@ const Title = styled.span`
 `;
 
 const HoursAndMinutes = styled.div`
+  font-weight: bold;
+  font-size: 0.9em;
+
   background-color: var(--theme-black-200);
   padding: 0.2rem 0.4rem;
   border-radius: 20rem;
@@ -79,7 +80,13 @@ function CallendarEvent({ children, renderObject, data }) {
       }}
     >
       <Task setState={setState} renderType="compound" data={data}>
-        <span>
+        <span
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <HoursAndMinutes>{hoursAndMinutes}</HoursAndMinutes>
           <Task.Checkbox></Task.Checkbox>
         </span>
