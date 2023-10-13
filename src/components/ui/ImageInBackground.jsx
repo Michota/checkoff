@@ -32,7 +32,7 @@ const StyledImageInBackground = styled.div`
   }
 `;
 
-const TextOnBg = styled.p`
+const TextOnBg = styled.div`
   text-align: center;
   user-select: none;
   pointer-events: none;
