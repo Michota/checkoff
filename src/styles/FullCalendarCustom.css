@@ -167,6 +167,15 @@
   background-color: var(--theme-black-200);
 }
 
+.fc-daygrid-more-link {
+  color: var(--theme-white-200);
+  font-weight: bold;
+
+  &:hover {
+    color: var(--theme-white-200);
+  }
+}
+
 /* ! Media queries */
 
 @media (max-width: 1024px) {
