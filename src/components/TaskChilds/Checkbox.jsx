@@ -1,6 +1,7 @@
 import { MdCheckBox, MdOutlineSquare } from "react-icons/md";
 import styled, { css } from "styled-components";
 import { useTaskContext } from "../Task";
+import { Tooltip } from "../Tooltip";
 
 const StyledCheckboxHitbox = styled.label`
   aspect-ratio: 1 / 1;
@@ -43,21 +44,23 @@ function Checkbox({ className }) {
   const { priority, isCompleted, updateState } = useTaskContext();
 
   return (
-    <StyledCheckboxHitbox
-      className={className}
-      $priority={priority}
-      $isCompleted={isCompleted}
-      onClick={(e) => e.stopPropagation()}
-    >
-      {isCompleted ? <MdCheckBox /> : <MdOutlineSquare />}
-      <HiddenCheckbox
-        aria-checked={isCompleted}
-        onClick={(e) => {
-          e.stopPropagation();
-          updateState("isCompleted", !isCompleted);
-        }}
-      />
-    </StyledCheckboxHitbox>
+    <Tooltip content={`Mark as ${isCompleted ? "unfinished" : "completed"}`}>
+      <StyledCheckboxHitbox
+        className={className}
+        $priority={priority}
+        $isCompleted={isCompleted}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {isCompleted ? <MdCheckBox /> : <MdOutlineSquare />}
+        <HiddenCheckbox
+          aria-checked={isCompleted}
+          onClick={(e) => {
+            e.stopPropagation();
+            updateState("isCompleted", !isCompleted);
+          }}
+        />
+      </StyledCheckboxHitbox>
+    </Tooltip>
   );
 }
 
