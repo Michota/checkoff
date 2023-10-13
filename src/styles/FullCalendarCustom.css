@@ -122,6 +122,38 @@
   }
 }
 
+.fc-daygrid-day-number {
+  cursor: pointer;
+}
+
+.fc-daygrid-day-frame:hover {
+  color: var(--theme-black-200);
+
+  .light-theme & {
+    color: var(--theme-white-200);
+  }
+}
+
+.fc-daygrid-day-number::before {
+  opacity: 0;
+  content: "";
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 1rem;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  position: absolute;
+  background-color: var(--theme-primary);
+  border-radius: 20rem;
+  transition: opacity 100ms;
+}
+
+.fc-daygrid-day-frame:hover .fc-daygrid-day-number::before {
+  opacity: 1;
+}
+
 /* ! Media queries */
 
 @media (max-width: 1024px) {
