@@ -262,6 +262,10 @@
   }
 }
 
+.fullCalendar-day-header .weekName {
+  font-size: 0.8em;
+}
+
 .fc .fc-scrollgrid .fc-scrollgrid-liquid {
   border: none;
 }

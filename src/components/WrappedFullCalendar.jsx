@@ -135,27 +135,48 @@ function WrappedFullCalendar() {
     }
   }
 
-  return (
-    <FullCalendar
-      dayHeaderClassNames="fullCalendar-day-header"
-      dayHeaderContent={(dayHeader) => {
-        return (
-          <span
-            className={
-              dayHeader.date.getDate() === new Date().getDate()
-                ? "fullCalendar-today-header"
-                : ""
-            }
-          >
-            <span className="dayNumber">{dayHeader.date.getDate()}</span>
+  // Create Headers containing days of week with day numbers
+  function createHeaders(data) {
+    return (
+      <span
+        className={
+          data.date.getDate() === new Date().getDate()
+            ? "fullCalendar-today-header"
+            : ""
+        }
+      >
+        {/*  Day or Week view */}
+
+        {(view === "timeGridDay" || view === "timeGridWeek") && (
+          <>
+            <span className="dayNumber">{data.date.getDate()}</span>
             <span className="dayName">
-              {dayHeader.date.toLocaleDateString(locale, {
+              {data.date.toLocaleDateString(locale, {
                 weekday: "long",
               })}
             </span>
-          </span>
-        );
-      }}
+          </>
+        )}
+        {/*  Month or MultiMonth (year) view */}
+        {(view === "dayGridMonth" || view === "multiMonthYear") && (
+          <>
+            <span className="weekName">
+              {data.date.toLocaleDateString(locale, {
+                weekday: "short",
+              })}
+            </span>
+          </>
+        )}
+      </span>
+    );
+
+    // if (view === "dayGridMonth" || view === "multiMonthYear")
+  }
+
+  return (
+    <FullCalendar
+      dayHeaderClassNames="fullCalendar-day-header"
+      dayHeaderContent={(dayHeaderData) => createHeaders(dayHeaderData)}
       key={view}
       ref={calendarRef}
       timeZone="local"
