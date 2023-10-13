@@ -1,6 +1,6 @@
 import React from "react";
 import Tippy from "@tippyjs/react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const StyledTippy = styled(Tippy)`
   & {
@@ -8,7 +8,10 @@ const StyledTippy = styled(Tippy)`
     .tippy-arrow {
       width: 16px;
       height: 16px;
-      color: var(--theme-black-300);
+      color: ${(props) =>
+        props.$backgroundColor
+          ? props.$backgroundColor
+          : css`var(--theme-black-300)`};
       .light-theme & {
         color: var(--theme-black-000);
       }
@@ -37,7 +40,10 @@ const StyledTippy = styled(Tippy)`
   & {
     position: relative;
     color: var(--theme-white-200);
-    background-color: var(--theme-black-300);
+    background-color: ${(props) =>
+      props.$backgroundColor
+        ? props.$backgroundColor
+        : css`var(--theme-black-300)`};
     box-shadow: var(--drop-shadow);
     border-radius: 4px;
     font-size: 14px;
@@ -47,8 +53,11 @@ const StyledTippy = styled(Tippy)`
     transition-property: transform, visibility, opacity;
 
     .light-theme & {
-      background-color: var(--theme-black-000);
-      color: var(--theme-white-100);
+      background-color: ${(props) =>
+        props.$backgroundColor
+          ? props.$backgroundColor
+          : css`var(--theme-black-200)`};
+      color: var(--theme-white-000);
     }
   }
 
@@ -102,6 +111,8 @@ export function Tooltip({
   content,
   noSpan = false,
   duration = [200, 500],
+  backgroundColor,
+  textColor,
 }) {
   return (
     <StyledTippy
@@ -109,7 +120,8 @@ export function Tooltip({
       arrow={arrow}
       duration={duration}
       className={className}
-      content={<span>{content}</span>}
+      $backgroundColor={backgroundColor}
+      content={<span style={{ color: textColor }}>{content}</span>}
     >
       {noSpan ? children : <span>{children}</span>}
     </StyledTippy>
