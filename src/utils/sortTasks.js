@@ -1,4 +1,6 @@
 export function sortTasks(tasks, sortBy, ascending = true) {
+  if (tasks?.length === 0) return tasks;
+
   let method = typeof tasks?.[0][sortBy];
   let sortedTasks;
 
