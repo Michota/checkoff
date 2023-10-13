@@ -122,6 +122,7 @@
   }
 }
 
+/* Day number */
 .fc-daygrid-day-number {
   cursor: pointer;
 }
@@ -152,6 +153,18 @@
 
 .fc-daygrid-day-frame:hover .fc-daygrid-day-number::before {
   opacity: 1;
+}
+
+/* "+X more" popover */
+
+.fc .fc-popover-header {
+  background-color: var(--theme-black-200);
+}
+
+.fc-popover-body {
+  max-height: 20rem;
+  overflow: auto;
+  background-color: var(--theme-black-200);
 }
 
 /* ! Media queries */
