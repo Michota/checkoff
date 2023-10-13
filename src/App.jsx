@@ -94,7 +94,7 @@ function App() {
               color: "var(--theme-white-100)",
               iconTheme: {
                 primary: "var(--theme-primary)",
-                secondary: "var(--theme-black-200)",
+                secondary: "#222222",
               },
             },
             error: {
@@ -103,7 +103,7 @@ function App() {
               },
               iconTheme: {
                 primary: "var(--theme-red)",
-                secondary: "var(--theme-black-200)",
+                secondary: "#222222",
               },
             },
             success: {
@@ -112,7 +112,7 @@ function App() {
               },
               iconTheme: {
                 primary: "var(--theme-primary)",
-                secondary: "var(--theme-black-200)",
+                secondary: "#222222",
               },
             },
           }}
