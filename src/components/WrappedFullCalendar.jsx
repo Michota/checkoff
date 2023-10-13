@@ -137,7 +137,7 @@ function WrappedFullCalendar() {
 
   return (
     <FullCalendar
-      key={view}
+      key={`${view}${api}`}
       ref={calendarRef}
       timeZone="local"
       locale={locale}
