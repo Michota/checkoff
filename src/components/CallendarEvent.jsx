@@ -14,7 +14,7 @@ const StyledEvent = styled(Box)`
   /* // ? Temporary fix for calendar nested event */
   z-index: 5;
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   cursor: pointer;
   overflow: hidden;
   font-weight: bold;
@@ -48,6 +48,12 @@ const Title = styled.span`
   font-size: 1.6rem;
 `;
 
+const HoursAndMinutes = styled.div`
+  background-color: var(--theme-black-200);
+  padding: 0.2rem 0.4rem;
+  border-radius: 20rem;
+`;
+
 function CallendarEvent({ children, renderObject, data }) {
   const { event } = renderObject;
   const { title, extendedProps } = event;
@@ -69,7 +75,7 @@ function CallendarEvent({ children, renderObject, data }) {
     >
       <Task setState={setState} renderType="compound" data={data}>
         <span>
-          <span>{hoursAndMinutes}</span>
+          <HoursAndMinutes>{hoursAndMinutes}</HoursAndMinutes>
           <Task.Checkbox></Task.Checkbox>
         </span>
         <Title>{title}</Title>
