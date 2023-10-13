@@ -46,6 +46,11 @@ const StyledEvent = styled(Box)`
 
 const Title = styled.span`
   font-size: 1.6rem;
+
+  &:empty::after {
+    content: "No title...";
+    opacity: 0.2;
+  }
 `;
 
 const HoursAndMinutes = styled.div`
