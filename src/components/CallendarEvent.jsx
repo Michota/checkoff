@@ -10,13 +10,14 @@ const StyledEvent = styled(Box)`
   /* height: min-content; */
   height: 100%;
   font-size: 1.2rem;
-  padding: 0.4em;
+  padding: 0.6em;
   /* // ? Temporary fix for calendar nested event */
   z-index: 5;
   display: flex;
   gap: 2rem;
   cursor: pointer;
   overflow: hidden;
+  font-weight: bold;
 
   ${(props) =>
     props.$isCompleted === true
@@ -67,8 +68,10 @@ function CallendarEvent({ children, renderObject, data }) {
       }}
     >
       <Task setState={setState} renderType="compound" data={data}>
-        <Task.Checkbox></Task.Checkbox>
-        <span>{hoursAndMinutes}</span>
+        <span>
+          <span>{hoursAndMinutes}</span>
+          <Task.Checkbox></Task.Checkbox>
+        </span>
         <Title>{title}</Title>
       </Task>
     </StyledEvent>
