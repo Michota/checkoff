@@ -123,8 +123,11 @@
 }
 
 /* Day number */
-.fc-daygrid-day-number {
+
+.fc .fc-daygrid-day-number {
   cursor: pointer;
+  margin-right: 1rem;
+  margin-top: 1rem;
 }
 
 .fc-daygrid-day-frame:hover {

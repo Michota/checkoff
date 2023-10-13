@@ -61,8 +61,11 @@ function eventContent(renderObject, data) {
 }
 
 function WrappedFullCalendar() {
-  const [view, setView] = useState("dayGridMonth");
-  const { locale } = useSettingsContext();
+  const {
+    locale,
+    calendarView: view,
+    setCalendarView: setView,
+  } = useSettingsContext();
   const { createTask } = useCreateNewTask();
   const { tasks, saveAndUpdateTask, setSelectedTaskId } =
     useGeneralTasksProvider();

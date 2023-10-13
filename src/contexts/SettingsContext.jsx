@@ -8,6 +8,9 @@ const SettingsContext = createContext();
 function SettingsProvider({ children }) {
   const [locale, setLocale] = useState("en-GB");
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
+  const [calendarView, setCalendarView] = useState(
+    localStorage.getItem("calendarView") || "dayGridMonth"
+  );
 
   // Save new theme settings
   function handleThemeChange(newTheme) {
@@ -29,11 +32,21 @@ function SettingsProvider({ children }) {
     [theme]
   );
 
+  // Change calendar view if calendarView variable was changed.
+  useEffect(
+    function () {
+      localStorage.setItem("calendarView", calendarView);
+    },
+    [calendarView]
+  );
+
   const ProviderValue = {
     locale,
     setLocale,
     theme,
     setTheme: handleThemeChange,
+    calendarView,
+    setCalendarView,
   };
 
   return (
