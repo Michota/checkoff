@@ -137,6 +137,25 @@ function WrappedFullCalendar() {
 
   return (
     <FullCalendar
+      dayHeaderClassNames="fullCalendar-day-header"
+      dayHeaderContent={(dayHeader) => {
+        return (
+          <span
+            className={
+              dayHeader.date.getDate() === new Date().getDate()
+                ? "fullCalendar-today-header"
+                : ""
+            }
+          >
+            <span className="dayNumber">{dayHeader.date.getDate()}</span>
+            <span className="dayName">
+              {dayHeader.date.toLocaleDateString(locale, {
+                weekday: "long",
+              })}
+            </span>
+          </span>
+        );
+      }}
       key={view}
       ref={calendarRef}
       timeZone="local"
