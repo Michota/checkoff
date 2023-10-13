@@ -7,18 +7,28 @@
 Here are some screenshots showing some of the app's [features](#features).
 
 Login Screen
+
+
 ![Login Screen](https://i.imgur.com/xS9LDWg.png)
 
 Tasks page with editor open
+
+
 ![Tasks page with editor open](https://i.imgur.com/Q0o5AX2.png)
 
 Draggable editor in Calendar
+
+
 ![Draggable editor in Calendar](https://i.imgur.com/IYywUlg.png)
 
 Command-slash menu
+
+
 ![Command-slash menu](https://i.imgur.com/IcRVg0T.png)
 
 Light mode
+
+
 ![Light mode](https://i.imgur.com/YwgwCdL.png)
 
 ## Features
