@@ -14,7 +14,6 @@ const CalendarContainer = styled.div`
 `;
 
 // Main component of Calendar Page
-// Main component of Calendar Page
 function Calendar() {
   const { selectedTaskId } = useGeneralTasksProvider();
 
