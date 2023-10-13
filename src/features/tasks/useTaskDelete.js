@@ -9,9 +9,9 @@ function useTaskDelete() {
     mutationKey: ["tasks"],
     mutationFn: (task) => {
       return toast.promise(deleteTaskData(task), {
-        loading: "Deleting task...",
-        success: "Tasks was deleted forever!",
-        error: "There was an error! Task was not deleted.",
+        loading: "Deleting the task...",
+        success: "Task has been deleted forever!",
+        error: "There was an error! Task was not deleted!",
       });
     },
     onSuccess: () => {
