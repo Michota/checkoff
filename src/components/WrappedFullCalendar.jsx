@@ -144,6 +144,7 @@ function WrappedFullCalendar() {
       locales={allLocales}
       views={views}
       editable={true}
+      allDaySlot={false}
       headerToolbar={headerToolbar}
       buttonIcons={false}
       dayMaxEventRows={2}
