@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useReducer } from "react";
 import { styled, css } from "styled-components";
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 import useTaskDelete from "../features/tasks/useTaskDelete";
@@ -11,6 +11,7 @@ import { DateTime } from "./TaskChilds/DateTime";
 import RestoreButton from "./TaskChilds/RestoreButton";
 import Priority from "./TaskChilds/Priority";
 import EditorComponent from "./EditorComponent";
+import { useLocalTasksState } from "../features/tasks/useLocalTasksState";
 
 // Styling components with StyledComponents
 
@@ -75,8 +76,28 @@ const StyledDetails = styled.span`
 
 // End of Styling with StyledComponents
 
-const TaskContext = createContext();
+// This reducer is changing data in task locally
 
+// function reducer(state, action) {
+//   switch (action.type) {
+//     case "task/update":
+//       // Update task data
+//       if (action.payload.columnName !== "bothDate")
+//         return {
+//           ...state,
+//           [action.payload.columnName]: action.payload.newData,
+//         };
+// Update task data, but both startDate and endDate at same time
+//       return {
+//         ...state,
+//         startDate: action.payload.newData[0],
+//         endDate: action.payload.newData[1],
+//       };
+//   }
+// }
+
+// Every task has its own context!
+const TaskContext = createContext();
 function useTaskContext() {
   const value = useContext(TaskContext);
   if (value === undefined)
@@ -86,25 +107,44 @@ function useTaskContext() {
 
 // * Main Component
 function Task({ children, data, renderType = "tab" }) {
-  const { saveAndUpdateTask } = useGeneralTasksProvider();
-  // * Managing data
-  const { deleteTask } = useTaskDelete();
-  function updateState(columnName, newData) {
+  // * Updating data by overwriting old data with new data in selected column.
+  // It should be named "updateTask", but name remains unchanged for backwards compability reasons.
+  const { localDispatcher: dispatch } = useGeneralTasksProvider();
+  function updateState(columnName, newColumnData) {
+    // Update task data
     if (columnName !== "bothDate")
-      saveAndUpdateTask({ ...data, [columnName]: newData });
-    // update startDate and endDate
+      dispatch({
+        type: "tasks/updateTask",
+        payload: { ...data, [columnName]: newColumnData },
+      });
+    // Update task data, but both startDate and endDate at same time
     else
-      saveAndUpdateTask({
-        ...data,
-        startDate: newData[0],
-        endDate: newData[1],
+      dispatch({
+        type: "tasks/updateTask",
+        payload: {
+          ...data,
+          startDate: newColumnData[0],
+          endDate: newColumnData[1],
+        },
       });
   }
 
-  // * Data (value atr.) for TaskContext.Provider
-  const valueProvider = { ...data, updateState, renderType, deleteTask };
+  function deleteTask(taskId) {
+    dispatch({
+      type: "tasks/deleteTask",
+      payload: taskId,
+    });
+  }
 
-  const { taskId, setSelectedTaskId } = useGeneralTasksProvider();
+  // * Data (value atr.) for TaskContext.Provider
+  const valueProvider = {
+    ...data,
+    updateState,
+    renderType,
+    deleteTask,
+  };
+
+  const { setSelectedTaskId } = useGeneralTasksProvider();
 
   return (
     <TaskContext.Provider value={valueProvider}>

@@ -1,35 +1,25 @@
 import { useContext } from "react";
 import { createContext } from "react";
 import { useState } from "react";
-import { useManageTaskData } from "../features/tasks/useManageTaskData";
+import { useLocalTasksState } from "../features/tasks/useLocalTasksState";
 
 const GeneralTasksContext = createContext();
 
 function GeneralTasksProvider({ children }) {
-  const [selectedTaskId, setSelectedTaskIdState] = useState("");
-
-  // ! its a handler, but renamed to setter.
-  function setSelectedTaskId(newId) {
-    const selectedTask = tasks.find((task) => task.id === newId);
-    setSelectedTaskIdState(newId);
-  }
+  const [selectedTaskId, setSelectedTaskId] = useState("");
 
   const {
-    saveAndUpdateTask,
-    tasks,
-    setTasks,
-    isLoadingTasks,
-    isUpdatingTasks,
-  } = useManageTaskData();
+    data: localData,
+    dispatch: localDispatcher,
+    isLoadingRemoteData: isLoadingTasks,
+  } = useLocalTasksState();
 
   return (
     <GeneralTasksContext.Provider
       value={{
-        saveAndUpdateTask,
-        tasks,
-        setTasks,
+        localData,
+        localDispatcher,
         isLoadingTasks,
-        isUpdatingTasks,
         selectedTaskId,
         setSelectedTaskId,
       }}
@@ -48,5 +38,4 @@ function useGeneralTasksProvider() {
   return value;
 }
 
-export { useGeneralTasksProvider };
-export default GeneralTasksProvider;
+export { useGeneralTasksProvider, GeneralTasksProvider };

@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { styled } from "styled-components";
 import Sidebar from "../components/Sidebar";
-import GeneralTasksProvider from "../contexts/GeneralTasksContext";
+import { GeneralTasksProvider } from "../contexts/GeneralTasksContext";
 import { SettingsProvider } from "../contexts/SettingsContext";
 
 const StyledRoot = styled.div`

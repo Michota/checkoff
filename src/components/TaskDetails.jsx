@@ -63,8 +63,8 @@ const CloseButton = styled(Button)`
 `;
 
 function TaskDetails() {
-  const { selectedTaskId, setSelectedTaskId, tasks } =
-    useGeneralTasksProvider();
+  const { selectedTaskId, setSelectedTaskId } = useGeneralTasksProvider();
+  const { localData: tasks } = useGeneralTasksProvider();
 
   const data = tasks?.find((task) => task.id === selectedTaskId);
   if (!data?.id ?? setSelectedTaskId(null)) return;

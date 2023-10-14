@@ -1,8 +1,8 @@
 import { MdAdd } from "react-icons/md";
-import useCreateNewTask from "../features/tasks/useCreateNewTask";
 import { Tooltip } from "./Tooltip";
 import Button from "./ui/Button";
 import styled from "styled-components";
+import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 
 export const StyledButtonCreateTask = styled(Button)`
   border: none;
@@ -35,10 +35,11 @@ export const StyledButtonCreateTask = styled(Button)`
 `;
 
 export function ButtonCreateTask() {
-  const { createTask } = useCreateNewTask();
-
+  const { localDispatcher: dispatch } = useGeneralTasksProvider();
   return (
-    <StyledButtonCreateTask onClick={() => createTask()}>
+    <StyledButtonCreateTask
+      onClick={() => dispatch({ type: "tasks/createTask" })}
+    >
       {/* Use Tooltip instead of tip-prop to fix positioning bug */}
       <Tooltip content={"Create new task"}>
         <MdAdd />

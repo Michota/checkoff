@@ -17,12 +17,9 @@ const StyledChecklist = styled.div`
 // Default sorting setting. It must have the same name as the column in the database from which the data comes.
 const defaultSorting = "createdAt";
 
-function Checklist({ dataManager, location }) {
-  const { tasks, isLoadingTasks } = dataManager;
+function Checklist({ tasks, location }) {
   const amITrashList = location.state?.trash === true ?? false;
-
   const sortingSettings = location?.state?.sortingOption;
-
   // Task filtered with search parameters.
   // ! descjson searching is currently not working due to JSON format of descriptions.
   const sortedTasks = sortingSettings?.option
@@ -53,7 +50,7 @@ function Checklist({ dataManager, location }) {
 
   return (
     <StyledChecklist>
-      {!isLoadingTasks && renderTasks()}
+      {renderTasks()}
 
       {!amITrashList ? <ButtonCreateTask /> : <ButtonDeleteAll />}
     </StyledChecklist>

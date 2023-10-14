@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateAllTasksData, updateTaskData } from "../../services/tasksAPI";
+import { updateAllTasksData } from "../../services/tasksAPI";
 import { toast } from "react-hot-toast";
 
-function useUpdateTask() {
+function useUpdateTasks() {
   const queryClient = useQueryClient();
 
   const { isLoading: isUpdating, mutate: updateTask } = useMutation({
@@ -26,4 +26,4 @@ function useUpdateTask() {
   return { isUpdating, updateTask };
 }
 
-export default useUpdateTask;
+export default useUpdateTasks;

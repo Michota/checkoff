@@ -1,15 +1,16 @@
-import { useManageTaskData } from "./useManageTaskData";
-import useTaskDelete from "./useTaskDelete";
+import { useGeneralTasksProvider } from "../../contexts/GeneralTasksContext";
 
 function useRemoveDeletedTasks() {
-  const { tasks } = useManageTaskData();
-  const { deleteTask } = useTaskDelete();
+  const { localData: tasks, localDispatcher } = useGeneralTasksProvider();
 
   function cleanTrash() {
-    tasks.forEach((task) => task.inTrash && deleteTask(task.id));
+    tasks.forEach(
+      (task) =>
+        task.inTrash &&
+        localDispatcher({ type: "tasks/deleteTask", payload: task.id })
+    );
   }
 
-  // setLocalAndUpdateRemote();
   return { cleanTrash };
 }
 

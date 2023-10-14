@@ -47,7 +47,11 @@ const SecondarySpace = styled.div`
 function Tasks() {
   const location = useLocation();
 
-  const { selectedTaskId, tasks, isLoadingTasks } = useGeneralTasksProvider();
+  const {
+    selectedTaskId,
+    localData: tasks,
+    isLoadingTasks,
+  } = useGeneralTasksProvider();
 
   // Display image if there are no tasks AND you are not in Trash
   const displayNoTasksBackground =
@@ -69,14 +73,7 @@ function Tasks() {
                   ? "Trash"
                   : "Checklist"}
               </h2>
-              <Checklist
-                // key={}
-                dataManager={{
-                  tasks,
-                  isLoadingTasks,
-                }}
-                location={location}
-              />
+              <Checklist tasks={tasks} location={location} />
             </>
           )}
         </MainSpace>

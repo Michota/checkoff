@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -8,7 +8,6 @@ import allLocales from "@fullcalendar/core/locales-all";
 import CallendarEvent from "../components/CallendarEvent";
 import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
 import { useSettingsContext } from "../contexts/SettingsContext";
-import useCreateNewTask from "../features/tasks/useCreateNewTask";
 import getUNIX from "../utils/getUNIX";
 
 // Views option
@@ -62,13 +61,19 @@ function eventContent(renderObject, data) {
 
 function WrappedFullCalendar() {
   const {
+    data: tasks,
+    dispatch,
+    setSelectedTaskId,
+  } = useGeneralTasksProvider();
+  function createTask(payload) {
+    dispatch({ type: "tasks/createTask", payload });
+  }
+
+  const {
     locale,
     calendarView: view,
     setCalendarView: setView,
   } = useSettingsContext();
-  const { createTask } = useCreateNewTask();
-  const { tasks, saveAndUpdateTask, setSelectedTaskId } =
-    useGeneralTasksProvider();
 
   const calendarRef = useRef();
   const { current: calendarDom } = calendarRef;
@@ -127,10 +132,13 @@ function WrappedFullCalendar() {
       getUNIX(end) !== getUNIX(oldEnd)
     ) {
       // Save new data by overwriting old data
-      saveAndUpdateTask({
-        ...data,
-        startDate: start,
-        endDate: end,
+      dispatch({
+        type: "tasks/Update",
+        payload: {
+          ...data,
+          startDate: start,
+          endDate: end,
+        },
       });
     }
   }
@@ -200,6 +208,7 @@ function WrappedFullCalendar() {
       ]}
       dateClick={(e) => {
         if (e.jsEvent.detail !== 2) return;
+
         setSelectedTaskId(createTask({ startDate: e.dateStr }));
       }}
       events={parseTaskToEvents([tasks] ?? null)}
