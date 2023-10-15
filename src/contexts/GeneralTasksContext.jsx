@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { createContext } from "react";
 import { useState } from "react";
 import { useTasksState } from "../features/tasks/useTasksState";
@@ -12,7 +12,6 @@ function GeneralTasksProvider({ children }) {
     data: localData,
     dispatch: localDispatcher,
     isLoadingRemoteData: isLoadingTasks,
-    dataFromRemote: remoteData,
   } = useTasksState();
 
   return (
@@ -23,7 +22,6 @@ function GeneralTasksProvider({ children }) {
         isLoadingTasks,
         selectedTaskId,
         setSelectedTaskId,
-        remoteData,
       }}
     >
       {children}
