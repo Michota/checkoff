@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { createContext } from "react";
 import { useState } from "react";
-import { useLocalTasksState } from "../features/tasks/useLocalTasksState";
+import { useTasksState } from "../features/tasks/useTasksState";
 
 const GeneralTasksContext = createContext();
 
@@ -12,7 +12,8 @@ function GeneralTasksProvider({ children }) {
     data: localData,
     dispatch: localDispatcher,
     isLoadingRemoteData: isLoadingTasks,
-  } = useLocalTasksState();
+    dataFromRemote: remoteData,
+  } = useTasksState();
 
   return (
     <GeneralTasksContext.Provider
@@ -22,6 +23,7 @@ function GeneralTasksProvider({ children }) {
         isLoadingTasks,
         selectedTaskId,
         setSelectedTaskId,
+        remoteData,
       }}
     >
       {children}
@@ -29,7 +31,7 @@ function GeneralTasksProvider({ children }) {
   );
 }
 
-function useGeneralTasksProvider() {
+function useGeneralTasksContext() {
   const value = useContext(GeneralTasksContext);
   if (value === undefined)
     throw new Error(
@@ -38,4 +40,4 @@ function useGeneralTasksProvider() {
   return value;
 }
 
-export { useGeneralTasksProvider, GeneralTasksProvider };
+export { useGeneralTasksContext, GeneralTasksProvider };

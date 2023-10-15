@@ -2,12 +2,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNewTask, createNewTaskWithData } from "../../services/tasksAPI";
 import toast from "react-hot-toast";
 import { useUser } from "../authentication/useUser";
-import { useGeneralTasksProvider } from "../../contexts/GeneralTasksContext";
+import { useGeneralTasksContext } from "../../contexts/GeneralTasksContext";
 
 function useCreateNewTask() {
   const queryClient = useQueryClient();
   const { user } = useUser();
-  const { setSelectedTaskId } = useGeneralTasksProvider();
+  const { setSelectedTaskId } = useGeneralTasksContext();
 
   const {
     data,

@@ -1,4 +1,4 @@
-import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
+import { useGeneralTasksContext } from "../contexts/GeneralTasksContext";
 import styled from "styled-components";
 import TaskDetails from "../components/TaskDetails";
 import DraggableWindow from "../components/DraggableWindow";
@@ -15,7 +15,7 @@ const CalendarContainer = styled.div`
 
 // Main component of Calendar Page
 function Calendar() {
-  const { selectedTaskId } = useGeneralTasksProvider();
+  const { selectedTaskId } = useGeneralTasksContext();
 
   return (
     <>

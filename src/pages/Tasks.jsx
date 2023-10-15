@@ -5,7 +5,7 @@ import Checklist from "../components/Checklist";
 import { useLocation } from "react-router-dom";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 import SearchBar from "../components/SearchBar";
-import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
+import { useGeneralTasksContext } from "../contexts/GeneralTasksContext";
 import SortingOptions from "../components/SortingOptions";
 import { ImageInBackground } from "../components/ui/ImageInBackground";
 import taskImg from "/src/assets/images/unDraw/tasks.svg";
@@ -51,7 +51,7 @@ function Tasks() {
     selectedTaskId,
     localData: tasks,
     isLoadingTasks,
-  } = useGeneralTasksProvider();
+  } = useGeneralTasksContext();
 
   // Display image if there are no tasks AND you are not in Trash
   const displayNoTasksBackground =

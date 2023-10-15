@@ -1,7 +1,6 @@
 import { createContext, useContext, useReducer } from "react";
 import { styled, css } from "styled-components";
-import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
-import useTaskDelete from "../features/tasks/useTaskDelete";
+import { useGeneralTasksContext } from "../contexts/GeneralTasksContext";
 import Box from "./Box";
 import DeleteButton from "./TaskChilds/DeleteButton";
 import Checkbox from "./TaskChilds/Checkbox";
@@ -11,7 +10,6 @@ import { DateTime } from "./TaskChilds/DateTime";
 import RestoreButton from "./TaskChilds/RestoreButton";
 import Priority from "./TaskChilds/Priority";
 import EditorComponent from "./EditorComponent";
-import { useLocalTasksState } from "../features/tasks/useLocalTasksState";
 
 // Styling components with StyledComponents
 
@@ -109,7 +107,7 @@ function useTaskContext() {
 function Task({ children, data, renderType = "tab" }) {
   // * Updating data by overwriting old data with new data in selected column.
   // It should be named "updateTask", but name remains unchanged for backwards compability reasons.
-  const { localDispatcher: dispatch } = useGeneralTasksProvider();
+  const { localDispatcher: dispatch } = useGeneralTasksContext();
   function updateState(columnName, newColumnData) {
     // Update task data
     if (columnName !== "bothDate")
@@ -144,7 +142,7 @@ function Task({ children, data, renderType = "tab" }) {
     deleteTask,
   };
 
-  const { setSelectedTaskId } = useGeneralTasksProvider();
+  const { setSelectedTaskId } = useGeneralTasksContext();
 
   return (
     <TaskContext.Provider value={valueProvider}>

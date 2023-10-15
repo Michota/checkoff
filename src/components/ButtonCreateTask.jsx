@@ -2,7 +2,7 @@ import { MdAdd } from "react-icons/md";
 import { Tooltip } from "./Tooltip";
 import Button from "./ui/Button";
 import styled from "styled-components";
-import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
+import { useGeneralTasksContext } from "../contexts/GeneralTasksContext";
 
 export const StyledButtonCreateTask = styled(Button)`
   border: none;
@@ -35,7 +35,7 @@ export const StyledButtonCreateTask = styled(Button)`
 `;
 
 export function ButtonCreateTask() {
-  const { localDispatcher: dispatch } = useGeneralTasksProvider();
+  const { localDispatcher: dispatch } = useGeneralTasksContext();
   return (
     <StyledButtonCreateTask
       onClick={() => dispatch({ type: "tasks/createTask" })}

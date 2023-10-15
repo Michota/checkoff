@@ -1,7 +1,7 @@
-import { useGeneralTasksProvider } from "../../contexts/GeneralTasksContext";
+import { useGeneralTasksContext } from "../../contexts/GeneralTasksContext";
 
 function useRemoveDeletedTasks() {
-  const { localData: tasks, localDispatcher } = useGeneralTasksProvider();
+  const { localData: tasks, localDispatcher } = useGeneralTasksContext();
 
   function cleanTrash() {
     tasks.forEach(

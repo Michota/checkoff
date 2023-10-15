@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 function useUpdateTasks() {
   const queryClient = useQueryClient();
 
-  const { isLoading: isUpdating, mutate: updateTask } = useMutation({
+  const { isLoading: isUpdating, mutate: updateTasks } = useMutation({
     mutationKey: ["tasks"],
     mutationFn: (tasks) => {
       return toast.promise(updateAllTasksData(tasks), {
@@ -23,7 +23,7 @@ function useUpdateTasks() {
     },
   });
 
-  return { isUpdating, updateTask };
+  return { isUpdating, updateTasks };
 }
 
 export default useUpdateTasks;

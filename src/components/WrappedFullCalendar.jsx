@@ -6,7 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import multiMonthPlugin from "@fullcalendar/multimonth";
 import allLocales from "@fullcalendar/core/locales-all";
 import CallendarEvent from "../components/CallendarEvent";
-import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
+import { useGeneralTasksContext } from "../contexts/GeneralTasksContext";
 import { useSettingsContext } from "../contexts/SettingsContext";
 import getUNIX from "../utils/getUNIX";
 
@@ -60,11 +60,7 @@ function eventContent(renderObject, data) {
 }
 
 function WrappedFullCalendar() {
-  const {
-    data: tasks,
-    dispatch,
-    setSelectedTaskId,
-  } = useGeneralTasksProvider();
+  const { data: tasks, dispatch, setSelectedTaskId } = useGeneralTasksContext();
   function createTask(payload) {
     dispatch({ type: "tasks/createTask", payload });
   }

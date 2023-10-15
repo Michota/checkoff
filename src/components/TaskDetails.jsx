@@ -3,7 +3,7 @@ import Box from "./Box";
 import Task from "./Task";
 import Button from "./ui/Button";
 import { MdClose } from "react-icons/md";
-import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
+import { useGeneralTasksContext } from "../contexts/GeneralTasksContext";
 
 const StyledTaskDetails = styled(Box)`
   position: absolute;
@@ -63,8 +63,8 @@ const CloseButton = styled(Button)`
 `;
 
 function TaskDetails() {
-  const { selectedTaskId, setSelectedTaskId } = useGeneralTasksProvider();
-  const { localData: tasks } = useGeneralTasksProvider();
+  const { selectedTaskId, setSelectedTaskId } = useGeneralTasksContext();
+  const { localData: tasks } = useGeneralTasksContext();
 
   const data = tasks?.find((task) => task.id === selectedTaskId);
   if (!data?.id ?? setSelectedTaskId(null)) return;

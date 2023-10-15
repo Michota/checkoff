@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import Box from "./Box";
 import Task from "./Task";
-import { useGeneralTasksProvider } from "../contexts/GeneralTasksContext";
+import { useGeneralTasksContext } from "../contexts/GeneralTasksContext";
 
 const StyledEvent = styled(Box)`
   background-color: var(--theme-black-250);
@@ -70,7 +70,7 @@ function CallendarEvent({ children, renderObject, data }) {
     minute: "2-digit",
   });
 
-  const { setSelectedTaskId } = useGeneralTasksProvider();
+  const { setSelectedTaskId } = useGeneralTasksContext();
 
   return (
     <StyledEvent
