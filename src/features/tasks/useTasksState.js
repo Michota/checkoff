@@ -5,47 +5,14 @@ import { useUser } from "../authentication/useUser";
 import toast from "react-hot-toast";
 import { useDebouncedCallback } from "use-debounce";
 import useUpdateTasks from "./useTasksUpdate";
+import { reducer } from "./tasksReducer";
 
-function reducer(state, action) {
-  switch (action.type) {
-    case "tasks/loadFromRemote": {
-      return action.payload;
-    }
-
-    case "tasks/updateTask": {
-      return state.map((task) =>
-        task.id === action.payload.id ? action.payload : task
-      );
-    }
-
-    case "tasks/deleteTask": {
-      const taskIdToBeDeleted = action.payload;
-      return state.filter((task) => task.id !== taskIdToBeDeleted);
-    }
-
-    case "tasks/createTask": {
-      // tasks with a negative ID are only stored in the local state,
-      // and their IDs will be replaced after pushing state to remote state
-      const newTask = action?.payload
-        ? // If there is data provided with payload
-          { ...action.payload, id: -(state.length + 1) }
-        : // If there is no data provided with payload
-          {
-            createdAt: new Date().toISOString(),
-            descjson: null,
-            endDate: null,
-            inTrash: false,
-            isCompleted: false,
-            priority: 0,
-            startDate: null,
-            title: "",
-            id: -(state.length + 1),
-          };
-
-      return state.concat(newTask);
-    }
-  }
-}
+/**
+ * The time that must elapse since the last edit of the state to start the update process
+ * @type {number}
+ *
+ */
+const DEBOUNCE_TIME_MS = 3000;
 
 // Get newest state from remote state and save it locally
 export function useTasksState() {
@@ -61,12 +28,16 @@ export function useTasksState() {
     queryKey: ["tasks", user.id],
     queryFn: () => getTasksData(user.id),
   });
-  const [data, dispatcher] = useReducer(reducer, []);
 
+  const [data, dispatcher] = useReducer(reducer, []);
   const { updateTasks: pushToRemote } = useUpdateTasks();
 
+  /**
+   * Starts updating process if nothing hand changed in local state for a specified period of time
+   */
   const debounceUpdate = useDebouncedCallback(
     () => {
+      // Tasks that were updated locally.
       const updatedTasks = data.filter(
         (task) =>
           JSON.stringify(task) !==
@@ -74,20 +45,33 @@ export function useTasksState() {
             dataFromRemote.find((oldTask) => oldTask.id === task.id)
           )
       );
+
+      // Create copy to not mutate original Array
+      const clonedLocalTasks = JSON.parse(JSON.stringify(updatedTasks));
+
       // Remove Id's from newly created tasks (new, locally created tasks ID's are negative numbers.)
-      const noIdTasks = JSON.parse(JSON.stringify(updatedTasks));
-      noIdTasks.forEach((task) => {
+      clonedLocalTasks.forEach((task) => {
         if (task.id <= 0) {
           delete task.id;
           task.userId = user.id;
         }
       });
-      pushToRemote(noIdTasks);
+      // Tasks that were removed locally (from data)
+      const removedLocalTasks = dataFromRemote.filter(
+        (oldTask) =>
+          JSON.stringify(oldTask) !==
+          JSON.stringify(data.find((task) => task.id === oldTask.id))
+      );
+      // Push changes to remote
+      pushToRemote([clonedLocalTasks, removedLocalTasks]);
     },
-    // The time that must elapse to run the update (in ms)
-    2000
+    // The time that must elapse to start update (in ms)
+    DEBOUNCE_TIME_MS
   );
 
+  /**
+   * Dispatching action to localState reducer and starts debounced update.
+   */
   const dispatch = useCallback(
     function dispatch(action) {
       dispatcher(action);
@@ -100,11 +84,10 @@ export function useTasksState() {
   useEffect(
     function () {
       if (status === "success") {
-        console.log(dataFromRemote);
         dispatch({ type: "tasks/loadFromRemote", payload: dataFromRemote });
       }
     },
-    [dataFromRemote, dispatch]
+    [dataFromRemote, dispatch, status]
   );
 
   // Display notification if internet connection is lost.
@@ -125,5 +108,5 @@ export function useTasksState() {
     [isPaused]
   );
 
-  return { data, dispatch, isLoadingRemoteData, dataFromRemote };
+  return { data, dispatch, isLoadingRemoteData };
 }

@@ -30,6 +30,23 @@ async function updateAllTasksData(tasks) {
   return data;
 }
 
+async function updateTasksState([updatedTasks, removedTasks]) {
+  const deletedIDs = removedTasks.map((task) => task.id);
+  deletedIDs.forEach(async (id) => {
+    const { delError } = await supabase.from("tasks").delete().eq("id", id);
+    if (delError) throw new Error(error.message);
+  });
+
+  const { data, error } = await supabase
+    .from("tasks")
+    .upsert(updatedTasks)
+    .select();
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
 async function deleteTaskData(id) {
   const { error } = await supabase.from("tasks").delete().eq("id", id);
 
@@ -62,4 +79,5 @@ export {
   createNewTaskWithData,
   deleteTaskData,
   updateAllTasksData,
+  updateTasksState,
 };
