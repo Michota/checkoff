@@ -194,7 +194,7 @@ function WrappedFullCalendar() {
       dayMaxEventRows={2}
       initialView={view} // actually its like "changeView", becasue this component has to be re-rendered with key prop.
       multiMonthMaxColumns={3}
-      customButtons={customButtons}
+      customButtons={api ? customButtons : ""}
       height={"100%"}
       plugins={[
         dayGridPlugin,
