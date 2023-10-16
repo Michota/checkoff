@@ -41,6 +41,17 @@ const headerToolbar = {
 function parseTaskToEvents([tasks]) {
   if (!tasks) return;
   const events = tasks.map((task) => {
+    if (task.id <= 0)
+      return {
+        id: task.id,
+        title: "",
+        start: task.startDate,
+        end: task.endDate,
+        extendedProps: {
+          isCompleted: task.isCompleted,
+        },
+      };
+
     return {
       id: task.id,
       title: task.title,
@@ -60,7 +71,11 @@ function eventContent(renderObject, data) {
 }
 
 function WrappedFullCalendar() {
-  const { data: tasks, dispatch, setSelectedTaskId } = useGeneralTasksContext();
+  const {
+    localData: tasks,
+    localDispatcher: dispatch,
+    setSelectedTaskId,
+  } = useGeneralTasksContext();
   function createTask(payload) {
     dispatch({ type: "tasks/createTask", payload });
   }

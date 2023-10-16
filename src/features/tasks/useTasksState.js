@@ -59,9 +59,9 @@ export function useTasksState() {
       // Tasks that were removed locally (from data)
       const removedLocalTasks = dataFromRemote.filter(
         (oldTask) =>
-          JSON.stringify(oldTask) !==
-          JSON.stringify(data.find((task) => task.id === oldTask.id))
+          oldTask.id !== data.find((task) => task.id === oldTask.id)?.id
       );
+
       // Push changes to remote
       pushToRemote([clonedLocalTasks, removedLocalTasks]);
     },
