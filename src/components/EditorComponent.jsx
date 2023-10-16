@@ -19,12 +19,13 @@ const StyledEditorDiv = styled(Editor)`
 `;
 
 function EditorComponent() {
-  const { descjson, updateState, renderType } = useTaskContext();
+  const { descjson, updateState, renderType, id } = useTaskContext();
   return (
     <StyledEditorDiv
       extensions={[]}
       disableLocalStorage={true}
-      defaultValue={JSON.parse(descjson)}
+      // If its a new task, then prevent error by passing an empty object to parse function.
+      defaultValue={JSON.parse(id <= 0 ? JSON.stringify({}) : descjson)}
       className="novelEditor"
       onUpdate={(e) => {
         // Save content
