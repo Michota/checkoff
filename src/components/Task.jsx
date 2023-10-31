@@ -142,7 +142,7 @@ function Task({ children, data, renderType = "tab" }) {
     deleteTask,
   };
 
-  const { setSelectedTaskId } = useGeneralTasksContext();
+  const { setSelectedTaskUUID } = useGeneralTasksContext();
 
   return (
     <TaskContext.Provider value={valueProvider}>
@@ -153,7 +153,7 @@ function Task({ children, data, renderType = "tab" }) {
           onClick={(e) => {
             // ? StopPropagation on all the child components
             // if (e.currentTarget !== e.target) return;
-            setSelectedTaskId(data.id);
+            setSelectedTaskUUID(data.uuid || data.id);
           }}
         >
           <TaskFlexContainer>

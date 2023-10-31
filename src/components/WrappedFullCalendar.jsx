@@ -74,7 +74,7 @@ function WrappedFullCalendar() {
   const {
     localData: tasks,
     localDispatcher: dispatch,
-    setSelectedTaskId,
+    setSelectedTaskUUID,
   } = useGeneralTasksContext();
   function createTask(payload) {
     dispatch({ type: "tasks/createTask", payload });
@@ -220,7 +220,7 @@ function WrappedFullCalendar() {
       dateClick={(e) => {
         if (e.jsEvent.detail !== 2) return;
 
-        setSelectedTaskId(createTask({ startDate: e.dateStr }));
+        setSelectedTaskUUID(createTask({ startDate: e.dateStr }));
       }}
       events={parseTaskToEvents([tasks] ?? null)}
       eventClick={function (info) {

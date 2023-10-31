@@ -6,7 +6,7 @@ import { useTasksState } from "../features/tasks/useTasksState";
 const GeneralTasksContext = createContext();
 
 function GeneralTasksProvider({ children }) {
-  const [selectedTaskId, setSelectedTaskId] = useState("");
+  const [selectedTaskUUID, setSelectedTaskUUID] = useState("");
 
   const {
     data: localData,
@@ -20,8 +20,8 @@ function GeneralTasksProvider({ children }) {
         localData,
         localDispatcher,
         isLoadingTasks,
-        selectedTaskId,
-        setSelectedTaskId,
+        selectedTaskUUID,
+        setSelectedTaskUUID,
       }}
     >
       {children}

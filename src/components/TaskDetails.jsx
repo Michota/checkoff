@@ -63,11 +63,15 @@ const CloseButton = styled(Button)`
 `;
 
 function TaskDetails() {
-  const { selectedTaskId, setSelectedTaskId } = useGeneralTasksContext();
+  const { selectedTaskUUID, setSelectedTaskUUID } = useGeneralTasksContext();
   const { localData: tasks } = useGeneralTasksContext();
 
-  const data = tasks?.find((task) => task.id === selectedTaskId);
-  if (!data?.id ?? setSelectedTaskId(null)) return;
+  const data = tasks?.find(
+    (task) => (task?.uuid ?? task?.id) === selectedTaskUUID
+  );
+
+  if (!data?.id ?? data?.uuid ?? setSelectedTaskUUID(null)) return;
+
   return (
     <StyledTaskDetails className="TaskDetails">
       <Task data={data} key={data.id} renderType="compound">
@@ -75,7 +79,7 @@ function TaskDetails() {
           <Task.Checkbox />
 
           <Title />
-          <CloseButton size="5rem" onClick={() => setSelectedTaskId(null)}>
+          <CloseButton size="5rem" onClick={() => setSelectedTaskUUID(null)}>
             <MdClose />
           </CloseButton>
         </Header>
@@ -89,7 +93,7 @@ function TaskDetails() {
               gap: "2rem",
             }}
           >
-            <span onClick={() => setSelectedTaskId(null)}>
+            <span onClick={() => setSelectedTaskUUID(null)}>
               <Task.DeleteButton />
             </span>
             <Task.RestoreButton />

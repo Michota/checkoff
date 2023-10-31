@@ -20,7 +20,11 @@ export function reducer(state, action) {
       // and their IDs will be replaced after pushing state to remote state
       const newTask = action?.payload
         ? // If there is data provided with payload
-          { ...action.payload, id: -(state.length + 1) }
+          {
+            ...action.payload,
+            id: -(state.length + 1),
+            uuid: crypto.randomUUID(),
+          }
         : // If there is no data provided with payload
           {
             createdAt: new Date().toISOString(),
@@ -32,6 +36,7 @@ export function reducer(state, action) {
             startDate: null,
             title: "",
             id: -(state.length + 1),
+            uuid: crypto.randomUUID(),
           };
 
       return state.concat(newTask);

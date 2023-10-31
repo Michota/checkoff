@@ -41,14 +41,11 @@ const SecondarySpace = styled.div`
   }
 `;
 
-// const x = resolvePath("xyz", "tasks");
-// console.log(x);
-
 function Tasks() {
   const location = useLocation();
 
   const {
-    selectedTaskId,
+    selectedTaskUUID,
     localData: tasks,
     isLoadingTasks,
   } = useGeneralTasksContext();
@@ -78,7 +75,7 @@ function Tasks() {
           )}
         </MainSpace>
         <SecondarySpace>
-          {selectedTaskId && <TaskDetails />}
+          {selectedTaskUUID && <TaskDetails />}
           <ImageInBackground
             text="Click on any task to display its details."
             imgURL={taskImg}
