@@ -64,19 +64,19 @@ function CallendarEvent({ children, renderObject, data }) {
   const { event } = renderObject;
   const { title, extendedProps } = event;
   const { setState } = extendedProps;
-  const { startDate, id, inTrash } = data;
+  const { startDate, id, inTrash, uuid } = data;
   const hoursAndMinutes = new Date(startDate).toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
   });
 
-  const { setSelectedTaskId } = useGeneralTasksContext();
+  const { setSelectedTaskUUID } = useGeneralTasksContext();
 
   return (
     <StyledEvent
       $inTrash={inTrash}
       onClick={(e) => {
-        setSelectedTaskId(id);
+        setSelectedTaskUUID(uuid || id);
       }}
     >
       <Task setState={setState} renderType="compound" data={data}>

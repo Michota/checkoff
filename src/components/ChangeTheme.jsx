@@ -7,7 +7,6 @@ function ChangeTheme({ size }) {
   return (
     <Button
       onClick={(e) => {
-        console.log(e);
         e.preventDefault();
         setTheme(theme === "dark" ? "light" : "dark");
       }}

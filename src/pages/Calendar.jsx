@@ -15,7 +15,7 @@ const CalendarContainer = styled.div`
 
 // Main component of Calendar Page
 function Calendar() {
-  const { selectedTaskId } = useGeneralTasksContext();
+  const { selectedTaskUUID } = useGeneralTasksContext();
 
   return (
     <>
@@ -23,7 +23,7 @@ function Calendar() {
         <WrappedFullCalendar />
       </CalendarContainer>
       {/* Display task editing (<TaskDetails>) window as draggable element. */}
-      {selectedTaskId && (
+      {selectedTaskUUID && (
         <DraggableWindow>
           <TaskDetails />
         </DraggableWindow>
