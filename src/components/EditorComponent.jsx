@@ -16,6 +16,10 @@ const StyledEditorDiv = styled(Editor)`
   .drag-handle {
     background-color: var(--theme-black-400);
   }
+
+  ul[data-type="taskList"] li > label input[type="checkbox"] {
+    border: 2px solid var(--theme-white-200);
+  }
 `;
 
 function EditorComponent() {
@@ -31,9 +35,7 @@ function EditorComponent() {
         // Save content
         updateState("descjson", JSON.stringify(e.getJSON().content));
       }}
-    >
-      s
-    </StyledEditorDiv>
+    ></StyledEditorDiv>
   );
 }
 
