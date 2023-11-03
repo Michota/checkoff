@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import AuthForm from "../features/authentication/AuthForm";
 import { useSearchParams } from "react-router-dom";
+import { AuthGoogle } from "../features/authentication/AuthGoogle";
 
 const StyledAuthentication = styled.div`
   width: 100vw;
@@ -35,6 +36,11 @@ function Authentication() {
     <StyledAuthentication>
       <Logo />
       <AuthForm action={searchParams.has("signup") ? "signup" : "login"} />
+      <AuthGoogle>
+        {searchParams.has("signup")
+          ? "Signup with Google"
+          : "Login with Google"}
+      </AuthGoogle>
     </StyledAuthentication>
   );
 }
