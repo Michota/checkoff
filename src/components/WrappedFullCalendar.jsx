@@ -76,6 +76,7 @@ function WrappedFullCalendar() {
     localDispatcher: dispatch,
     setSelectedTaskUUID,
   } = useGeneralTasksContext();
+
   function createTask(payload) {
     dispatch({ type: "tasks/createTask", payload });
   }
@@ -87,47 +88,56 @@ function WrappedFullCalendar() {
   } = useSettingsContext();
 
   const calendarRef = useRef();
-  const { current: calendarDom } = calendarRef;
-  const api = calendarDom?.getApi();
 
-  // Buttons at header (top-side) part of page
-  const customButtons = {
-    // Today button
-    todayBtn: {
-      text: "Today",
-      click: () => api.today(),
-    },
-    // Arrow (< & >) buttons
-    prevBtn: {
-      icon: "customButton prevBtn",
-      click: () => api.prev(),
-    },
-    nextBtn: {
-      icon: "customButton nextBtn",
-      click: () => api.next(),
-    },
-    // Views buttons
-    dayBtn: {
-      hint: "Day view.",
-      icon: "customButton dayBtn",
-      click: () => setView("timeGridDay"),
-    },
-    weekBtn: {
-      icon: "customButton weekBtn",
-      hint: "Week view.",
-      click: () => setView("timeGridWeek"),
-    },
-    monthBtn: {
-      hint: "Month view.",
-      icon: "customButton monthBtn",
-      click: () => setView("dayGridMonth"),
-    },
-    yearBtn: {
-      hint: "Year view.",
-      icon: "customButton yearBtn",
-      click: () => setView("multiMonthYear"),
-    },
-  };
+  function getCalendarApi() {
+    const { current: calendarDom } = calendarRef;
+    const api = calendarDom?.getApi();
+    return api;
+  }
+
+  const api = getCalendarApi();
+
+  function createCustomButtons() {
+    // Buttons at header (top-side) part of page
+    const customButtons = {
+      // Today button
+      todayBtn: {
+        text: "Today",
+        click: () => api.today(),
+      },
+      // Arrow (< & >) buttons
+      prevBtn: {
+        icon: "customButton prevBtn",
+        click: () => api.prev(),
+      },
+      nextBtn: {
+        icon: "customButton nextBtn",
+        click: () => api.next(),
+      },
+      // Views buttons
+      dayBtn: {
+        hint: "Day view.",
+        icon: "customButton dayBtn",
+        click: () => setView("timeGridDay"),
+      },
+      weekBtn: {
+        icon: "customButton weekBtn",
+        hint: "Week view.",
+        click: () => setView("timeGridWeek"),
+      },
+      monthBtn: {
+        hint: "Month view.",
+        icon: "customButton monthBtn",
+        click: () => setView("dayGridMonth"),
+      },
+      yearBtn: {
+        hint: "Year view.",
+        icon: "customButton yearBtn",
+        click: () => setView("multiMonthYear"),
+      },
+    };
+    return customButtons;
+  }
 
   function handleEventUpdate(e) {
     // Data from event. OldEvent is data from before the changes
@@ -188,50 +198,50 @@ function WrappedFullCalendar() {
         )}
       </span>
     );
-
-    // if (view === "dayGridMonth" || view === "multiMonthYear")
   }
 
   return (
-    <FullCalendar
-      dayHeaderClassNames="fullCalendar-day-header"
-      dayHeaderContent={(dayHeaderData) => createHeaders(dayHeaderData)}
-      key={`${view}${api}`}
-      ref={calendarRef}
-      timeZone="local"
-      locale={locale}
-      locales={allLocales}
-      views={views}
-      editable={true}
-      allDaySlot={false}
-      headerToolbar={headerToolbar}
-      buttonIcons={false}
-      dayMaxEventRows={2}
-      initialView={view} // actually its like "changeView", becasue this component has to be re-rendered with key prop.
-      multiMonthMaxColumns={3}
-      customButtons={api ? customButtons : ""}
-      height={"100%"}
-      plugins={[
-        dayGridPlugin,
-        timeGridPlugin,
-        multiMonthPlugin,
-        interactionPlugin,
-      ]}
-      dateClick={(e) => {
-        if (e.jsEvent.detail !== 2) return;
+    <>
+      <FullCalendar
+        dayHeaderClassNames="fullCalendar-day-header"
+        dayHeaderContent={(dayHeaderData) => createHeaders(dayHeaderData)}
+        key={`${view}${api}`}
+        ref={calendarRef}
+        timeZone="local"
+        locale={locale}
+        locales={allLocales}
+        views={views}
+        editable={true}
+        allDaySlot={false}
+        headerToolbar={headerToolbar}
+        buttonIcons={false}
+        dayMaxEventRows={2}
+        initialView={view} // actually its like "changeView", becasue this component has to be re-rendered with key prop.
+        multiMonthMaxColumns={3}
+        customButtons={createCustomButtons()}
+        height={"100%"}
+        plugins={[
+          dayGridPlugin,
+          timeGridPlugin,
+          multiMonthPlugin,
+          interactionPlugin,
+        ]}
+        dateClick={(e) => {
+          if (e.jsEvent.detail !== 2) return;
 
-        setSelectedTaskUUID(createTask({ startDate: e.dateStr }));
-      }}
-      events={parseTaskToEvents([tasks] ?? null)}
-      eventClick={function (info) {
-        info.jsEvent.preventDefault();
-      }}
-      eventContent={(arg) => {
-        const task = tasks.find((t) => Number(arg.event.id) === t.id);
-        return eventContent(arg, task);
-      }}
-      eventChange={(e) => handleEventUpdate(e)}
-    />
+          setSelectedTaskUUID(createTask({ startDate: e.dateStr }));
+        }}
+        events={parseTaskToEvents([tasks] ?? null)}
+        eventClick={function (info) {
+          info.jsEvent.preventDefault();
+        }}
+        eventContent={(arg) => {
+          const task = tasks.find((t) => Number(arg.event.id) === t.id);
+          return eventContent(arg, task);
+        }}
+        eventChange={(e) => handleEventUpdate(e)}
+      />
+    </>
   );
 }
 
