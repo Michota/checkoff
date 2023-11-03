@@ -76,6 +76,7 @@ function WrappedFullCalendar() {
     localDispatcher: dispatch,
     setSelectedTaskUUID,
   } = useGeneralTasksContext();
+
   function createTask(payload) {
     dispatch({ type: "tasks/createTask", payload });
   }
@@ -97,7 +98,6 @@ function WrappedFullCalendar() {
   const api = getCalendarApi();
 
   function createCustomButtons() {
-    console.log(api);
     // Buttons at header (top-side) part of page
     const customButtons = {
       // Today button

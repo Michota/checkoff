@@ -23,7 +23,7 @@ const StyledEditorDiv = styled(Editor)`
 `;
 
 function EditorComponent() {
-  const { descjson, updateState, renderType, id } = useTaskContext();
+  const { descjson, updateState, id } = useTaskContext();
   return (
     <StyledEditorDiv
       extensions={[]}
