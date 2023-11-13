@@ -83,9 +83,22 @@ const StyledNavLink = styled(NavLink)`
   &.active {
     background-color: var(--theme-black-300);
   }
-  &.active.trash,
+
   &.active.theme {
-    background-color: transparent !important;
+    background-color: transparent;
+  }
+
+  &.trash {
+    background-color: transparent;
+  }
+
+  &.trash--active {
+    opacity: 1;
+    background-color: var(--theme-darkred-200);
+  }
+
+  &.tasks.trash--active {
+    background-color: transparent;
   }
 `;
 
@@ -109,17 +122,19 @@ const LogoContainer = styled.div`
 
 // ==== end of styling ====
 
+// TODO: Remove in future if it turns out to be unnecessary
 // Set NavLink class based on it's state.
-NavLink.defaultProps = {
-  className: ({ isActive, isPending }) =>
-    isPending ? "pending" : isActive ? "active" : "",
-};
+// NavLink.defaultProps = {
+//   className: ({ isActive, isPending }) =>
+//     isPending ? "pending" : isActive ? "active" : "",
+// };
 
 function Sidebar() {
   const location = useLocation();
   // "Rolled" means hidden, pushed to left, minimized, shrunken, thin
   const [isRolled, setIsRolled] = useState(true);
   const { logout, isLoading: isLoggingOut } = useLogout();
+  const inTrash = location?.state?.trash ? true : false;
 
   if (location.pathname)
     return (
@@ -141,14 +156,19 @@ function Sidebar() {
             )}
           </LogoContainer>
           <StyledUl>
-            <StyledNavLink $isRolled={isRolled} to="/tasks">
+            <StyledNavLink
+              className={["tasks", inTrash ? "trash--active" : ""].join(" ")}
+              $isRolled={isRolled}
+              to="/tasks"
+            >
               <MdTaskAlt size="0.8em" />
               {!isRolled && <span>Tasks</span>}
             </StyledNavLink>
             {location.pathname.includes("/tasks") && (
               <StyledNavLink
                 to="/tasks"
-                className="trash"
+                // Check if user clicked trash
+                className={["trash", inTrash ? "trash--active" : ""].join(" ")}
                 $isRolled={isRolled}
                 state={{ ...location.state, trash: true }}
               >

@@ -17,7 +17,7 @@ export function ButtonDeleteAll() {
   const { cleanTrash } = useRemoveDeletedTasks();
 
   return (
-    <StyledButtonDeleteAll backgroundColor="red" onClick={() => cleanTrash()}>
+    <StyledButtonDeleteAll onClick={() => cleanTrash()}>
       {/* Use Tooltip instead of tip-prop to fix positioning bug */}
       <Tooltip content={"Empty the trash!"}>
         <MdDeleteSweep />
