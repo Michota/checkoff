@@ -18,16 +18,17 @@ function LabeledInput({
   checked,
   name,
 }) {
-  const randomId = Math.random();
+  if (!id) throw new Error("The LabeledInput component must have an ID.");
+
   return (
     <>
-      <StyledLabel className={className} htmlFor={htmlFor ? htmlFor : randomId}>
+      <StyledLabel className={className} htmlFor={htmlFor}>
         {children}
       </StyledLabel>
       <Input
         name={name}
         checked={checked}
-        id={id ? id : randomId}
+        id={id}
         onChange={onChange}
         value={value}
         placeholder={placeholder}

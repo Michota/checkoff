@@ -51,7 +51,16 @@ function AuthForm({ action }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!email || !password) return;
+    // If user didn't entered email
+    if (!email) {
+      toast.error("You need to enter your email or sign in with Google.");
+      return;
+    }
+    // If user didn't entered password
+    if (!password) {
+      toast.error("You need to enter a password.");
+      return;
+    }
     // Login
     if (action === "login")
       login(
@@ -130,9 +139,10 @@ function AuthForm({ action }) {
             </Button>
             <Button
               btnType="secondary"
-              onClick={() =>
-                navigate(action === "login" ? "?signup" : "?login")
-              }
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(action === "login" ? "?signup" : "?login");
+              }}
             >
               {action === "login" ? "Sign up!" : "Already singed up? Login!"}
             </Button>
