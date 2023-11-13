@@ -60,7 +60,7 @@ function SortingOptions() {
   // Read data from selectedOption after page refreshes
   useEffect(
     function () {
-      if (selectedOption.option)
+      if (selectedOption?.option)
         setOrderIndicator(selectedOption.ascending ? 1 : 2);
       else setOrderIndicator(0);
     },
