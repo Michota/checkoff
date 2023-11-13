@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Button from "./ui/Button";
 import { useLocation, useNavigate } from "react-router";
 import useLocationState from "../features/URL/useLocationState";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdArrowDownward, MdArrowUpward } from "react-icons/md";
 
 const StyledSortingButtons = styled.div`
@@ -55,7 +55,17 @@ function SortingOptions() {
   const { addURLState } = useLocationState(location.state);
   const selectedOption = location?.state?.sortingOption;
 
-  const [orderIndicator, setOrderIndicator] = useState(0);
+  const [orderIndicator, setOrderIndicator] = useState();
+
+  // Read data from selectedOption after page refreshes
+  useEffect(
+    function () {
+      if (selectedOption.option)
+        setOrderIndicator(selectedOption.ascending ? 1 : 2);
+      else setOrderIndicator(0);
+    },
+    [selectedOption]
+  );
 
   function handleSortingOption(option) {
     let newState;
