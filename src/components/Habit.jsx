@@ -9,6 +9,7 @@ const habitDaysArr = Array.from({ length: 364 }, (el, i) => {
   };
 });
 
+// ! TODO: Delete me later!
 function getDateNDaysAgo(n) {
   const today = new Date();
   const targetDate = new Date(today);
@@ -16,6 +17,7 @@ function getDateNDaysAgo(n) {
   return targetDate;
 }
 
+// shortcut-property for styling
 const defaultColor = "var(--theme-primary)";
 
 const StyledHabit = styled.div`
@@ -61,6 +63,7 @@ const StyledHabit = styled.div`
   }
 `;
 
+// Habit title
 const HabitName = styled.input`
   text-align: center;
   font-weight: bold;
@@ -69,6 +72,7 @@ const HabitName = styled.input`
   width: 100%;
 `;
 
+// Top-bar of habit component
 const Header = styled.header`
   display: flex;
   width: 100%;
