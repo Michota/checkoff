@@ -7,6 +7,7 @@ import {
   MdDeleteOutline,
   MdLogout,
   MdOutlineCalendarMonth,
+  MdOutlineSelfImprovement,
   MdOutlineSettings,
   MdPersonOutline,
   MdTaskAlt,
@@ -179,6 +180,10 @@ function Sidebar() {
             <StyledNavLink $isRolled={isRolled} to="/calendar">
               <MdOutlineCalendarMonth size="0.8em" />
               {!isRolled && <span>Calendar</span>}
+            </StyledNavLink>
+            <StyledNavLink $isRolled={isRolled} to="/habits">
+              <MdOutlineSelfImprovement size="0.8em" />
+              {!isRolled && <span>Habits</span>}
             </StyledNavLink>
           </StyledUl>
 

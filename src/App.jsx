@@ -20,6 +20,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Dashboard from "./pages/Dashboard";
+import Habits from "./pages/Habits";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
           {
             path: "settings",
             element: <Settings />,
+          },
+          {
+            path: "habits",
+            element: <Habits />,
           },
         ],
       },
