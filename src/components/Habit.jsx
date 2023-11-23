@@ -4,7 +4,7 @@ import HabitGrid from "./HabitGrid";
 // Not every year is 364 days long!!!
 const habitDaysArr = Array.from({ length: 364 }, (el, i) => {
   return {
-    level: Math.floor(Math.random() * 4),
+    score: Math.floor(Math.random() * 4),
     date: getDateNDaysAgo(i),
   };
 });
@@ -16,7 +16,11 @@ function getDateNDaysAgo(n) {
   return targetDate;
 }
 
+const defaultColor = "var(--theme-primary)";
+
 const StyledHabit = styled.div`
+  padding: 1rem;
+  border-radius: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,6 +28,37 @@ const StyledHabit = styled.div`
   width: min-content;
   height: min-content;
   gap: 1.2rem;
+  /* for colored background (after element) */
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+
+  &::after {
+    z-index: -1;
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    opacity: 0.05;
+    background-color: ${(props) => props.$color};
+  }
+
+  /* Habit day styling */
+  /* Its there instead of HabitDay to avoid prop-drilling */
+
+  & .habit-day {
+    background-color: ${(props) => props.$color};
+    &.level-1 {
+      opacity: 33%;
+    }
+    &.level-2 {
+      opacity: 66%;
+    }
+    &.level-3 {
+      opacity: 100%;
+      box-shadow: 0 0 3px ${(props) => props.$color || defaultColor};
+    }
+  }
 `;
 
 const HabitName = styled.input`
@@ -43,10 +78,10 @@ const Header = styled.header`
 `;
 
 function Habit({ data }) {
-  // const { habitName, dayData } = data;
+  // const { habitName, id, color, dayData } = data;
 
   return (
-    <StyledHabit>
+    <StyledHabit $color={"red"}>
       <Header>
         <div>y</div>
         <HabitName value={"habit Name"} maxLength={24} />
