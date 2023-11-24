@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import HabitGrid from "./HabitGrid";
+import Button from "./ui/Button";
+import { MdEdit } from "react-icons/md";
+import { useState } from "react";
+import ColorPicker from "./ColorPicker";
 
+// ! TODO: Delete me later!
 // Not every year is 364 days long!!!
 const habitDaysArr = Array.from({ length: 364 }, (el, i) => {
   return {
@@ -21,8 +26,11 @@ function getDateNDaysAgo(n) {
 const defaultColor = "var(--theme-primary)";
 
 const StyledHabit = styled.div`
+  min-width: 64.2rem;
+  min-height: 13.6rem;
   padding: 1rem;
-  border-radius: 1rem;
+  border-radius: var(--default-radius);
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -41,7 +49,7 @@ const StyledHabit = styled.div`
     content: "";
     width: 100%;
     height: 100%;
-    opacity: 0.05;
+    opacity: 0.15;
     background-color: ${(props) => props.$color};
   }
 
@@ -61,10 +69,19 @@ const StyledHabit = styled.div`
       box-shadow: 0 0 3px ${(props) => props.$color || defaultColor};
     }
   }
+
+  /* Colorpicker background change */
+  & .color-picker {
+    background-color: ${(props) => props.$color};
+  }
 `;
 
 // Habit title
 const HabitName = styled.input`
+  &::selection {
+    background-color: inherit;
+    color: inherit;
+  }
   text-align: center;
   font-weight: bold;
   font-size: 1.8rem;
@@ -81,15 +98,49 @@ const Header = styled.header`
   gap: 2rem;
 `;
 
+const HabitSettingsContainer = styled.div`
+  display: flex;
+`;
+
 function Habit({ data }) {
   // const { habitName, id, color, dayData } = data;
+  const [areSettingsOpened, setAreSettingsOpened] = useState();
+  const [habitColor, setHabitColor] = useState("red");
+
+  if (areSettingsOpened)
+    return (
+      <StyledHabit $color={habitColor}>
+        <HabitSettingsContainer>
+          <ColorPicker onClick={setHabitColor} />
+          <HabitName
+            value={"habit Name"}
+            maxLength={24}
+            onChange={(e) => {
+              // update state
+            }}
+          />
+          <Button>
+            <MdEdit
+              color={habitColor}
+              onClick={() => setAreSettingsOpened(!areSettingsOpened)}
+            />
+          </Button>
+        </HabitSettingsContainer>
+      </StyledHabit>
+    );
 
   return (
-    <StyledHabit $color={"red"}>
+    <StyledHabit $color={habitColor}>
       <Header>
-        <div>y</div>
-        <HabitName value={"habit Name"} maxLength={24} />
-        <div>x</div>
+        <p>x</p>
+        <HabitName value={"habit Name"} maxLength={24} readOnly={true} />
+        {/* Change color button */}
+        <Button>
+          <MdEdit
+            color={habitColor}
+            onClick={() => setAreSettingsOpened(!areSettingsOpened)}
+          />
+        </Button>
       </Header>
       <HabitGrid data={habitDaysArr} />
     </StyledHabit>

@@ -23,7 +23,7 @@ function ColorPicker({ onClick }) {
   // It also may be changed to Array.from, but this way its easier to change order of colors.
   const { red, orange, yellow, green, cyan, blue, purple, pink } = colors;
   return (
-    <StyledColorPicker>
+    <StyledColorPicker className="color-picker">
       <ColorPickerOption
         onClick={(e) => handleColorChange(e.target.dataset.color)}
         color={red}
