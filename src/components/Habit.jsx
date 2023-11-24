@@ -9,7 +9,7 @@ import ColorPicker from "./ColorPicker";
 // Not every year is 364 days long!!!
 const habitDaysArr = Array.from({ length: 364 }, (el, i) => {
   return {
-    score: Math.floor(Math.random() * 4),
+    score: Math.floor(Math.random() * 6),
     date: getDateNDaysAgo(i),
   };
 });
@@ -59,14 +59,20 @@ const StyledHabit = styled.div`
   & .habit-day {
     background-color: ${(props) => props.$color};
     &.level-1 {
-      opacity: 33%;
+      opacity: 25%;
     }
     &.level-2 {
-      opacity: 66%;
+      opacity: 45%;
     }
     &.level-3 {
+      opacity: 65%;
+    }
+    &.level-4 {
+      opacity: 85%;
+    }
+    &.level-5 {
       opacity: 100%;
-      box-shadow: 0 0 3px ${(props) => props.$color || defaultColor};
+      box-shadow: 0 0 7px ${(props) => props.$color || defaultColor};
     }
   }
 
