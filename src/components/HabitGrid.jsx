@@ -15,7 +15,7 @@ function HabitGrid({ data }) {
   return (
     <StyledHabitGrid>
       {data.map((level, i) => (
-        <HabitDay key={i} data={data[i]} color={"pink"} />
+        <HabitDay key={i} data={data[i]} />
       ))}
     </StyledHabitGrid>
   );

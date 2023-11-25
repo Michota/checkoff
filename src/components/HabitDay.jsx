@@ -9,7 +9,7 @@ const StyledHabitDay = styled.div`
   opacity: 10%;
 `;
 
-function HabitDay({ data, color }) {
+function HabitDay({ data }) {
   const { score, date } = data;
 
   const formatedDate = new Date(date).toDateString();
@@ -21,8 +21,9 @@ function HabitDay({ data, color }) {
           ? `Practiced on ${formatedDate}`
           : `Break from habit on ${formatedDate}`
       }
+      arrow={true}
     >
-      <StyledHabitDay className={`habit-day level-${score}`} $color={color} />
+      <StyledHabitDay className={`habit-day level-${score}`} />
     </Tooltip>
   );
 }
