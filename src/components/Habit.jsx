@@ -7,6 +7,7 @@ import ColorPicker from "./ColorPicker";
 import IconPicker from "./IconPicker";
 import DynamicMaterialIcon from "./DynamicMaterialIcon";
 import addAlphaToHex from "../utils/addAlphaToHex";
+import { Tooltip } from "./Tooltip";
 
 // ! TODO: Delete me later!
 // Not every year is 364 days long!!!
@@ -111,6 +112,10 @@ const Header = styled.header`
   justify-content: space-evenly;
   align-items: center;
   gap: 2rem;
+
+  & .habit-edit {
+    margin-left: auto;
+  }
 `;
 
 const HabitSettingsContainer = styled.div`
@@ -164,18 +169,13 @@ function Habit({ data }) {
         <HabitIconContainer>
           <DynamicMaterialIcon icon={habitIcon} />
         </HabitIconContainer>
-        <HabitName
-          placeholder="habit with no name..."
-          value={""}
-          maxLength={24}
-          readOnly={true}
-        />
-        {/* Change color button */}
-        <Button>
-          <MdEdit
-            color={habitColor}
-            onClick={() => setAreSettingsOpened(!areSettingsOpened)}
-          />
+        <Button className="habit-edit">
+          <Tooltip content={"Edit habit"}>
+            <MdEdit
+              color={habitColor}
+              onClick={() => setAreSettingsOpened(!areSettingsOpened)}
+            />
+          </Tooltip>
         </Button>
       </Header>
       <HabitGrid data={habitDaysArr} />
