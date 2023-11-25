@@ -6,6 +6,7 @@ import { useState } from "react";
 import ColorPicker from "./ColorPicker";
 import IconPicker from "./IconPicker";
 import DynamicMaterialIcon from "./DynamicMaterialIcon";
+import addAlphaToHex from "../utils/addAlphaToHex";
 
 // ! TODO: Delete me later!
 // Not every year is 364 days long!!!
@@ -44,16 +45,7 @@ const StyledHabit = styled.div`
   position: relative;
   overflow: hidden;
   z-index: 1;
-
-  &::after {
-    z-index: -1;
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: 100%;
-    opacity: 0.15;
-    background-color: ${(props) => props.$color};
-  }
+  background-color: ${(props) => `${addAlphaToHex(props.$color, 12)}`};
 
   /* Habit day styling */
   /* Its there instead of HabitDay to avoid prop-drilling */
