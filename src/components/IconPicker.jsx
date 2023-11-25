@@ -3,7 +3,7 @@ import { useState } from "react";
 import DynamicMaterialIcon from "./DynamicMaterialIcon";
 import icons from "../features/iconpicker/icons";
 
-const StyledIconPicker = styled.div`
+const StyledIconPicker = styled.div.attrs({ className: "icon-picker" })`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   width: fit-content;
@@ -12,7 +12,7 @@ const StyledIconPicker = styled.div`
   padding: 0.4rem;
 `;
 
-const IconContainer = styled.div.attrs({ className: "icon-container" })`
+const IconContainer = styled.div.attrs({ className: "icon-option-container" })`
   cursor: pointer;
 `;
 
@@ -32,7 +32,7 @@ function IconPicker({ getIconName }) {
       onClick={(e) => {
         if (e.target === e.currentTarget) return;
 
-        handleIconSelect(e.target.closest(".icon-container"));
+        handleIconSelect(e.target.closest(".icon-option-container"));
       }}
     >
       {icons.map((iconName, i) => (
