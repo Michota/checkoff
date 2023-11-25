@@ -4,6 +4,8 @@ import Button from "./ui/Button";
 import { MdEdit } from "react-icons/md";
 import { useState } from "react";
 import ColorPicker from "./ColorPicker";
+import IconPicker from "./IconPicker";
+import DynamicMaterialIcon from "./DynamicMaterialIcon";
 
 // ! TODO: Delete me later!
 // Not every year is 364 days long!!!
@@ -111,13 +113,22 @@ const HabitSettingsContainer = styled.div`
 function Habit({ data }) {
   // const { habitName, id, color, dayData } = data;
   const [areSettingsOpened, setAreSettingsOpened] = useState();
-  const [habitColor, setHabitColor] = useState("red");
+  // TODO: remove "lime" from usestate
+  const [habitColor, setHabitColor] = useState("lime");
+  const [habitIcon, setHabitIcon] = useState();
 
   if (areSettingsOpened)
     return (
       <StyledHabit $color={habitColor}>
         <HabitSettingsContainer>
-          <ColorPicker onClick={setHabitColor} />
+          <IconPicker getIconName={setHabitIcon} />
+          <ColorPicker
+            onClick={(color) => {
+              setHabitColor(color);
+              // Blur - hide settings
+              setAreSettingsOpened(false);
+            }}
+          />
           <HabitName
             value={"habit Name"}
             maxLength={24}
@@ -138,7 +149,7 @@ function Habit({ data }) {
   return (
     <StyledHabit $color={habitColor}>
       <Header>
-        <p>x</p>
+        <DynamicMaterialIcon icon={habitIcon} />
         <HabitName value={"habit Name"} maxLength={24} readOnly={true} />
         {/* Change color button */}
         <Button>
