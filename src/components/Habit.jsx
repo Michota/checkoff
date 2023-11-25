@@ -78,9 +78,19 @@ const StyledHabit = styled.div`
     }
   }
 
-  /* Colorpicker background change */
-  & .color-picker {
-    background-color: ${(props) => props.$color};
+  /* Icon styling */
+  & .icon-container {
+    color: ${(props) => props.$color};
+    position: relative;
+    padding: 0.6rem;
+    border-radius: var(--default-radius);
+    background-color: ${(props) => `${addAlphaToHex(props.$color, 20)}`};
+  }
+
+  /* Colorpicker background (border) color */
+  & .color-picker,
+  .icon-picker {
+    background-color: ${(props) => `${addAlphaToHex(props.$color, 40)}`};
   }
 `;
 
@@ -110,6 +120,8 @@ const HabitSettingsContainer = styled.div`
   display: flex;
 `;
 
+const HabitIconContainer = styled.div.attrs({ className: "icon-container" })``;
+
 function Habit({ data }) {
   // const { habitName, id, color, dayData } = data;
   const [areSettingsOpened, setAreSettingsOpened] = useState();
@@ -121,7 +133,10 @@ function Habit({ data }) {
     return (
       <StyledHabit $color={habitColor}>
         <HabitSettingsContainer>
-          <IconPicker getIconName={setHabitIcon} />
+          <IconPicker
+            getIconName={setHabitIcon}
+            onClick={() => setAreSettingsOpened(false)}
+          />
           <ColorPicker
             onClick={(color) => {
               setHabitColor(color);
@@ -149,8 +164,9 @@ function Habit({ data }) {
   return (
     <StyledHabit $color={habitColor}>
       <Header>
-        <DynamicMaterialIcon icon={habitIcon} />
-        <HabitName value={"habit Name"} maxLength={24} readOnly={true} />
+        <HabitIconContainer>
+          <DynamicMaterialIcon icon={habitIcon} />
+        </HabitIconContainer>
         {/* Change color button */}
         <Button>
           <MdEdit
