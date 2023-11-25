@@ -92,7 +92,12 @@ const HabitName = styled.input`
     background-color: inherit;
     color: inherit;
   }
-  text-align: center;
+
+  &::placeholder {
+    color: inherit;
+    opacity: 0.4;
+  }
+  text-align: left;
   font-weight: bold;
   font-size: 1.8rem;
   box-sizing: border-box;
@@ -118,7 +123,7 @@ function Habit({ data }) {
   // const { habitName, id, color, dayData } = data;
   const [areSettingsOpened, setAreSettingsOpened] = useState();
   // TODO: remove "lime" from usestate
-  const [habitColor, setHabitColor] = useState("lime");
+  const [habitColor, setHabitColor] = useState("#00ff00");
   const [habitIcon, setHabitIcon] = useState();
 
   if (areSettingsOpened)
@@ -159,6 +164,12 @@ function Habit({ data }) {
         <HabitIconContainer>
           <DynamicMaterialIcon icon={habitIcon} />
         </HabitIconContainer>
+        <HabitName
+          placeholder="habit with no name..."
+          value={""}
+          maxLength={24}
+          readOnly={true}
+        />
         {/* Change color button */}
         <Button>
           <MdEdit
