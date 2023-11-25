@@ -137,7 +137,10 @@ function Habit({ data }) {
         <HabitSettingsContainer>
           <IconPicker
             getIconName={setHabitIcon}
-            onClick={() => setAreSettingsOpened(false)}
+            onClick={() =>
+              // Blur - hide settings
+              setAreSettingsOpened(false)
+            }
           />
           <ColorPicker
             onClick={(color) => {
