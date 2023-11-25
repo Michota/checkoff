@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { Md10K, MdMailOutline, MdPeople } from "react-icons/md";
+import DynamicMaterialIcon from "./DynamicMaterialIcon";
+import icons from "../features/iconpicker/icons";
 
 const StyledIconPicker = styled.div`
   display: grid;
@@ -11,38 +12,34 @@ const StyledIconPicker = styled.div`
   padding: 0.4rem;
 `;
 
-function IconPicker({ onClick }) {
-  const [selectedIcon, setSelectedIcon] = useState();
-  console.log(selectedIcon);
+const IconContainer = styled.div.attrs({ className: "icon-container" })`
+  cursor: pointer;
+`;
 
-  function handleChange(icon) {
-    const iconHTML = icon.outerHTML;
-    setSelectedIcon(iconHTML);
-    console.log(iconHTML);
-    if (onClick) onClick(iconHTML);
+function IconPicker({ getIconName }) {
+  const [selectedIcon, setSelectedIcon] = useState();
+
+  function handleIconSelect(iconContainer) {
+    const iconName = iconContainer.dataset.icon;
+    if (!iconName) return;
+    setSelectedIcon(iconName);
+    if (getIconName) getIconName(iconName);
   }
 
   return (
     <StyledIconPicker
       className="icon-picker"
       onClick={(e) => {
-        if (e.target !== e.currentTarget) {
-          const selectedIconName = e.target.tagName.toLowerCase();
-          switch (selectedIconName) {
-            case "svg":
-              handleChange(e.target);
-              break;
-            case "path":
-              // If the path inside the SVG is clicked, find the parent SVG element
-              handleChange(e.target.closest("svg"));
-              break;
-            default:
-              break;
-          }
-        }
+        if (e.target === e.currentTarget) return;
+
+        handleIconSelect(e.target.closest(".icon-container"));
       }}
     >
-      <Md10K />
+      {icons.map((iconName, i) => (
+        <IconContainer key={i} data-icon={iconName}>
+          <DynamicMaterialIcon icon={iconName} />
+        </IconContainer>
+      ))}
     </StyledIconPicker>
   );
 }
