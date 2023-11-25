@@ -98,9 +98,28 @@ const HabitName = styled.input`
     color: inherit;
     opacity: 0.4;
   }
+
   text-align: left;
   font-weight: bold;
   font-size: 1.8rem;
+  box-sizing: border-box;
+  width: 100%;
+`;
+
+// Habit Description
+const HabitDescription = styled.input`
+  &::selection {
+    background-color: inherit;
+    color: inherit;
+  }
+
+  &::placeholder {
+    color: inherit;
+    opacity: 0.4;
+  }
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.2rem;
   box-sizing: border-box;
   width: 100%;
 `;
@@ -109,7 +128,7 @@ const HabitName = styled.input`
 const Header = styled.header`
   display: flex;
   width: 100%;
-  justify-content: space-evenly;
+  /* justify-content: space-between; */
   align-items: center;
   gap: 2rem;
 
@@ -154,7 +173,14 @@ function Habit({ data }) {
             maxLength={24}
             onChange={(e) => {
               // update state
+              // TODO: create function for updating state
             }}
+          />
+          <HabitDescription
+            placeholder="Description..."
+            value={""}
+            maxLength={48}
+            readOnly={true}
           />
           <Button>
             <MdEdit
@@ -172,6 +198,21 @@ function Habit({ data }) {
         <HabitIconContainer>
           <DynamicMaterialIcon icon={habitIcon} />
         </HabitIconContainer>
+        <div>
+          <HabitName
+            placeholder="Habit with no name..."
+            value={""}
+            maxLength={24}
+            readOnly={true}
+          />
+          <HabitDescription
+            placeholder="Description..."
+            value={""}
+            maxLength={48}
+            readOnly={true}
+          />
+        </div>
+
         <Button className="habit-edit">
           <Tooltip content={"Edit habit"}>
             <MdEdit
