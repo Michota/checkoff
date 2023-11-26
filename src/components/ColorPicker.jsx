@@ -4,7 +4,7 @@ import ColorPickerOption from "./ColorPickerOption";
 
 const StyledColorPicker = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: ${(props) => `repeat(${props.$columns}, 1fr)`};
   width: fit-content;
   height: fit-content;
   gap: 0.6rem;
@@ -13,7 +13,7 @@ const StyledColorPicker = styled.div`
   padding: 0.4rem;
 `;
 
-function ColorPicker({ onClick, colors = defaultColors }) {
+function ColorPicker({ onClick, colors = defaultColors, columns = 4 }) {
   function handleColorChange(color) {
     if (onClick) onClick(color);
   }
@@ -21,7 +21,7 @@ function ColorPicker({ onClick, colors = defaultColors }) {
   const colorArray = Array.isArray(colors) ? colors : Object.values(colors);
 
   return (
-    <StyledColorPicker className="color-picker">
+    <StyledColorPicker $columns={columns} className="color-picker">
       {colorArray.map((color) => (
         <ColorPickerOption
           key={color}
