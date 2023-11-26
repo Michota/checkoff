@@ -1,61 +1,34 @@
 import styled from "styled-components";
-import colors from "../features/colorpicker/colors";
+import { default as defaultColors } from "../features/colorpicker/colors";
 import ColorPickerOption from "./ColorPickerOption";
-import { useState } from "react";
 
 const StyledColorPicker = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   width: fit-content;
+  height: fit-content;
+  gap: 0.6rem;
   background-color: white;
   border-radius: var(--default-radius);
   padding: 0.4rem;
 `;
 
-function ColorPicker({ onClick }) {
-  const [selectedColor, setSelectedColor] = useState();
-
+function ColorPicker({ onClick, colors = defaultColors }) {
   function handleColorChange(color) {
-    setSelectedColor(color);
     if (onClick) onClick(color);
   }
 
-  // It also may be changed to Array.from, but this way its easier to change order of colors.
-  const { red, orange, yellow, green, cyan, blue, purple, pink } = colors;
+  const colorArray = Array.isArray(colors) ? colors : Object.values(colors);
+
   return (
     <StyledColorPicker className="color-picker">
-      <ColorPickerOption
-        onClick={(e) => handleColorChange(e.target.dataset.color)}
-        color={red}
-      />
-      <ColorPickerOption
-        onClick={(e) => handleColorChange(e.target.dataset.color)}
-        color={orange}
-      />
-      <ColorPickerOption
-        onClick={(e) => handleColorChange(e.target.dataset.color)}
-        color={yellow}
-      />
-      <ColorPickerOption
-        onClick={(e) => handleColorChange(e.target.dataset.color)}
-        color={green}
-      />
-      <ColorPickerOption
-        onClick={(e) => handleColorChange(e.target.dataset.color)}
-        color={pink}
-      />
-      <ColorPickerOption
-        onClick={(e) => handleColorChange(e.target.dataset.color)}
-        color={purple}
-      />
-      <ColorPickerOption
-        onClick={(e) => handleColorChange(e.target.dataset.color)}
-        color={blue}
-      />
-      <ColorPickerOption
-        onClick={(e) => handleColorChange(e.target.dataset.color)}
-        color={cyan}
-      />
+      {colorArray.map((color) => (
+        <ColorPickerOption
+          key={color}
+          onClick={(e) => handleColorChange(e.target.dataset.color)}
+          color={color}
+        />
+      ))}
     </StyledColorPicker>
   );
 }
