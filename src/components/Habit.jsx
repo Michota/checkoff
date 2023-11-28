@@ -1,30 +1,13 @@
 import styled from "styled-components";
 import HabitGrid from "./HabitGrid";
 import Button from "./ui/Button";
-import { MdEdit } from "react-icons/md";
+import { MdCheckBoxOutlineBlank, MdDone, MdEdit } from "react-icons/md";
 import { useState } from "react";
 import ColorPicker from "./ColorPicker";
 import IconPicker from "./IconPicker";
 import DynamicMaterialIcon from "./DynamicMaterialIcon";
 import addAlphaToHex from "../utils/addAlphaToHex";
 import { Tooltip } from "./Tooltip";
-
-// ! TODO: Delete me later!
-// Not every year is 364 days long!!!
-const habitDaysArr = Array.from({ length: 364 }, (el, i) => {
-  return {
-    score: Math.floor(Math.random() * 6),
-    date: getDateNDaysAgo(i),
-  };
-});
-
-// ! TODO: Delete me later!
-function getDateNDaysAgo(n) {
-  const today = new Date();
-  const targetDate = new Date(today);
-  targetDate.setDate(today.getDate() - n);
-  return targetDate;
-}
 
 // shortcut-property for styling
 const defaultColor = "var(--theme-primary)";
@@ -132,16 +115,45 @@ const Header = styled.header`
   align-items: center;
   gap: 2rem;
 
-  & .habit-edit {
+  & .habit-edit,
+  .habit-save-settings {
     margin-left: auto;
   }
 `;
 
-const HabitSettingsContainer = styled.div`
+const HabitSettingsContainer = styled.div.attrs({
+  className: "habit-settings-container",
+})`
+  width: 100%;
   display: flex;
+  justify-content: center;
 `;
 
-const HabitIconContainer = styled.div.attrs({ className: "icon-container" })``;
+const PlaceHolderInSettings = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: black;
+  opacity: 40%;
+  border-radius: var(--default-radius);
+  cursor: not-allowed;
+`;
+
+const HabitIconContainer = styled.div.attrs({ className: "icon-container" })`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  aspect-ratio: 1/1;
+
+  & > * {
+    width: 75%;
+    height: 75%;
+  }
+`;
+
+// TODO: Make edit-button appear upon hovering on icon/description/name
 
 function Habit({ data }) {
   const { name, description, days } = data;
@@ -184,30 +196,11 @@ function Habit({ data }) {
           <ColorPicker
             onClick={(color) => {
               setHabitColor(color);
-              // Blur - hide settings
-              setAreSettingsOpened(false);
             }}
           />
-          <HabitName
-            value={"habit Name"}
-            maxLength={24}
-            onChange={(e) => {
-              // update state
-              // TODO: create function for updating state
-            }}
-          />
-          <HabitDescription
-            placeholder="Description..."
-            value={""}
-            maxLength={48}
-            readOnly={true}
-          />
-          <Button>
-            <MdEdit
-              color={habitColor}
-              onClick={() => setAreSettingsOpened(!areSettingsOpened)}
-            />
-          </Button>
+          <PlaceHolderInSettings>
+            More personalization options soon...
+          </PlaceHolderInSettings>
         </HabitSettingsContainer>
       </StyledHabit>
     );
@@ -221,7 +214,7 @@ function Habit({ data }) {
         <div>
           <HabitName
             placeholder="Habit with no name..."
-            value={""}
+            value={name}
             maxLength={24}
             readOnly={true}
           />
