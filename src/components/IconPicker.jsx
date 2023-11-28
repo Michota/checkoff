@@ -28,7 +28,6 @@ function IconPicker({ getIconName, onClick }) {
 
   return (
     <StyledIconPicker
-      className="icon-picker"
       onClick={(e) => {
         if (e.target === e.currentTarget) return;
 

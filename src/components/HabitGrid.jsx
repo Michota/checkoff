@@ -10,6 +10,9 @@ const StyledHabitGrid = styled.div`
   grid-template-rows: repeat(7, 1rem);
   gap: 2px;
   width: fit-content;
+  transform: rotate(180deg); // Make grid start at bottom right corner
+`;
+
 function stretchToYearData(arr, targetSize) {
   const currentSize = arr.length;
 
