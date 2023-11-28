@@ -144,6 +144,7 @@ const HabitSettingsContainer = styled.div`
 const HabitIconContainer = styled.div.attrs({ className: "icon-container" })``;
 
 function Habit({ data }) {
+  const { name, description, days } = data;
   // const { habitName, id, color, dayData } = data;
   const [areSettingsOpened, setAreSettingsOpened] = useState();
   // TODO: remove "lime" from usestate
@@ -153,14 +154,33 @@ function Habit({ data }) {
   if (areSettingsOpened)
     return (
       <StyledHabit $color={habitColor}>
+        <Header>
+          <HabitIconContainer>
+            <DynamicMaterialIcon icon={habitIcon} />
+          </HabitIconContainer>
+          <div>
+            <HabitName
+              placeholder="Habit with no name..."
+              value={name}
+              maxLength={24}
+            />
+            <HabitDescription
+              placeholder="Description..."
+              value={description}
+              maxLength={48}
+            />
+          </div>
+          <Button className="habit-save-settings">
+            <Tooltip content={"Save habit settings"}>
+              <MdDone
+                color={habitColor}
+                onClick={() => setAreSettingsOpened(!areSettingsOpened)}
+              />
+            </Tooltip>
+          </Button>
+        </Header>
         <HabitSettingsContainer>
-          <IconPicker
-            getIconName={setHabitIcon}
-            onClick={() =>
-              // Blur - hide settings
-              setAreSettingsOpened(false)
-            }
-          />
+          <IconPicker getIconName={setHabitIcon} />
           <ColorPicker
             onClick={(color) => {
               setHabitColor(color);
@@ -207,7 +227,7 @@ function Habit({ data }) {
           />
           <HabitDescription
             placeholder="Description..."
-            value={""}
+            value={description}
             maxLength={48}
             readOnly={true}
           />
@@ -221,8 +241,15 @@ function Habit({ data }) {
             />
           </Tooltip>
         </Button>
+        <Button className="habit-check">
+          <Tooltip content={"Mark as practiced today"}>
+            <MdCheckBoxOutlineBlank // Change To ChcebkoxOutline if done for today.
+              color={habitColor}
+            />
+          </Tooltip>
+        </Button>
       </Header>
-      <HabitGrid data={habitDaysArr} />
+      <HabitGrid data={days} />
     </StyledHabit>
   );
 }
