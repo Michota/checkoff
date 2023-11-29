@@ -10,3 +10,15 @@ export async function getHabitsData(userId) {
 
   return habits;
 }
+export async function updateHabitData(habit) {
+  console.log(habit);
+  const { id } = habit;
+  const { data, error } = await supabase
+    .from("habits")
+    .update({ ...habit })
+    .eq("id", id);
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}

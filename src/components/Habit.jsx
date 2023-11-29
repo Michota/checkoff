@@ -9,6 +9,8 @@ import DynamicMaterialIcon from "./DynamicMaterialIcon";
 import addAlphaToColor from "../utils/addAlphaToColor";
 import { Tooltip } from "./Tooltip";
 import useHabitActions from "../features/habits/useHabitActions";
+import useHabitUpdate from "../features/habits/useHabitUpdate";
+import LoadingSpinner from "./ui/LoadingSpinner";
 
 // shortcut-property for styling
 const defaultColor = "var(--theme-primary)";
@@ -163,8 +165,16 @@ function Habit({ data, dispatch }) {
   const { name, description, day_data: days, color, icon, id } = data;
   const { editHabitColor, editHabitIcon, editHabitName, editHabitDescription } =
     useHabitActions(id, dispatch);
+  const { update, isLoading } = useHabitUpdate();
 
   const [areSettingsOpened, setAreSettingsOpened] = useState();
+
+  if (isLoading)
+    return (
+      <StyledHabit $color={color}>
+        <LoadingSpinner />
+      </StyledHabit>
+    );
 
   if (areSettingsOpened)
     return (
@@ -192,7 +202,10 @@ function Habit({ data, dispatch }) {
               {/* send data on save */}
               <MdDone
                 color={color}
-                onClick={() => setAreSettingsOpened(!areSettingsOpened)}
+                onClick={() => {
+                  update(data);
+                  setAreSettingsOpened(!areSettingsOpened);
+                }}
               />
             </Tooltip>
           </Button>
