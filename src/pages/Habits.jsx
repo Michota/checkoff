@@ -1,25 +1,14 @@
 import Habit from "../components/Habit";
-import { getDateNDaysAgo } from "../utils/getDateNDaysAgo";
-
-// ! TODO: Delete me later!
-// Not every year is 364 days long!!!
-const habitDaysArr = Array.from({ length: 80 }, (el, i) => {
-  return {
-    score: Math.floor(Math.random() * 6),
-    date: getDateNDaysAgo(i),
-  };
-});
-
-const data = {
-  name: "Habit Name",
-  description: "Habit description",
-  days: habitDaysArr,
-};
+import useHabitState from "../features/habits/useHabitState";
 
 function Habits() {
+  const { data, dispatch } = useHabitState();
+
   return (
     <>
-      <Habit data={data}></Habit>
+      {data.map((habit, i) => {
+        return <Habit key={habit.id} data={habit} dispatch={dispatch}></Habit>;
+      })}
     </>
   );
 }

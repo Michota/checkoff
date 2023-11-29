@@ -8,6 +8,7 @@ import IconPicker from "./IconPicker";
 import DynamicMaterialIcon from "./DynamicMaterialIcon";
 import addAlphaToColor from "../utils/addAlphaToColor";
 import { Tooltip } from "./Tooltip";
+import useHabitActions from "../features/habits/useHabitActions";
 
 // shortcut-property for styling
 const defaultColor = "var(--theme-primary)";
@@ -158,47 +159,49 @@ const HabitIconContainer = styled.div.attrs({ className: "icon-container" })`
 
 // TODO: Make edit-button appear upon hovering on icon/description/name
 
-function Habit({ data }) {
-  const { name, description, days } = data;
-  // const { habitName, id, color, dayData } = data;
+function Habit({ data, dispatch }) {
+  const { name, description, day_data: days, color, icon, id } = data;
+  const { editHabitColor, editHabitIcon, editHabitName, editHabitDescription } =
+    useHabitActions(id, dispatch);
+
   const [areSettingsOpened, setAreSettingsOpened] = useState();
-  // TODO: remove "lime" from usestate
-  const [habitColor, setHabitColor] = useState("#00ff00");
-  const [habitIcon, setHabitIcon] = useState();
 
   if (areSettingsOpened)
     return (
-      <StyledHabit $color={habitColor}>
+      <StyledHabit $color={color}>
         <Header>
           <HabitIconContainer>
-            <DynamicMaterialIcon icon={habitIcon} />
+            <DynamicMaterialIcon icon={icon} />
           </HabitIconContainer>
           <div>
             <HabitName
               placeholder="Habit with no name..."
               value={name}
               maxLength={24}
+              onChange={(e) => editHabitName(e.target.value)}
             />
             <HabitDescription
               placeholder="Description..."
               value={description}
               maxLength={48}
+              onChange={(e) => editHabitDescription(e.target.value)}
             />
           </div>
           <Button className="habit-save-settings">
             <Tooltip content={"Save habit settings"}>
+              {/* send data on save */}
               <MdDone
-                color={habitColor}
+                color={color}
                 onClick={() => setAreSettingsOpened(!areSettingsOpened)}
               />
             </Tooltip>
           </Button>
         </Header>
         <HabitSettingsContainer>
-          <IconPicker getIconName={setHabitIcon} />
+          <IconPicker getIconName={(newIcon) => editHabitIcon(newIcon)} />
           <ColorPicker
-            onClick={(color) => {
-              setHabitColor(color);
+            onClick={(newColor) => {
+              editHabitColor(newColor);
             }}
           />
           <PlaceHolderInSettings>
@@ -209,10 +212,10 @@ function Habit({ data }) {
     );
 
   return (
-    <StyledHabit $color={habitColor}>
+    <StyledHabit $color={color}>
       <Header>
         <HabitIconContainer>
-          <DynamicMaterialIcon icon={habitIcon} />
+          <DynamicMaterialIcon icon={icon} />
         </HabitIconContainer>
         <div>
           <HabitName
@@ -232,7 +235,7 @@ function Habit({ data }) {
         <Button className="habit-edit">
           <Tooltip content={"Edit habit"}>
             <MdEdit
-              color={habitColor}
+              color={color}
               onClick={() => setAreSettingsOpened(!areSettingsOpened)}
             />
           </Tooltip>
@@ -240,7 +243,7 @@ function Habit({ data }) {
         <Button className="habit-check">
           <Tooltip content={"Mark as practiced today"}>
             <MdCheckBoxOutlineBlank // Change To ChcebkoxOutline if done for today.
-              color={habitColor}
+              color={color}
             />
           </Tooltip>
         </Button>
