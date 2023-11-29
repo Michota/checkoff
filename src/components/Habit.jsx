@@ -6,7 +6,7 @@ import { useState } from "react";
 import ColorPicker from "./ColorPicker";
 import IconPicker from "./IconPicker";
 import DynamicMaterialIcon from "./DynamicMaterialIcon";
-import addAlphaToHex from "../utils/addAlphaToHex";
+import addAlphaToColor from "../utils/addAlphaToColor";
 import { Tooltip } from "./Tooltip";
 
 // shortcut-property for styling
@@ -29,13 +29,14 @@ const StyledHabit = styled.div`
   position: relative;
   overflow: hidden;
   z-index: 1;
-  background-color: ${(props) => `${addAlphaToHex(props.$color, 12)}`};
+  background-color: ${(props) =>
+    `${addAlphaToColor(props.$color || defaultColor, 25)}`};
 
   /* Habit day styling */
   /* Its there instead of HabitDay to avoid prop-drilling */
 
   & .habit-day {
-    background-color: ${(props) => props.$color};
+    background-color: ${(props) => props.$color || defaultColor};
     &.level-1 {
       opacity: 25%;
     }
@@ -56,17 +57,19 @@ const StyledHabit = styled.div`
 
   /* Icon styling */
   & .icon-container {
-    color: ${(props) => props.$color};
+    color: ${(props) => props.$color || defaultColor};
     position: relative;
     padding: 0.6rem;
     border-radius: var(--default-radius);
-    background-color: ${(props) => `${addAlphaToHex(props.$color, 20)}`};
+    background-color: ${(props) =>
+      `${addAlphaToColor(props.$color || defaultColor, 20)}`};
   }
 
   /* Colorpicker background (border) color */
   & .color-picker,
   .icon-picker {
-    background-color: ${(props) => `${addAlphaToHex(props.$color, 40)}`};
+    background-color: ${(props) =>
+      `${addAlphaToColor(props.$color || defaultColor, 40)}`};
   }
 `;
 
