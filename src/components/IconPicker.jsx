@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import DynamicMaterialIcon from "./DynamicMaterialIcon";
-import icons from "../features/iconpicker/materialicons";
+import icons from "../features/habits/iconpicker/materialicons";
 
 const StyledIconPicker = styled.div.attrs({ className: "icon-picker" })`
   display: grid;

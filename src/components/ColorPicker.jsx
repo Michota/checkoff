@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { default as defaultColors } from "../features/colorpicker/colors";
+import { default as defaultColors } from "../features/habits/colorpicker/colors";
 import ColorPickerOption from "./ColorPickerOption";
 
 const StyledColorPicker = styled.div`
