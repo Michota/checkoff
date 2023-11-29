@@ -1,12 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateTasksState } from "../../services/tasksAPI";
 import { toast } from "react-hot-toast";
+import { useUser } from "../authentication/useUser";
 
 function useUpdateTasks() {
   const queryClient = useQueryClient();
+  const { user } = useUser();
 
   const { isLoading: isUpdating, mutate: updateTasks } = useMutation({
-    mutationKey: ["tasks"],
+    mutationKey: ["tasks", user.id],
     mutationFn: (tasks) => {
       return toast.promise(updateTasksState(tasks), {
         loading: "Updating tasks data...",
