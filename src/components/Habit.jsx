@@ -33,28 +33,31 @@ const StyledHabit = styled.div`
   overflow: hidden;
   z-index: 1;
   background-color: ${(props) =>
-    `${addAlphaToColor(props.$color || defaultColor, 25)}`};
+    `${addAlphaToColor(props.$color || defaultColor, 20)}`};
 
   /* Habit day styling */
   /* Its there instead of HabitDay to avoid prop-drilling */
 
   & .habit-day {
     background-color: ${(props) => props.$color || defaultColor};
-    &.level-1 {
+    &.level-0 {
       opacity: 25%;
     }
+    &.level-1 {
+      opacity: 60%;
+    }
     &.level-2 {
-      opacity: 45%;
+      opacity: 75%;
     }
     &.level-3 {
-      opacity: 65%;
+      opacity: 80%;
     }
     &.level-4 {
-      opacity: 85%;
+      opacity: 90%;
     }
     &.level-5 {
       opacity: 100%;
-      box-shadow: 0 0 7px ${(props) => props.$color || defaultColor};
+      box-shadow: 0 0 8px ${(props) => props.$color || defaultColor};
     }
   }
 
